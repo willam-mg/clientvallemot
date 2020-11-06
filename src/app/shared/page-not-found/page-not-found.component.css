@@ -1,0 +1,24 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  height: 100vh;
+  background-color: #f1eeee;
+  /* background: url(../images/login.webp) no-repeat; */
+  background-position: center;
+}
+
+.content-nf {
+  width: 370px;
+  height: auto;
+  padding: 20px;
+  margin: auto;
+}
+
+.title-nf{
+  font-size: 50pt;
+  font-weight: bold;
+}
+.sub-title-nf{
+  font-size: 20pt;
+}

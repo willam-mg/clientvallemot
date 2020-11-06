@@ -1,0 +1,52 @@
+// "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+// "./node_modules/@angular/material/prebuilt-themes/indigo-pink.scss",
+@import '~@angular/material/theming';
+@include mat-core();
+
+
+// $my-app-primary: mat-palette($mat-blue-grey);
+// $primary: #6e78f7 ;
+
+// 15936b // verde
+// 2b366f // azul
+
+$mat-purple-custom: (
+  50 : #e6e8ed,
+    100 : #bfc5d2,
+    200 : #959fb4,
+    300 : #6b7895,
+    400 : #4b5b7f,
+    500 : #2b3e68,
+    600 : #263860,
+    700 : #203055,
+    800 : #1a284b,
+    900 : #101b3a,
+    A100 : #7695ff,
+    A200 : #436eff,
+    A400 : #1047ff,
+    A700 : #0038f6,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #ffffff,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #ffffff,
+        A400 : #ffffff,
+        A700 : #ffffff,
+    )
+);
+// $as : #fafafa;
+// $as : #1976d2;
+
+$my-app-primary: mat-palette($mat-purple-custom);
+$my-app-accent:  mat-palette($mat-pink, 500, 900, A100);
+$my-app-warn:    mat-palette($mat-red);
+$my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
+@include angular-material-theme($my-app-theme);

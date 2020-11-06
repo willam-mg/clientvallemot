@@ -1,0 +1,467 @@
+<div class="row row-mobile">
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 mx-auto">
+        <mat-card class="card-mobile">
+            <mat-card-header>
+                <mat-card-title>
+                </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+
+                <div class="row">
+
+                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                        <img src="/assets/img/white-logo.png" width="200" height="200" alt="foto" class="">
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                        
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                <p>
+                                    <b>propietario</b>
+                                    <span class="text-capitalize">
+                                        {{model.propietario}}
+                                    </span>
+                                </p>
+                                <p>
+                                    <b>telefono</b>
+                                    <span class="text-capitalize">
+                                        {{model.telefono}}
+                                    </span>
+                                </p>
+                                <p>
+                                    <b>vehiculo</b>
+                                    <span class="text-capitalize">
+                                        {{model.vehiculo}}
+                                    </span>
+                                </p>
+                                <p>
+                                    <b>placa</b>
+                                    <span class="text-capitalize">
+                                        {{model.placa}}
+                                    </span>
+                                </p>
+                                <p>
+                                    <b>modelo</b>
+                                    <span class="text-capitalize">
+                                        {{model.modelo}}
+                                    </span>
+                                </p>
+                                <p>
+                                    <b>tanque</b>
+                                    <span class="text-capitalize">
+                                        {{model.tanque}}
+                                    </span>
+                                </p>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                <p>
+                                    <b>fecha</b>
+                                    <span class="text-capitalize">
+                                        {{model.fecha}}
+                                    </span>
+                                </p>
+                                <p>
+                                    <b>color</b>
+                                    <span class="text-capitalize">
+                                        {{model.color}}
+                                    </span>
+                                </p>
+                                <p>
+                                    <b>ano</b>
+                                    <span class="text-capitalize">
+                                        {{model.ano}}
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                        <p>
+                            <b>solicitud</b>
+                        </p>
+                        <p class="text-capitalize">
+                            {{model.solicitud}}
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
+                        <div class="form-control">
+                            <mat-icon *ngIf="model.tapa_ruedas">radio_button_checked</mat-icon>
+                            <mat-icon *ngIf="!model.tapa_ruedas">radio_button_unchecked</mat-icon>
+                            <span style="top:-10px; position:relative">
+                                tapa de ruedas
+                            </span>
+                        </div>
+                        <div class="form-control">
+                            <mat-icon *ngIf="model.llanta_auxilio">radio_button_checked</mat-icon>
+                            <mat-icon *ngIf="!model.llanta_auxilio">radio_button_unchecked</mat-icon>
+                            <span style="top:-10px; position:relative">
+                                llanta_auxilio
+                            </span>
+                        </div>
+                        <div class="form-control">
+                            <mat-icon *ngIf="model.gata_hidraulica">radio_button_checked</mat-icon>
+                            <mat-icon *ngIf="!model.gata_hidraulica">radio_button_unchecked</mat-icon>
+                            <span style="top:-10px; position:relative">
+                                gata_hidraulica
+                            </span>
+                        </div>
+                        <div class="form-control">
+                            <mat-icon *ngIf="model.llave_cruz">radio_button_checked</mat-icon>
+                            <mat-icon *ngIf="!model.llave_cruz">radio_button_unchecked</mat-icon>
+                            <span style="top:-10px; position:relative">
+                                llave_cruz
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
+                        <div class="form-control">
+                            <mat-icon *ngIf="model.pisos">radio_button_checked</mat-icon>
+                            <mat-icon *ngIf="!model.pisos">radio_button_unchecked</mat-icon>
+                            <span style="top:-10px; position:relative">
+                                pisos
+                            </span>
+                        </div>
+                        <div class="form-control">
+                            <mat-icon *ngIf="model.limpia_parabrisas">radio_button_checked</mat-icon>
+                            <mat-icon *ngIf="!model.limpia_parabrisas">radio_button_unchecked</mat-icon>
+                            <span style="top:-10px; position:relative">
+                                limpia_parabrisas
+                            </span>
+                        </div>
+                        <div class="form-control">
+                            <mat-icon *ngIf="model.tapa_tanque">radio_button_checked</mat-icon>
+                            <mat-icon *ngIf="!model.tapa_tanque">radio_button_unchecked</mat-icon>
+                            <span style="top:-10px; position:relative">
+                                tapa_tanque
+                            </span>
+                        </div>
+                        <div class="form-control">
+                            <mat-icon *ngIf="model.herramientas">radio_button_checked</mat-icon>
+                            <mat-icon *ngIf="!model.herramientas">radio_button_unchecked</mat-icon>
+                            <span style="top:-10px; position:relative">
+                                herramientas
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
+                        <div class="form-control">
+                            <mat-icon *ngIf="model.mangueras">radio_button_checked</mat-icon>
+                            <mat-icon *ngIf="!model.mangueras">radio_button_unchecked</mat-icon>
+                            <span style="top:-10px; position:relative">
+                                mangueras
+                            </span>
+                        </div>
+                        <div class="form-control">
+                            <mat-icon *ngIf="model.espejos">radio_button_checked</mat-icon>
+                            <mat-icon *ngIf="!model.espejos">radio_button_unchecked</mat-icon>
+                            <span style="top:-10px; position:relative">
+                                espejos
+                            </span>
+                        </div>
+                        <div class="form-control">
+                            <mat-icon *ngIf="model.tapa_cubos">radio_button_checked</mat-icon>
+                            <mat-icon *ngIf="!model.tapa_cubos">radio_button_unchecked</mat-icon>
+                            <span style="top:-10px; position:relative">
+                                tapa_cubos
+                            </span>
+                        </div>
+                        <div class="form-control">
+                            <mat-icon *ngIf="model.antena">radio_button_checked</mat-icon>
+                            <mat-icon *ngIf="!model.antena">radio_button_unchecked</mat-icon>
+                            <span style="top:-10px; position:relative">
+                                antena
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
+                        <div class="form-control">
+                            <mat-icon *ngIf="model.radio">radio_button_checked</mat-icon>
+                            <mat-icon *ngIf="!model.radio">radio_button_unchecked</mat-icon>
+                            <span style="top:-10px; position:relative">
+                                radio
+                            </span>
+                        </div>
+                        <div class="form-control">
+                            <mat-icon *ngIf="model.focos">radio_button_checked</mat-icon>
+                            <mat-icon *ngIf="!model.focos">radio_button_unchecked</mat-icon>
+                            <span style="top:-10px; position:relative">
+                                focos
+                            </span>
+                        </div>
+                
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                        <p>
+                            <b>Otros</b>
+                        </p>
+                        <p class="text-capitalize">
+                            {{model.otros}}
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                        <button mat-button (click)="elminar()" color="warn">
+                            <mat-icon>delete</mat-icon>
+                            Eliminar
+                        </button>
+                    </div>
+                </div>
+                
+
+            </mat-card-content>
+            <mat-card-actions class="text-right">
+                <button mat-button [routerLink]="[ '/ordenes']">
+                    <mat-icon>clear</mat-icon>
+                    Cerrar
+                </button>
+                <button mat-flat-button color="primary" (click)="printOrden()">
+                    <mat-icon>print</mat-icon>
+                    Imprimir
+                </button>
+                <!-- <button mat-flat-button [routerLink]="[ '/ordenes/edit']" [queryParams]="{id:model.id}">
+                    <mat-icon>edit</mat-icon>
+                    Modificar
+                </button> -->
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>
+
+
+
+<div #reporte id="reporte" class="visible-print">
+    <div style="padding: 20px;">
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                <img src="/assets/img/white-logo.png" width="200" height="200" alt="foto" class="">
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+        
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <p>
+                            <b>propietario</b>
+                            <span class="text-capitalize">
+                                {{model.propietario}}
+                            </span>
+                        </p>
+                        <p>
+                            <b>telefono</b>
+                            <span class="text-capitalize">
+                                {{model.telefono}}
+                            </span>
+                        </p>
+                        <p>
+                            <b>vehiculo</b>
+                            <span class="text-capitalize">
+                                {{model.vehiculo}}
+                            </span>
+                        </p>
+                        <p>
+                            <b>placa</b>
+                            <span class="text-capitalize">
+                                {{model.placa}}
+                            </span>
+                        </p>
+                        <p>
+                            <b>modelo</b>
+                            <span class="text-capitalize">
+                                {{model.modelo}}
+                            </span>
+                        </p>
+                        <p>
+                            <b>tanque</b>
+                            <span class="text-capitalize">
+                                {{model.tanque}}
+                            </span>
+                        </p>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <p>
+                            <b>fecha</b>
+                            <span class="text-capitalize">
+                                {{model.fecha}}
+                            </span>
+                        </p>
+                        <p>
+                            <b>color</b>
+                            <span class="text-capitalize">
+                                {{model.color}}
+                            </span>
+                        </p>
+                        <p>
+                            <b>ano</b>
+                            <span class="text-capitalize">
+                                {{model.ano}}
+                            </span>
+                        </p>
+                    </div>
+                </div>
+        
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                <p>
+                    <b>solicitud</b>
+                </p>
+                <p class="text-capitalize">
+                    {{model.solicitud}}
+                </p>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
+                <div class="form-control">
+                    <mat-icon *ngIf="model.tapa_ruedas">radio_button_checked</mat-icon>
+                    <mat-icon *ngIf="!model.tapa_ruedas">radio_button_unchecked</mat-icon>
+                    <span style="top:-10px; position:relative">
+                        tapa de ruedas
+                    </span>
+                </div>
+                <div class="form-control">
+                    <mat-icon *ngIf="model.llanta_auxilio">radio_button_checked</mat-icon>
+                    <mat-icon *ngIf="!model.llanta_auxilio">radio_button_unchecked</mat-icon>
+                    <span style="top:-10px; position:relative">
+                        llanta_auxilio
+                    </span>
+                </div>
+                <div class="form-control">
+                    <mat-icon *ngIf="model.gata_hidraulica">radio_button_checked</mat-icon>
+                    <mat-icon *ngIf="!model.gata_hidraulica">radio_button_unchecked</mat-icon>
+                    <span style="top:-10px; position:relative">
+                        gata_hidraulica
+                    </span>
+                </div>
+                <div class="form-control">
+                    <mat-icon *ngIf="model.llave_cruz">radio_button_checked</mat-icon>
+                    <mat-icon *ngIf="!model.llave_cruz">radio_button_unchecked</mat-icon>
+                    <span style="top:-10px; position:relative">
+                        llave_cruz
+                    </span>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
+                <div class="form-control">
+                    <mat-icon *ngIf="model.pisos">radio_button_checked</mat-icon>
+                    <mat-icon *ngIf="!model.pisos">radio_button_unchecked</mat-icon>
+                    <span style="top:-10px; position:relative">
+                        pisos
+                    </span>
+                </div>
+                <div class="form-control">
+                    <mat-icon *ngIf="model.limpia_parabrisas">radio_button_checked</mat-icon>
+                    <mat-icon *ngIf="!model.limpia_parabrisas">radio_button_unchecked</mat-icon>
+                    <span style="top:-10px; position:relative">
+                        limpia_parabrisas
+                    </span>
+                </div>
+                <div class="form-control">
+                    <mat-icon *ngIf="model.tapa_tanque">radio_button_checked</mat-icon>
+                    <mat-icon *ngIf="!model.tapa_tanque">radio_button_unchecked</mat-icon>
+                    <span style="top:-10px; position:relative">
+                        tapa_tanque
+                    </span>
+                </div>
+                <div class="form-control">
+                    <mat-icon *ngIf="model.herramientas">radio_button_checked</mat-icon>
+                    <mat-icon *ngIf="!model.herramientas">radio_button_unchecked</mat-icon>
+                    <span style="top:-10px; position:relative">
+                        herramientas
+                    </span>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
+                <div class="form-control">
+                    <mat-icon *ngIf="model.mangueras">radio_button_checked</mat-icon>
+                    <mat-icon *ngIf="!model.mangueras">radio_button_unchecked</mat-icon>
+                    <span style="top:-10px; position:relative">
+                        mangueras
+                    </span>
+                </div>
+                <div class="form-control">
+                    <mat-icon *ngIf="model.espejos">radio_button_checked</mat-icon>
+                    <mat-icon *ngIf="!model.espejos">radio_button_unchecked</mat-icon>
+                    <span style="top:-10px; position:relative">
+                        espejos
+                    </span>
+                </div>
+                <div class="form-control">
+                    <mat-icon *ngIf="model.tapa_cubos">radio_button_checked</mat-icon>
+                    <mat-icon *ngIf="!model.tapa_cubos">radio_button_unchecked</mat-icon>
+                    <span style="top:-10px; position:relative">
+                        tapa_cubos
+                    </span>
+                </div>
+                <div class="form-control">
+                    <mat-icon *ngIf="model.antena">radio_button_checked</mat-icon>
+                    <mat-icon *ngIf="!model.antena">radio_button_unchecked</mat-icon>
+                    <span style="top:-10px; position:relative">
+                        antena
+                    </span>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
+                <div class="form-control">
+                    <mat-icon *ngIf="model.radio">radio_button_checked</mat-icon>
+                    <mat-icon *ngIf="!model.radio">radio_button_unchecked</mat-icon>
+                    <span style="top:-10px; position:relative">
+                        radio
+                    </span>
+                </div>
+                <div class="form-control">
+                    <mat-icon *ngIf="model.focos">radio_button_checked</mat-icon>
+                    <mat-icon *ngIf="!model.focos">radio_button_unchecked</mat-icon>
+                    <span style="top:-10px; position:relative">
+                        focos
+                    </span>
+                </div>
+        
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                <p>
+                    <b>Otros</b>
+                </p>
+                <p class="text-capitalize">
+                    {{model.otros}}
+                </p>
+            </div>
+        </div>
+
+        
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+                <h5>conformidad cliente</h5>
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        _______________________ <br>
+                        Entrada
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        _______________________ <br>
+                        Salida
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</div>

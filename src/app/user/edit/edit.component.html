@@ -1,0 +1,50 @@
+<div class="row row-mobile">
+  <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 mx-auto ">
+    <mat-card class="card-mobile">
+      <mat-card-header>
+        <mat-card-title>Modificar usuario</mat-card-title>
+      </mat-card-header>
+      <!-- <form #userForm (ngSubmit)="onSubmit(userForm, submitBtn)"> -->
+      <form [formGroup]="formUser" (ngSubmit)="onSubmit()">
+        <mat-card-content>
+          <mat-form-field class="full-width">
+            <mat-label>Nombre completo</mat-label>
+            <input type="text" matInput formControlName="nombre_completo" placeholder="Nombre completo"
+              autocomplete="off" required>
+          </mat-form-field>
+
+          <mat-form-field class="full-width">
+            <mat-label>Email</mat-label>
+            <input type="email" matInput formControlName="email" placeholder="Email" autocomplete="off" required>
+          </mat-form-field>
+
+          <div class="form-inline mt-1">
+            <mat-label>Foto</mat-label> 
+            <p>
+              <img src="{{user.foto}}" alt="foto" *ngIf="user.foto" class="user-image">
+              <img src="/assets/img/no-image-user.svg" alt="foto" *ngIf="!user.foto" class="user-image">
+            </p>
+            &nbsp;
+            <button type="button" mat-raised-button (click)="inputFoto.click()" title="Seleccionar imagen">
+              <mat-icon>attach_file</mat-icon>
+              Seleccionar
+            </button>
+            <input hidden type="file" accept="image/*" #inputFoto (change)="onFileChange($event)" />
+          </div>
+        </mat-card-content>
+        <mat-card-actions>
+          <div class="text-right">
+            <button mat-button [routerLink]="['/users/show']" [queryParams]="{id:user.id}">
+              <mat-icon>clear</mat-icon>
+              Cerrar
+            </button>
+            <button mat-flat-button type="submit" color="accent" #submitBtn class="ml-3" [disabled]="submitted">
+              <mat-icon>edit</mat-icon>
+              Modificar
+            </button>
+          </div>
+        </mat-card-actions>
+      </form>
+    </mat-card>
+  </div>
+</div>

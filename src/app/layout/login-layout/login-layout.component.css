@@ -1,0 +1,50 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  /* justify-content: left; */
+  /* height: 100vh; */
+  /* background-color: #f1eeee; */
+  background-color: #2b3e68;
+  /* background: url(../images/login.webp) no-repeat; */
+    /* background: url(../../../assets/img/login.jpg) no-repeat; */
+  background-position: center;
+
+  /* display: flex;
+  align-items: center; */
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  min-height: 100vh;
+}
+
+.form-signin {
+  /* background-color: blueviolet; */
+  /* width: 320px; */
+  width: 370px;
+  height: auto;
+
+  padding: 20px;
+  vertical-align: middle;
+  /* margin: auto; */
+  /* color: white; */
+}
+
+@media only screen and (max-width: 600px) {
+  .form-signin {
+    /* background-color: blueviolet; */
+    /* width: 320px; */
+    width: 100%;
+    height: auto;
+
+    padding: 40px 0;
+    /* margin: auto; */
+    /* color: white; */
+  }
+  .wrapper{
+    min-height: auto;
+  }
+}
+
+.title-login > span{
+    color: darkgray;
+}

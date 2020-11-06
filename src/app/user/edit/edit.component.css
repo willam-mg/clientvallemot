@@ -1,0 +1,12 @@
+.user-image {
+  width: 15vw;
+  height: 15vw;
+}
+
+@media only screen and (max-width: 600px) {
+  .user-image {
+    margin: 0 auto;
+    width: 70vw;
+    height: 70vw;
+  }
+}

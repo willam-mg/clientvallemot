@@ -1,0 +1,27 @@
+
+
+<h3 mat-dialog-title [class]="confirm?'text-capitalize text-center':'text-capitalize'">
+    {{title}}
+</h3>
+<mat-dialog-content class="text-center">
+  <p>{{message}}</p>
+</mat-dialog-content>
+<!-- <mat-progress-bar mode="determinate" value="{{progressLoading}}"></mat-progress-bar> -->
+<mat-dialog-actions align="center">
+    <div *ngIf="confirm">
+        <button mat-button mat-dialog-close cdkFocusInitial>
+            <mat-icon>clear</mat-icon>
+            No
+        </button>
+        <button mat-button color="accent" (click)="confirmAndClose()">
+            <mat-icon>done</mat-icon>
+            Si
+        </button>
+    </div>
+    <div *ngIf="!confirm">
+        <button mat-button mat-dialog-close>
+            <mat-icon>clear</mat-icon>
+            Cerrar
+        </button>
+    </div>
+</mat-dialog-actions>

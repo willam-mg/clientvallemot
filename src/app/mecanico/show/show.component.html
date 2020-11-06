@@ -1,0 +1,92 @@
+<div class="row row-mobile">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 mx-auto">
+        <mat-card class="card-mobile">
+            <mat-card-header>
+                <mat-card-title>
+                </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 text-center">
+                        <img src="{{model.foto}}" alt="foto" *ngIf="model.foto" class="foto-image">
+                        <img src="/assets/img/medicamento.svg" alt="foto" *ngIf="!model.foto"
+                            class="foto-model">
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                        <p>
+                            <b>Nombre</b>
+                        </p>
+                        <p class="text-capitalize">
+                            {{model.nombre_completo}}
+                        </p>
+                        <p>
+                            <b>telefono</b>
+                        </p>
+                        <p class="text-capitalize">
+                            {{model.telefono}}
+                        </p>
+                        <p>
+                            <b>direccion</b>
+                        </p>
+                        <p class="text-capitalize">
+                            {{model.direccion}}
+                        </p>
+                        <p>
+                            <b>ci</b>
+                        </p>
+                        <p class="text-capitalize">
+                            {{model.ci}}
+                        </p>
+                        <p>
+                            <b>email</b>
+                        </p>
+                        <p class="text-capitalize">
+                            {{model.email}}
+                        </p>
+                        <p>
+                            <b>especialidad</b>
+                        </p>
+                        <p class="text-capitalize">
+                            {{model.especialidad}}
+                        </p>
+                        <p>
+                            <b>fecha_ingreso</b>
+                        </p>
+                        <p class="text-capitalize">
+                            {{model.fecha_ingreso}}
+                        </p>
+                        <p>
+                            <b>fecha_salida</b>
+                        </p>
+                        <p class="text-capitalize">
+                            {{model.fecha_salida}}
+                        </p>
+
+
+
+
+
+                      
+
+                        <button mat-button (click)="elminar()" color="warn">
+                            <mat-icon>delete</mat-icon>
+                            Eliminar
+                        </button>
+                    </div>
+                </div>
+
+            </mat-card-content>
+            <mat-card-actions class="text-right">
+                <button mat-button [routerLink]="[ '/mecanicos']">
+                    <mat-icon>clear</mat-icon>
+                    Cerrar
+                </button>
+                <button mat-flat-button [routerLink]="[ '/mecanicos/edit']" [queryParams]="{id:model.id}">
+                    <mat-icon>edit</mat-icon>
+                    Modificar
+                </button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>

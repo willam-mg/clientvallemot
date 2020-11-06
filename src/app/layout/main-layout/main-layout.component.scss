@@ -1,0 +1,65 @@
+.layout-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.nav-icon-right {
+  padding: 0;
+}
+
+.nav-spacer {
+  flex: 1 1 auto;
+}
+
+mat-sidenav-container {
+  height: 100vh;
+  width: 100%;
+} 
+
+mat-sidenav {
+  height: 100vh;
+  width: 246px;
+}
+
+.img-foto-sidebar{
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  // border: 1px solid rgb(83, 87, 88);
+  box-shadow: #000000 0px 0px 1px 0px;
+  margin: 0 auto;
+}
+
+.content{
+  width: inherit;
+  padding: 20px;
+}
+
+@media only screen and (max-width: 600px) {
+  .content{
+    width: inherit;
+    padding: 0;
+  }
+}
+
+.brand-sidebar{
+  background: white;
+  span{
+    margin: 0 auto;
+  }
+}
+.mat-toolbar,
+.mat-toolbar h1,
+.mat-toolbar h2,
+.mat-toolbar h3,
+.mat-toolbar h4,
+.mat-toolbar h5,
+.mat-toolbar h6 {
+  font: 500 20px/32px Roboto, "Helvetica Neue", sans-serif;
+  margin: 0;
+}

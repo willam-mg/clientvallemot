@@ -1,0 +1,68 @@
+
+<div class="row row-mobile">
+  <div class="col-xs-12 col-sm-7 col-md-5 col-lg-5 mx-auto ">
+    <mat-card class="card-mobile">
+      <mat-card-header>
+        <mat-card-title>Nuevo usuario</mat-card-title>
+      </mat-card-header>
+      <!-- <form #userForm (ngSubmit)="onSubmit(userForm, submitBtn)"> -->
+      <form [formGroup]="formUser" (ngSubmit)="onSubmit()" novalidate="">
+        <mat-card-content>
+            <mat-form-field class="full-width">
+              <mat-label>Nombre completo</mat-label>
+               <input type="text" matInput formControlName="nombre_completo" placeholder="Nombre completo" autocomplete="off" required>
+            </mat-form-field>
+          
+            <mat-form-field class="full-width">
+              <mat-label>Email</mat-label>
+              <input type="email" matInput formControlName="email" placeholder="Email" autocomplete="off" required>
+            </mat-form-field>
+          
+            <mat-form-field class="full-width mt-2">
+              <mat-label>Password</mat-label>
+              <input type="password" matInput #password formControlName="password" placeholder="Password" autocomplete="off" required>
+              <mat-icon matSuffix (click)="showPassword(password)" class="sufix-icon"
+                [title]="password.type == 'password'?'Mostrar':'Ocultar'">
+                {{passwordIcon}}
+              </mat-icon>
+            </mat-form-field>
+          
+            <mat-form-field class="full-width">
+              <mat-label>Confirmar Password</mat-label>
+              <input type="password" matInput #passwordConfirmation formControlName="password_confirmation"
+                placeholder="Confirmar Password" autocomplete="off" required>
+              <mat-icon matSuffix (click)="showPassword(passwordConfirmation, true)" class="sufix-icon"
+                [title]="passwordConfirmation.type == 'password'?'Mostrar':'Ocultar'">
+                {{passwordConfirmationIcon}}
+              </mat-icon>
+            </mat-form-field>
+
+            <div class="form-inline mt-1">
+              <mat-label>Foto</mat-label>
+              <p>
+                <img src="{{user.foto}}" alt="foto" *ngIf="user.foto" class="user-image">
+              </p>
+              &nbsp;
+              <button type="button" mat-raised-button (click)="inputFoto.click()" title="Seleccionar imagen">
+                <mat-icon>attach_file</mat-icon>
+                Seleccionar
+              </button>
+              <input hidden type="file" accept="image/*" #inputFoto (change)="onFileChange($event)" />
+            </div>
+        </mat-card-content>
+        <mat-card-actions>
+          <div class="text-right">
+            <button mat-button [routerLink]="['/users']">
+              <mat-icon>clear</mat-icon>
+              Cerrar
+            </button>
+            <button mat-flat-button type="submit" color="primary" #submitBtn class="ml-3" [disabled]="submitted">
+              <mat-icon>add</mat-icon>
+              Registrar
+            </button>
+          </div>
+        </mat-card-actions>
+      </form>
+    </mat-card>
+  </div>
+</div>

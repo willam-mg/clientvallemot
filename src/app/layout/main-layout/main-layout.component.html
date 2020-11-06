@@ -1,0 +1,136 @@
+
+<div class="layout-container">
+  <mat-sidenav-container  [hasBackdrop]="deviceService.isMobile() ? true : false">
+    <mat-sidenav #drawer [mode]="deviceService.isMobile() ? 'over' : 'side'" [opened]="!deviceService.isMobile()">
+      <mat-toolbar color="without-color">
+        <mat-toolbar-row class="brand-sidebar">
+          <img src="/assets/img/color_logo.png" alt="" width="200" height="75" class="mt-4">
+        </mat-toolbar-row>
+      </mat-toolbar>
+  
+      <div class="text-center pt-2 pb-2">
+        <div class="p-3">
+          <a [routerLink]="['/users/profile']">
+            <img src="{{userData.foto}}" *ngIf="userData.foto" alt="foto" class="img-foto-sidebar">
+            <img src="/assets/img/no-image-user.svg" *ngIf="!userData.foto" alt="foto" class="img-foto-sidebar">
+          </a>
+        </div>
+        <span class="mt-2">
+          <span *ngIf="!userData">
+            Administrador
+          </span>
+          <span *ngIf="userData" class="text-capitalize">
+            {{userData.nombre_completo}}
+          </span>
+        </span>
+      </div>
+      <mat-nav-list>
+        <a mat-list-item [routerLink]="['/']" [routerLinkActive]="router.url=='/'?'active-menu':''">
+          <mat-icon class="pull-right">home</mat-icon>
+          &nbsp;
+          Inicio
+        </a>
+        <a mat-list-item [routerLink]="['/users']" [routerLinkActive]="router.url=='/users'?'active-menu':''">
+          <mat-icon class="pull-right">person</mat-icon>
+          &nbsp;
+          Usuarios
+        </a>
+        <a mat-list-item [routerLink]="['/mecanicos']" [routerLinkActive]="router.url=='/mecanicos'?'active-menu':''">
+          <mat-icon class="pull-right">loupe</mat-icon>
+          &nbsp;
+          Mecanicos
+        </a>
+        <a mat-list-item [routerLink]="['/ordenes']" [routerLinkActive]="router.url=='/ordenes'?'active-menu':''">
+          <mat-icon class="pull-right">face</mat-icon>
+          &nbsp;
+          ordenes
+        </a>
+        <a mat-list-item class="d-block d-sm-block d-md-none d-lg-none d-xl-none"  (click)="onLoggedout()">
+          <mat-icon class="pull-right">exit_to_app</mat-icon>
+          &nbsp;
+          Cerrar sessión
+        </a>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <div [className]="dataService.isLoading ? 'loading show-loading' : 'loading hide-loading'">
+        <mat-progress-bar mode="indeterminate">
+        </mat-progress-bar>
+      </div>
+
+      <mat-toolbar class="fix-nav d-none d-sm-none d-md-block d-lg-block d-xl-block" role="heading" color="primary">
+        <mat-toolbar-row>
+          <button mat-icon-button (click)="drawer.toggle()">
+            <mat-icon>menu</mat-icon>
+          </button>
+      
+          <div class="nav-spacer text-center">
+            <div class="d-block d-sm-block d-md-none d-lg-none d-xl-none">
+              <h2>Administración</h2>
+            </div>
+          </div>
+      
+          <div class="nav-icon-right">
+            <button mat-icon-button [matMenuTriggerFor]="profile">
+              <mat-icon>account_circle</mat-icon>
+            </button>
+            <mat-menu #profile [overlapTrigger]="false">
+              <button mat-menu-item [routerLink]="['/users/profile']">
+                <mat-icon>person</mat-icon>
+                <span>Perfil</span>
+              </button>
+              <button mat-menu-item [routerLink]="['/users/change-password']">
+                <mat-icon>lock</mat-icon>
+                <span>Cambiar password</span>
+              </button>
+              <button mat-menu-item (click)="onLoggedout()">
+                <mat-icon>exit_to_app</mat-icon>
+                <span>Cerrar sessión</span>
+              </button>
+            </mat-menu>
+          </div>
+      
+        </mat-toolbar-row>
+      </mat-toolbar>
+
+      <div class="content">
+        <router-outlet class="row-mobile"></router-outlet>
+      </div>
+
+      
+  
+      
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
+
+<mat-toolbar class="fix-nav-bottom d-block d-sm-block d-md-none d-lg-none d-xl-none" role="heading">
+  <mat-toolbar-row>
+    <table class="full-width">
+      <tbody>
+        <tr>
+          <td class="text-center">
+            <a mat-icon-button [routerLink]="['/mecanicos']" [color]="router.url=='/mecanicos'?'primary':''">
+              <mat-icon class="pull-right">loupe</mat-icon>
+            </a>
+          </td>
+          <td class="text-center">
+            <a mat-icon-button [routerLink]="['/ordenes']" [color]="router.url=='/ordenes'?'primary':''">
+              <mat-icon class="pull-right">face</mat-icon>
+            </a>
+          </td>
+          <td class="text-center">
+            <a mat-icon-button [routerLink]="['/']" [color]="router.url=='/'?'primary':''">
+              <mat-icon class="pull-right">home</mat-icon>
+            </a>
+          </td>
+          <td class="text-center">
+            <button mat-icon-button (click)="drawer.toggle()">
+              <mat-icon>menu</mat-icon>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </mat-toolbar-row>
+</mat-toolbar>

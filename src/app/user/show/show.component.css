@@ -1,0 +1,15 @@
+.user-image-table {
+  width:15vw;
+  height:15vw;
+  border-radius: 50%;
+  box-shadow: #000000 0px 0px 1px 0px;
+}
+@media only screen and (max-width: 600px) {
+  .user-image-table {
+    width: 70vw;
+    height: 70vw;
+    border-radius: 50%;
+    box-shadow: #000000 0px 0px 1px 0px;
+  }
+  
+}

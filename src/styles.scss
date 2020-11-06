@@ -1,0 +1,158 @@
+/* You can add global styles to this file, and also import other style files */
+// @import '~bootstrap/scss/bootstrap';
+// @import '~bootstrap/scss/bootstrap-reboot';
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins';
+@import '~bootstrap/scss/utilities';
+@import '~bootstrap/scss/tables';
+@import '~bootstrap/scss/bootstrap-grid';
+
+
+html, body { 
+  height: 100%; 
+  background: #f5f5f5;
+}
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+@media only screen and (max-width: 600px) {
+  body {
+    // background: #f1eeee;
+    background: #f5f5f5;
+  }
+}
+
+// color primary aplication #6e78f7 para el toolbar
+// color primary aplication #3a58fc para botones 
+
+.full-width{
+    width: 100%;
+}
+.without-color{
+    background: none;
+}
+
+// mat-progress-bar {
+.loading {
+  position: fixed;
+  z-index: 3000;
+  height: 5px;
+  width: 100%;
+}
+.show-loading{
+  // visibility: visible;
+  display: block;
+}
+.hide-loading{
+  display: none;
+  // visibility: hidden;
+}
+
+
+.foto-image-table {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  box-shadow: #000000 0px 0px 1px 0px;
+}
+
+$sizeImageDesktop:14vw;
+$sizeImageMobile:70vw;
+
+.foto-image {
+  width: $sizeImageDesktop;
+  height: $sizeImageDesktop;
+  border-radius: 50%;
+  box-shadow: #000000 0px 0px 1px 0px;
+}
+@media only screen and (max-width: 600px) {
+  .foto-image {
+    width: $sizeImageMobile;
+    height: $sizeImageMobile;
+    border-radius: 50%;
+    box-shadow: #000000 0px 0px 1px 0px;
+  }
+}
+
+.foto-image-edit {
+  width: $sizeImageDesktop;
+  height: $sizeImageDesktop;
+}
+@media only screen and (max-width: 600px) {
+  .foto-image-edit {
+    margin: 0 auto;
+    width: $sizeImageMobile;
+    height: $sizeImageMobile;
+  }
+}
+
+.active-menu{
+  background-color: #f5f5f5;
+}
+
+.hidde-only-xs {
+  display: block;
+}
+@media only screen and (max-width: 600px) {
+  .hidde-only-xs {
+      display: none;
+  }
+}
+
+.v-only-xs {
+  display: none;
+}
+
+
+.fix-nav-bottom{
+    display: none;
+  }
+
+@media only screen and (max-width: 600px) {
+  .v-only-xs {
+      display: block;
+  }
+
+  /* para mostrar en mobile los cards contenedores */
+  // .row-mobile > div.row{
+  //   margin-left: 0 !important;
+  //   margin-right: 0 !important;
+  // }
+  // .row-mobile > .row > mat-card{
+  // // .card-content-mobile{
+  //   background: #fafafa !important;
+  //   box-shadow: none !important;
+  // }
+  .row-mobile{
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+  .card-mobile{
+    background: #fafafa !important;
+    box-shadow: none !important;
+  }
+
+  // .toolbar-fixed{
+  .fix-nav{
+    // position: fixed;
+    // z-index: 2000;
+    display: none;
+  }
+  .fix-nav-bottom{
+    position: fixed;
+    z-index: 2000;
+    bottom: 0;
+  }
+  .content{
+    // margin-top: 3.5rem;
+    // margin-bottom: 3.5rem;
+    // margin-bottom: 4rem !important;
+    // padding-bottom: 2rem !important;
+  }
+  .layout-container{
+    // margin-top: 3.5rem;
+    // margin-bottom: 3.5rem;
+    margin-bottom: 3.5rem !important;
+    // padding-bottom: 2rem !important;
+  }
+}

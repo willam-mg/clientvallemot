@@ -1,0 +1,46 @@
+
+<div class="row row-mobile">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 mx-auto">
+        <mat-card class="card-mobile">
+            <mat-card-header>
+                <mat-card-title>
+                </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 text-center">
+                        <img src="{{user.foto}}" alt="foto" *ngIf="user.foto" class="user-image-table">
+                        <img src="/assets/img/no-image-user.svg" alt="foto" *ngIf="!user.foto" class="user-image-table">
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                        <p>
+                            <b>Nombre completo</b>
+                        </p>
+                        <p class="text-capitalize">{{user.nombre_completo}}</p>
+                        <p>
+                            <b>Email</b>
+                        </p>
+                        <p>{{user.email}}</p>
+                        <button mat-button (click)="elminar()" color="warn">
+                          <mat-icon>delete</mat-icon>
+                          Eliminar
+                        </button>
+                    </div>
+                </div>
+                
+            </mat-card-content>
+            <mat-card-actions class="text-right">
+                <button mat-button [routerLink]="[ '/users']">
+                    <mat-icon>clear</mat-icon>
+                    Cerrar
+                </button>
+                <button mat-flat-button [routerLink]="[ '/users/edit']" [queryParams]="{id:user.id}">
+                    <mat-icon>edit</mat-icon>
+                    Modificar
+                </button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>
+

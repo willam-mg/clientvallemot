@@ -1,0 +1,13 @@
+<div [className]="dataService.isLoading ? 'loading show-loading' : 'loading hide-loading'">
+  <mat-progress-bar mode="indeterminate">
+  </mat-progress-bar>
+</div>
+<!-- loading con progress percent -->
+<!-- <mat-progress-bar #loading mode="determinate" value="{{dataService.loadingPercent}}"
+  *ngIf="dataService.loadingPercent > 0 && dataService.loadingPercent <= 100">
+</mat-progress-bar> -->
+<div class="wrapper">
+    <div class="form-signin">
+        <router-outlet></router-outlet>
+    </div>
+</div>

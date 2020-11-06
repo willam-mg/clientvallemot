@@ -1,0 +1,115 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>Mecanicos</mat-card-title>
+        <div class="full-width text-right">
+            <a mat-flat-button color="primary" [routerLink]="['/mecanicos/create']">
+                <mat-icon>add</mat-icon>
+                Nuevo
+            </a>
+        </div>
+    </mat-card-header>
+
+    <mat-card-content>
+        <form [formGroup]="formSearch" (ngSubmit)="list(true)" novalidate="">
+            <div class="row">
+                <div class="col-xs-6 col-sm-2 col-md-2 col-lg-2">
+                    <mat-form-field class="full-width">
+                        <mat-label>Nombre completo</mat-label>
+                        <input type="text" matInput formControlName="nombre_completo" placeholder="Nombre completo" autocomplete="off">
+                    </mat-form-field>
+                </div>
+                <div class="col-xs-6 col-sm-2 col-md-2 col-lg-2">
+                    <mat-form-field class="full-width">
+                        <mat-label>ci</mat-label>
+                        <input type="text" matInput formControlName="ci" placeholder="Ci"
+                            autocomplete="off">
+                    </mat-form-field>
+                </div>
+                <div class="col-xs-6 col-sm-1 col-md-1 col-lg-1">
+                    <div class="text-right">
+                        <button mat-flat-button type="submit" #submitBtn class="ml-3" [disabled]="submitted">
+                            <mat-icon>search</mat-icon>
+                            Buscar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <div class="table-responsive">
+            <table mat-table [dataSource]="mecanicos" class="full-width table-hover">
+                <ng-container matColumnDef="nombre_completo">
+                    <th mat-header-cell *matHeaderCellDef> Nombre completo</th>
+                    <td mat-cell *matCellDef="let element"> {{element.nombre_completo}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="ci">
+                    <th mat-header-cell *matHeaderCellDef> Ci </th>
+                    <td mat-cell *matCellDef="let element"> {{element.ci}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="telefono">
+                    <th mat-header-cell *matHeaderCellDef> telefono</th>
+                    <td mat-cell *matCellDef="let element"> {{element.telefono}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="direccion">
+                    <th mat-header-cell *matHeaderCellDef> direccion</th>
+                    <td mat-cell *matCellDef="let element"> {{element.direccion}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="especialidad">
+                    <th mat-header-cell *matHeaderCellDef> especialidad</th>
+                    <td mat-cell *matCellDef="let element"> {{element.especialidad}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="email">
+                    <th mat-header-cell *matHeaderCellDef> email</th>
+                    <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="fecha_ingreso">
+                    <th mat-header-cell *matHeaderCellDef> fecha_ingreso</th>
+                    <td mat-cell *matCellDef="let element"> {{element.fecha_ingreso}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="fecha_salida">
+                    <th mat-header-cell *matHeaderCellDef> fecha_salida</th>
+                    <td mat-cell *matCellDef="let element"> {{element.fecha_salida}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="foto">
+                    <th mat-header-cell *matHeaderCellDef class="text-center"> Foto </th>
+                    <td mat-cell *matCellDef="let element" class="p-2 text-center">
+                        &nbsp;
+                        <img src="{{element.fotografia}}" alt="foto" *ngIf="element.foto" class="foto-image-table">
+                        <img src="/assets/img/no-image.svg" alt="foto" *ngIf="!element.foto" class="user-image-table">
+                        &nbsp;
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef>Ver</th>
+                    <td mat-cell *matCellDef="let element">
+                        <button mat-icon-button [routerLink]="['/mecanicos/show']" [queryParams]="{id:element.id}"
+                            matTooltip="Ver" aria-label="Ver" color="primary">
+                            <mat-icon>more_horiz</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <div class="text-center" *ngIf="notFound && mecanicos.length == 0">
+                No hay mecanicos
+            </div>
+        </div>
+    </mat-card-content>
+    <mat-card-actions>
+        <mat-paginator [pageIndex]="modelService.page.pageIndex" [length]="modelService.page.length"
+            [pageSize]="modelService.page.size" [pageSizeOptions]="modelService.page.sizeOptions"
+            (page)="pagination($event)">
+        </mat-paginator>
+    </mat-card-actions>
+</mat-card>
