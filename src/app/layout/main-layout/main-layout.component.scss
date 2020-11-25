@@ -26,15 +26,6 @@ mat-sidenav {
   width: 246px;
 }
 
-.img-foto-sidebar{
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  // border: 1px solid rgb(83, 87, 88);
-  box-shadow: #000000 0px 0px 1px 0px;
-  margin: 0 auto;
-}
-
 .content{
   width: inherit;
   padding: 20px;
@@ -45,10 +36,14 @@ mat-sidenav {
     width: inherit;
     padding: 0;
   }
+  .layout-container{
+    position: fixed;
+  }
 }
 
 .brand-sidebar{
   background: white;
+  // background: #2b3e68;
   span{
     margin: 0 auto;
   }
@@ -62,4 +57,98 @@ mat-sidenav {
 .mat-toolbar h6 {
   font: 500 20px/32px Roboto, "Helvetica Neue", sans-serif;
   margin: 0;
+}
+
+.search-toolbar{
+  font-size: 16px; 
+  max-width: 200px;
+  font-weight: normal;
+  background-color: white; 
+  color: black; 
+  // padding-bottom: 0;
+  height: 40px;
+  border-radius: 20px;
+  text-align: left;
+  padding: 5px 12px 5px 12px;
+  input, input:active, input:focus{
+    outline: none;
+    border: 0;
+  }
+}
+// .search-toolbar > .mat-form-field-wrapper{
+//   padding-bottom:0;
+//   // background-color: #2b3e68;
+// }
+
+
+// style image profile
+.container-profile-picture {
+  position: relative;
+  // width: 50%;
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
+
+}
+
+
+.img-foto-sidebar{
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  // border: 1px solid rgb(83, 87, 88);
+  box-shadow: #000000 0px 0px 1px 0px;
+  // margin: 0 auto;
+
+  transition: .5s ease;
+  backface-visibility: hidden;
+}
+
+
+// .image {
+//   opacity: 1;
+//   display: block;
+//   width: 100%;
+//   height: auto;
+//   transition: .5s ease;
+//   backface-visibility: hidden;
+// }
+
+.middle {
+  width: inherit;
+  height: auto;
+  transition: .5s ease;
+  opacity: 0;
+  position: relative;
+  // background-color: yellow;
+  top: -36px;
+  left: 41px;
+  // top: 50%;
+  // left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.container-profile-picture:hover .img-foto-sidebar {
+  opacity: 0.3;
+}
+
+.container-profile-picture:hover .middle {
+  opacity: 1;
+}
+
+.text {
+  text-decoration: none;
+  // background-color: #4CAF50;
+  // color: #05af70;
+  color: #000000;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 0;
+}
+
+.toolbar-mobile{
+  position: fixed;
+  z-index: 3;
 }

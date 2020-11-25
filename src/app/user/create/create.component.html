@@ -2,23 +2,20 @@
 <div class="row row-mobile">
   <div class="col-xs-12 col-sm-7 col-md-5 col-lg-5 mx-auto ">
     <mat-card class="card-mobile">
-      <mat-card-header>
-        <mat-card-title>Nuevo usuario</mat-card-title>
-      </mat-card-header>
       <!-- <form #userForm (ngSubmit)="onSubmit(userForm, submitBtn)"> -->
       <form [formGroup]="formUser" (ngSubmit)="onSubmit()" novalidate="">
         <mat-card-content>
-            <mat-form-field class="full-width">
+            <mat-form-field appearance="outline" class="full-width">
               <mat-label>Nombre completo</mat-label>
                <input type="text" matInput formControlName="nombre_completo" placeholder="Nombre completo" autocomplete="off" required>
             </mat-form-field>
           
-            <mat-form-field class="full-width">
+            <mat-form-field appearance="outline" class="full-width">
               <mat-label>Email</mat-label>
               <input type="email" matInput formControlName="email" placeholder="Email" autocomplete="off" required>
             </mat-form-field>
           
-            <mat-form-field class="full-width mt-2">
+            <mat-form-field appearance="outline" class="full-width mt-2">
               <mat-label>Password</mat-label>
               <input type="password" matInput #password formControlName="password" placeholder="Password" autocomplete="off" required>
               <mat-icon matSuffix (click)="showPassword(password)" class="sufix-icon"
@@ -27,7 +24,7 @@
               </mat-icon>
             </mat-form-field>
           
-            <mat-form-field class="full-width">
+            <mat-form-field appearance="outline" class="full-width">
               <mat-label>Confirmar Password</mat-label>
               <input type="password" matInput #passwordConfirmation formControlName="password_confirmation"
                 placeholder="Confirmar Password" autocomplete="off" required>

@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UserService } from '../user.service';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/data.service';
+import { Title } from '@angular/platform-browser';
 // import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -20,7 +21,9 @@ export class CreateComponent implements OnInit {
 
   constructor(
     private userService: UserService, 
-    private router: Router) {
+    private router: Router,
+    private title:Title) {
+    this.title.setTitle('Nuevo administrador');
     this.submitted = false;
     this.passwordIcon = 'visibility';
     this.passwordConfirmationIcon = 'visibility';

@@ -1,16 +1,49 @@
+<table class="full-width" style="background-color: #dac1ba;">
+    <tbody>
+        <tr>
+            <td>
+                <button mat-button [routerLink]="[ '/ordenes']">
+                    <mat-icon>clear</mat-icon>
+                    Cerrar
+                </button>
+                <button mat-button (click)="elminar()" color="warn">
+                                    <mat-icon>delete</mat-icon>
+                                    Eliminar
+                                </button>
+            </td>
+            <td>
+                <button mat-flat-button [routerLink]="[ '/ordenes/edit']" [queryParams]="{id:model.id}">
+                    <mat-icon>edit</mat-icon>
+                    Modificar
+                </button>
+            </td>
+            <td>
+                <button mat-flat-button color="primary" (click)="printOrden()">
+                    <mat-icon>print</mat-icon>
+                    Imprimir
+                </button>
+            </td>
+            <td>
+                <button mat-flat-button color="cyan" (click)="printOrdenSalida()">
+                    <mat-icon>print</mat-icon>
+                    Imprimir <br>
+                    salida
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
 <div class="row row-mobile">
+<!-- <div class="row row-mobile" style="display: none;"> -->
     <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 mx-auto">
         <mat-card class="card-mobile">
-            <mat-card-header>
-                <mat-card-title>
-                </mat-card-title>
-            </mat-card-header>
             <mat-card-content>
 
                 <div class="row">
 
                     <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-                        <img src="/assets/img/white-logo.png" width="200" height="200" alt="foto" class="">
+                        <img src="{{model.foto}}" alt="foto" *ngIf="model.foto" class="foto-image"  width="100%" height="auto">
+                        <img src="/assets/img/car.png" alt="foto" *ngIf="!model.foto" class="foto-model" width="100%" height="auto">
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                         
@@ -78,18 +111,40 @@
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                        <p>
-                            <b>solicitud</b>
-                        </p>
+                <mat-divider></mat-divider>
+
+                <div class="row pt-3">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <h4 class="text-capitalize">Solicitud de trabajo del cliente</h4>
                         <p class="text-capitalize">
                             {{model.solicitud}}
                         </p>
                     </div>
                 </div>
 
+                <div class="row pt-3">
+                    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+                        <h4 class="text-capitalize">Mano de obra extra</h4>
+                    </div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-right">
+                        <button class="mt-2" mat-mini-fab [routerLink]="[ '/ordenes/manoobra-create']" [queryParams]="{id:model.id}">
+                            <mat-icon>add</mat-icon>
+                        </button>
+                    </div>
+                </div>
+
                 <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                        <p class="text-capitalize" *ngFor="let item of model.manosobra">
+                            {{item.descripcion}}
+                            {{item.precio}}
+                        </p>
+                    </div>
+                </div>
+
+                <mat-divider></mat-divider>
+
+                <div class="row mt-4">
                     <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
                         <div class="form-control">
                             <mat-icon *ngIf="model.tapa_ruedas">radio_button_checked</mat-icon>
@@ -205,17 +260,56 @@
                             <b>Otros</b>
                         </p>
                         <p class="text-capitalize">
-                            {{model.otros}}
+                            {{model.estado_vehiculo_otros}}
                         </p>
                     </div>
                 </div>
 
-                <div class="row">
+                <!-- <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                         <button mat-button (click)="elminar()" color="warn">
                             <mat-icon>delete</mat-icon>
                             Eliminar
                         </button>
+                    </div>
+                </div> -->
+                
+                <mat-divider></mat-divider>
+
+                <div class="row pt-5">
+                    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+                        <h4 class="text-capitalize">detalle de repuestos</h4>
+                    </div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-right">
+                        <button class="mt-2" mat-mini-fab [routerLink]="[ '/ordenes/detalle-create']" [queryParams]="{id:model.id}">
+                            <mat-icon>add</mat-icon>
+                        </button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 text-left">
+                        
+                        
+                        <table class="table table-light">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Precio</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let repuesto of repuestos">
+                                    <td> {{repuesto.repuesto.nombre}} </td>
+                                    <td> {{repuesto.precio}} </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row pt-1">
+                    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+                        <h4 class="text-capitalize">total repuestos</h4>
+                        <h4 class="text-capitalize">{{totalRepuestos}}</h4>
                     </div>
                 </div>
                 
@@ -225,10 +319,6 @@
                 <button mat-button [routerLink]="[ '/ordenes']">
                     <mat-icon>clear</mat-icon>
                     Cerrar
-                </button>
-                <button mat-flat-button color="primary" (click)="printOrden()">
-                    <mat-icon>print</mat-icon>
-                    Imprimir
                 </button>
                 <!-- <button mat-flat-button [routerLink]="[ '/ordenes/edit']" [queryParams]="{id:model.id}">
                     <mat-icon>edit</mat-icon>
@@ -241,28 +331,68 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
 <div #reporte id="reporte" class="visible-print">
     <div style="padding: 20px;">
+        <table class="full-width">
+            <tbody>
+                <tr>
+                    <td style="width: 200px;" class="text-center">
+                        <img src="/assets/img/color_logo.png" width="200" height="100" alt="foto" class="">
+                    </td>
+                    <td class="text-uppercase text-center">
+                        <h2>
+                            Orden de entrada
+                        </h2>
+                    </td>
+                    <td style="width: 240px;" class="text-center">
+                        <h4> Nro: 0000{{model.id}}  <br>
+                        Fecha: {{model.fecha}} </h4>
+                        <small>
+                            Av. circunvalacion frente al cementerio "parque de las memorias"
+                            Telefonos: <br>
+                            4717048 <br>
+                            70749634
+                        </small>
+                        
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
         <div class="row">
-            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-                <img src="/assets/img/white-logo.png" width="200" height="200" alt="foto" class="">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <p>
+                    <b>propietario</b>
+                    <span class="text-capitalize">
+                        {{model.propietario}}
+                    </span>
+                </p>
+                <p>
+                    <b>telefono</b>
+                    <span class="text-capitalize">
+                        {{model.telefono}}
+                    </span>
+                </p>
             </div>
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+        </div>
+        
+        <mat-divider></mat-divider>
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 text-capitalize">
         
                 <div class="row">
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                        <p>
-                            <b>propietario</b>
-                            <span class="text-capitalize">
-                                {{model.propietario}}
-                            </span>
-                        </p>
-                        <p>
-                            <b>telefono</b>
-                            <span class="text-capitalize">
-                                {{model.telefono}}
-                            </span>
-                        </p>
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                         <p>
                             <b>vehiculo</b>
                             <span class="text-capitalize">
@@ -275,6 +405,8 @@
                                 {{model.placa}}
                             </span>
                         </p>
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                         <p>
                             <b>modelo</b>
                             <span class="text-capitalize">
@@ -288,13 +420,7 @@
                             </span>
                         </p>
                     </div>
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                        <p>
-                            <b>fecha</b>
-                            <span class="text-capitalize">
-                                {{model.fecha}}
-                            </span>
-                        </p>
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                         <p>
                             <b>color</b>
                             <span class="text-capitalize">
@@ -312,44 +438,50 @@
         
             </div>
         </div>
+
+        <mat-divider></mat-divider>
         
         <div class="row">
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                <p>
-                    <b>solicitud</b>
-                </p>
+                <h4>Solicitud de trabajo cliente</h4>
                 <p class="text-capitalize">
                     {{model.solicitud}}
                 </p>
             </div>
         </div>
-        
-        <div class="row">
+
+        <mat-divider></mat-divider>
+        <h4>Declaracion del estado del vehiculo</h4>
+
+        <div class="full-width">
+            <img src="/assets/img/autoindicadores.png" width="100%" height="auto" alt="foto" class="">
+        </div>
+        <div class="row mt-3">
             <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
                 <div class="form-control">
-                    <mat-icon *ngIf="model.tapa_ruedas">radio_button_checked</mat-icon>
-                    <mat-icon *ngIf="!model.tapa_ruedas">radio_button_unchecked</mat-icon>
+                    <img src="/assets/img/check_box-black.svg" alt="check" *ngIf="model.tapa_ruedas">
+                    <img src="/assets/img/check_box_outline.svg" alt="check" *ngIf="!model.tapa_ruedas">
                     <span style="top:-10px; position:relative">
                         tapa de ruedas
                     </span>
                 </div>
                 <div class="form-control">
-                    <mat-icon *ngIf="model.llanta_auxilio">radio_button_checked</mat-icon>
-                    <mat-icon *ngIf="!model.llanta_auxilio">radio_button_unchecked</mat-icon>
+                    <img src="/assets/img/check_box-black.svg" alt="check" *ngIf="model.llanta_auxilio">
+                    <img src="/assets/img/check_box_outline.svg" alt="check" *ngIf="!model.llanta_auxilio">
                     <span style="top:-10px; position:relative">
                         llanta_auxilio
                     </span>
                 </div>
                 <div class="form-control">
-                    <mat-icon *ngIf="model.gata_hidraulica">radio_button_checked</mat-icon>
-                    <mat-icon *ngIf="!model.gata_hidraulica">radio_button_unchecked</mat-icon>
+                    <img src="/assets/img/check_box-black.svg" alt="check" *ngIf="model.gata_hidraulica">
+                    <img src="/assets/img/check_box_outline.svg" alt="check" *ngIf="!model.gata_hidraulica">
                     <span style="top:-10px; position:relative">
                         gata_hidraulica
                     </span>
                 </div>
                 <div class="form-control">
-                    <mat-icon *ngIf="model.llave_cruz">radio_button_checked</mat-icon>
-                    <mat-icon *ngIf="!model.llave_cruz">radio_button_unchecked</mat-icon>
+                    <img src="/assets/img/check_box-black.svg" alt="check" *ngIf="model.llave_cruz">
+                    <img src="/assets/img/check_box_outline.svg" alt="check" *ngIf="!model.llave_cruz">
                     <span style="top:-10px; position:relative">
                         llave_cruz
                     </span>
@@ -357,29 +489,29 @@
             </div>
             <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
                 <div class="form-control">
-                    <mat-icon *ngIf="model.pisos">radio_button_checked</mat-icon>
-                    <mat-icon *ngIf="!model.pisos">radio_button_unchecked</mat-icon>
+                    <img src="/assets/img/check_box-black.svg" alt="check" *ngIf="model.pisos">
+                    <img src="/assets/img/check_box_outline.svg" alt="check" *ngIf="!model.pisos">
                     <span style="top:-10px; position:relative">
                         pisos
                     </span>
                 </div>
                 <div class="form-control">
-                    <mat-icon *ngIf="model.limpia_parabrisas">radio_button_checked</mat-icon>
-                    <mat-icon *ngIf="!model.limpia_parabrisas">radio_button_unchecked</mat-icon>
+                    <img src="/assets/img/check_box-black.svg" alt="check" *ngIf="model.limpia_parabrisas">
+                    <img src="/assets/img/check_box_outline.svg" alt="check" *ngIf="!model.limpia_parabrisas">
                     <span style="top:-10px; position:relative">
                         limpia_parabrisas
                     </span>
                 </div>
                 <div class="form-control">
-                    <mat-icon *ngIf="model.tapa_tanque">radio_button_checked</mat-icon>
-                    <mat-icon *ngIf="!model.tapa_tanque">radio_button_unchecked</mat-icon>
+                    <img src="/assets/img/check_box-black.svg" alt="check" *ngIf="model.tapa_tanque">
+                    <img src="/assets/img/check_box_outline.svg" alt="check" *ngIf="!model.tapa_tanque">
                     <span style="top:-10px; position:relative">
                         tapa_tanque
                     </span>
                 </div>
                 <div class="form-control">
-                    <mat-icon *ngIf="model.herramientas">radio_button_checked</mat-icon>
-                    <mat-icon *ngIf="!model.herramientas">radio_button_unchecked</mat-icon>
+                    <img src="/assets/img/check_box-black.svg" alt="check" *ngIf="model.herramientas">
+                    <img src="/assets/img/check_box_outline.svg" alt="check" *ngIf="!model.herramientas">
                     <span style="top:-10px; position:relative">
                         herramientas
                     </span>
@@ -387,29 +519,29 @@
             </div>
             <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
                 <div class="form-control">
-                    <mat-icon *ngIf="model.mangueras">radio_button_checked</mat-icon>
-                    <mat-icon *ngIf="!model.mangueras">radio_button_unchecked</mat-icon>
+                    <img src="/assets/img/check_box-black.svg" alt="check" *ngIf="model.mangueras">
+                    <img src="/assets/img/check_box_outline.svg" alt="check" *ngIf="!model.mangueras">
                     <span style="top:-10px; position:relative">
                         mangueras
                     </span>
                 </div>
                 <div class="form-control">
-                    <mat-icon *ngIf="model.espejos">radio_button_checked</mat-icon>
-                    <mat-icon *ngIf="!model.espejos">radio_button_unchecked</mat-icon>
+                    <img src="/assets/img/check_box-black.svg" alt="check" *ngIf="model.espejos">
+                    <img src="/assets/img/check_box_outline.svg" alt="check" *ngIf="!model.espejos">
                     <span style="top:-10px; position:relative">
                         espejos
                     </span>
                 </div>
                 <div class="form-control">
-                    <mat-icon *ngIf="model.tapa_cubos">radio_button_checked</mat-icon>
-                    <mat-icon *ngIf="!model.tapa_cubos">radio_button_unchecked</mat-icon>
+                    <img src="/assets/img/check_box-black.svg" alt="check" *ngIf="model.tapa_cubos">
+                    <img src="/assets/img/check_box_outline.svg" alt="check" *ngIf="!model.tapa_cubos">
                     <span style="top:-10px; position:relative">
                         tapa_cubos
                     </span>
                 </div>
                 <div class="form-control">
-                    <mat-icon *ngIf="model.antena">radio_button_checked</mat-icon>
-                    <mat-icon *ngIf="!model.antena">radio_button_unchecked</mat-icon>
+                    <img src="/assets/img/check_box-black.svg" alt="check" *ngIf="model.antena">
+                    <img src="/assets/img/check_box_outline.svg" alt="check" *ngIf="!model.antena">
                     <span style="top:-10px; position:relative">
                         antena
                     </span>
@@ -417,15 +549,15 @@
             </div>
             <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
                 <div class="form-control">
-                    <mat-icon *ngIf="model.radio">radio_button_checked</mat-icon>
-                    <mat-icon *ngIf="!model.radio">radio_button_unchecked</mat-icon>
+                    <img src="/assets/img/check_box-black.svg" alt="check" *ngIf="model.radio">
+                    <img src="/assets/img/check_box_outline.svg" alt="check" *ngIf="!model.radio">
                     <span style="top:-10px; position:relative">
                         radio
                     </span>
                 </div>
                 <div class="form-control">
-                    <mat-icon *ngIf="model.focos">radio_button_checked</mat-icon>
-                    <mat-icon *ngIf="!model.focos">radio_button_unchecked</mat-icon>
+                    <img src="/assets/img/check_box-black.svg" alt="check" *ngIf="model.focos">
+                    <img src="/assets/img/check_box_outline.svg" alt="check" *ngIf="!model.focos">
                     <span style="top:-10px; position:relative">
                         focos
                     </span>
@@ -440,7 +572,7 @@
                     <b>Otros</b>
                 </p>
                 <p class="text-capitalize">
-                    {{model.otros}}
+                    {{model.estado_vehiculo_otros}}
                 </p>
             </div>
         </div>
@@ -460,6 +592,270 @@
                     </div>
                 </div>
                 
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+                <small>
+                    NOTA:  La empresa no se responsaviliza por objetos no de clarados. Por favor revise su vehiculo antes de dejarlo y recogerlo.
+                </small>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div #reporte2 id="reporte2" class="visible-print">
+<!-- <div #reporte2 id="reporte2" > -->
+    <div style="padding: 20px;">
+        <table class="full-width">
+            <tbody>
+                <tr>
+                    <td style="width: 200px;" class="text-center">
+                        <img src="/assets/img/color_logo.png" width="200" height="100" alt="foto" class="">
+                    </td>
+                    <td class="text-uppercase text-center">
+                        <h2>
+                            Orden de Salida
+                        </h2>
+                    </td>
+                    <td style="width: 240px;" class="text-center">
+                        <h4> Nro: 0000{{model.id}}  <br>
+                        Fecha: {{model.fecha}} </h4>
+                        <small>
+                            Av. circunvalacion frente al cementerio "parque de las memorias"
+                            Telefonos: <br>
+                            4717048 <br>
+                            70749634
+                        </small>
+                        
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <table class="full-width">
+            <tbody>
+                <tr>
+                    <td class="text-left">
+                        <p>
+                            <b>propietario</b>
+                            <span class="text-capitalize">
+                                {{model.propietario}}
+                            </span>
+                        </p>
+                        <p>
+                            <b>telefono</b>
+                            <span class="text-capitalize">
+                                {{model.telefono}}
+                            </span>
+                        </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        
+        <mat-divider></mat-divider>
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 text-capitalize">
+        
+                <div class="row">
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                        <p>
+                            <b>vehiculo</b>
+                            <span class="text-capitalize">
+                                {{model.vehiculo}}
+                            </span>
+                        </p>
+                        <p>
+                            <b>placa</b>
+                            <span class="text-capitalize">
+                                {{model.placa}}
+                            </span>
+                        </p>
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                        <p>
+                            <b>modelo</b>
+                            <span class="text-capitalize">
+                                {{model.modelo}}
+                            </span>
+                        </p>
+                        <p>
+                            <b>tanque</b>
+                            <span class="text-capitalize">
+                                {{model.tanque}}
+                            </span>
+                        </p>
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                        <p>
+                            <b>color</b>
+                            <span class="text-capitalize">
+                                {{model.color}}
+                            </span>
+                        </p>
+                        <p>
+                            <b>ano</b>
+                            <span class="text-capitalize">
+                                {{model.ano}}
+                            </span>
+                        </p>
+                    </div>
+                </div>
+        
+            </div>
+        </div>
+
+        <mat-divider></mat-divider>
+        
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                <h4>Solicitud del cliente</h4>
+                <p class="text-capitalize">
+                    {{model.solicitud}}
+                </p>
+                <p class="text-capitalize" *ngFor="let item of model.manosobra">
+                    {{item.descripcion}}
+                </p>
+            </div>
+        </div>
+
+        
+
+        <mat-divider></mat-divider>
+        
+
+        
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-left">
+                <h5>Detalle mano de obra</h5>
+                <table class="full-width">
+                    <tbody>
+                        <tr *ngFor="let repuesto of repuestos">
+                            <td  style="width: 90%;">
+                                {{repuesto.repuesto.nombre}}
+                            </td>
+                            <td class="text-right" style="width: 20%;">
+                                {{repuesto.repuesto.precio}}
+                            </td>
+                            
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row pt-1">
+                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 text-right">
+                    <h4 class="text-capitalize">total</h4>
+                    <h4 class="text-capitalize">{{totalRepuestos}}</h4>
+                </div>
+            </div>
+        </div>
+
+        <mat-divider></mat-divider>
+        
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                <h4>Detalle de mano de obra</h4>
+                <p class="text-capitalize" *ngFor="let item of model.manosobra">
+                    {{item.descripcion}}
+                </p>
+            </div>
+        </div>
+        
+        <mat-divider></mat-divider>
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-capitalize">
+        
+                <div class="row">
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                        <p>
+                            <b>km actual</b>
+                            <span class="text-capitalize">
+                                {{model.km_actual}}
+                            </span>
+                        </p>
+                        <p>
+                            <b>Prox cambio</b>
+                            <span class="text-capitalize">
+                                {{model.proximo_cambio}}
+                            </span>
+                        </p>
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                        <p>
+                            <b>fecha ingreso</b>
+                            <span class="text-capitalize">
+                                {{model.fecha_ingreso}}
+                            </span>
+                        </p>
+                        <p>
+                            <b>fecha salida</b>
+                            <span class="text-capitalize">
+                                {{model.fecha_salida}}
+                            </span>
+                        </p>
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                        <p>
+                            <b>pago</b>
+                            <span class="text-capitalize">
+                                {{model.pago}}
+                            </span>
+                        </p>
+                        <p>
+                            <b>responsable</b>
+                            <span class="text-capitalize">
+                                {{model.responsable}}
+                            </span>
+                        </p>
+                    </div>
+                </div>
+        
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+                <small class="text-center">
+                    Av. circunvalacion frente al cementerio "parque de las memorias"
+                    Telefonos: <br>
+                    4717408 <br>
+                    70749634
+                </small>
             </div>
         </div>
         

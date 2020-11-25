@@ -12,9 +12,12 @@ import { RouterModule } from '@angular/router';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
+import { DetalleRepuestoComponent } from './detalle-repuesto/detalle-repuesto.component';
+import { ManoObraComponent } from './mano-obra/mano-obra.component';
+import { EditComponent } from './edit/edit.component';
 
 @NgModule({
-  declarations: [MainComponent, CreateComponent, ShowComponent, ListComponent],
+  declarations: [MainComponent, CreateComponent, ShowComponent, ListComponent, DetalleRepuestoComponent, ManoObraComponent, EditComponent],
   imports: [
     CommonModule,
     OrdenRoutingModule,

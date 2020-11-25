@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { environment } from "../../../environments/environment";
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/data.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { LoginService } from 'src/app/login/login.service';
 import { User } from 'src/app/models/user';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-main-layout',
@@ -12,13 +12,13 @@ import { User } from 'src/app/models/user';
   styleUrls: ['./main-layout.component.scss']
 })
 export class MainLayoutComponent implements OnInit {
-  userData:User;
-  constructor(
-    public readonly router: Router, 
-    public dataService: DataService, 
-    public deviceService: DeviceDetectorService,
-    private loginService:LoginService) {
-    this.userData = new User;
+  userData: User;
+  constructor(public readonly router: Router,
+              public dataService: DataService, 
+              public deviceService: DeviceDetectorService,
+              private loginService: LoginService,
+              public title: Title) {
+    this.userData = new User();
     this.userData = loginService.getUser();
   }
 

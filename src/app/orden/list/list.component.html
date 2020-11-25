@@ -1,8 +1,12 @@
 <mat-card>
     <mat-card-header>
-        <mat-card-title>Ordenes</mat-card-title>
+        <mat-card-title>
+            <button mat-icon-button (click)="showSearch? showSearch = false:showSearch = true">
+                <mat-icon inactive class="md-inactive">search</mat-icon>
+            </button>
+        </mat-card-title>
         <div class="full-width text-right">
-            <a mat-flat-button color="primary" [routerLink]="['/ordenes/create']">
+            <a  *ngIf="userData.type === 1" mat-flat-button color="primary" [routerLink]="['/ordenes/create']">
                 <mat-icon>add</mat-icon>
                 Nuevo
             </a>
@@ -10,7 +14,7 @@
     </mat-card-header>
 
     <mat-card-content>
-        <form [formGroup]="formSearch" (ngSubmit)="list(true)" novalidate="">
+        <form *ngIf="showSearch" [formGroup]="formSearch" (ngSubmit)="list(true)" novalidate="">
             <div class="row">
                 <div class="col-xs-6 col-sm-2 col-md-2 col-lg-2">
                     <mat-form-field class="full-width">
@@ -25,6 +29,18 @@
                         <input type="text" matInput formControlName="placa" placeholder="placa" autocomplete="off">
                     </mat-form-field>
                 </div>
+                <div class="col-xs-6 col-sm-2 col-md-2 col-lg-2">
+                    <mat-form-field class="full-width">
+                        <mat-label>modelo</mat-label>
+                        <input type="text" matInput formControlName="modelo" placeholder="modelo" autocomplete="off">
+                    </mat-form-field>
+                </div>
+                <div class="col-xs-6 col-sm-2 col-md-2 col-lg-2">
+                    <mat-form-field class="full-width">
+                        <mat-label>color</mat-label>
+                        <input type="text" matInput formControlName="color" placeholder="color" autocomplete="off">
+                    </mat-form-field>
+                </div>
                 <div class="col-xs-6 col-sm-1 col-md-1 col-lg-1">
                     <div class="text-right">
                         <button mat-flat-button type="submit" #submitBtn class="ml-3" [disabled]="submitted">
@@ -36,11 +52,69 @@
             </div>
         </form>
 
-        <div class="table-responsive">
+        <div class="row d-block d-sm-block d-md-none d-lg-none d-xl-none">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <mat-card *ngFor="let element of ordenes" class="mt-2">
+                    <mat-card-content>
+                        <table class="full-width">
+                            <tbody>
+
+                                <tr>
+                                    <td colspan="2">
+                                        <img src="{{element.foto}}" alt="foto" *ngIf="element.foto"
+                                            class="foto-image-table-mobile">
+                                        <img src="/assets/img/car.png" alt="foto" *ngIf="!element.foto"
+                                            class="foto-image-table-mobile">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Propietario</strong> <br>
+                                        <strong>Vehiculo</strong> <br>
+                                        <strong>Placa</strong> <br>
+                                        <strong>Modelo</strong> <br>
+                                        <strong>Color</strong> <br>
+                                        <strong>Ano</strong> <br>
+                                        
+                                        <strong>Ingreso</strong> <br>
+                                    </td>
+                                    <td>
+                                        {{element.propietario}} <br>
+                                        {{element.vehiculo}} <br>
+                                        {{element.placa}} <br>
+                                        {{element.modelo}} <br>
+                                        {{element.color}} <br>
+                                        {{element.ano}} <br>
+                                        {{element.fecha_ingreso}} <br>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <strong>Solicitud de trabajo</strong> <br>
+                                        {{element.solicitud}} <br>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="text-right">
+                                        <button mat-button [routerLink]="['/ordenes/show']" [queryParams]="{id:element.id}"
+                                            matTooltip="Ver" aria-label="Ver" color="primary">
+                                            Ver
+                                            <mat-icon>keyboard_arrow_right</mat-icon>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+        
+        <div class="table-responsive d-none d-sm-none d-md-block d-lg-block d-xl-block">
             <table mat-table [dataSource]="ordenes" class="full-width table-hover">
                 <ng-container matColumnDef="nombre_completo">
                     <th mat-header-cell *matHeaderCellDef> Propietario</th>
-                    <td mat-cell *matCellDef="let element"> {{element.nombre_completo}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.propietario}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="vehiculo">

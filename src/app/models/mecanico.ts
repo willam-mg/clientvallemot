@@ -5,6 +5,7 @@ export class Mecanico {
     direccion: string;
     ci: string;
     email: string;
+    password: string;
     especialidad: string;
     fecha_ingreso: string;
     fecha_salida: string;

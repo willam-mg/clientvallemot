@@ -16,16 +16,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'pmadmin'`, () => {
+  it(`should have as title 'vallemotors'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('pmadmin');
+    expect(app.title).toEqual('vallemotors');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('pmadmin app is running!');
+    expect(compiled.querySelector('.content span').textContent).toContain('vallemotors app is running!');
   });
 });

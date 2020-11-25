@@ -1,0 +1,33 @@
+<div class="row row-mobile">
+    <div class="col-xs-12 col-sm-7 col-md-6 col-lg-6 mx-auto ">
+        <mat-card class="card-mobile">
+            <form [formGroup]="formModel" (ngSubmit)="onSubmit()" novalidate="">
+                <mat-card-content>
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Nombre</mat-label>
+                        <input type="text" matInput formControlName="nombre" placeholder="Nombre completo"
+                            autocomplete="off" required>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Precio</mat-label>
+                        <input type="number" min="0" step="1" matInput formControlName="precio" placeholder="Precio completo"
+                            autocomplete="off" required>
+                    </mat-form-field>
+                </mat-card-content>
+                <mat-card-actions>
+                    <div class="text-right">
+                        <button mat-button [routerLink]="['/repuestos']">
+                            <mat-icon>clear</mat-icon>
+                            Cerrar
+                        </button>
+                        <button mat-flat-button type="submit" color="primary" #submitBtn class="ml-3"
+                            [disabled]="submitted">
+                            <mat-icon>add</mat-icon>
+                            Registrar
+                        </button>
+                    </div>
+                </mat-card-actions>
+            </form>
+        </mat-card>
+    </div>
+</div>

@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormArray, FormControl, Validators } from '@angular/forms';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
-import { Mecanico } from 'src/app/models/mecanico';
+import { DeviceDetectorService } from 'ngx-device-detector';
+import { AccesorioService } from 'src/app/accesorio/accesorio.service';
+import { Accesorio } from 'src/app/models/accesorio';
 import { Orden } from 'src/app/models/orden';
 import { OrdenService } from '../orden.service';
 
@@ -15,21 +18,29 @@ import { OrdenService } from '../orden.service';
 export class CreateComponent implements OnInit {
   model: Orden;
   submitted: boolean;
-  // formModel: FormGroup;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   thirtyFormGroup: FormGroup;
+  accesorios: Array<Accesorio>;
 
-  constructor(private modelService: OrdenService, private router: Router, private _formBuilder: FormBuilder) {
-
+  constructor(private modelService: OrdenService,
+              private router: Router,
+              private formBuilder: FormBuilder,
+              private title: Title,
+              public deviceService: DeviceDetectorService,
+              private accesorioService: AccesorioService) {
+    this.title.setTitle('Nueva Orden');
+    this.getAccesorios();
   }
 
   ngOnInit() {
     this.submitted = false;
-    this.model = new Orden;
-    this.model.fecha = moment().format('YYYY-MM-DD');
+    this.model = new Orden();
+    const today = moment();
+    this.model.fecha = today.format('YYYY-MM-DD');
+    // this.model.fecha = new Date().toISOString().slice(0, 10);
 
-    this.firstFormGroup = this._formBuilder.group({
+    this.firstFormGroup = this.formBuilder.group({
       propietario: new FormControl(this.model.propietario, [
         Validators.required,
         Validators.maxLength(50)
@@ -38,14 +49,14 @@ export class CreateComponent implements OnInit {
         Validators.required,
         Validators.maxLength(50)
       ]),
-      fecha: new FormControl(this.model.fecha, [
+      fecha: new FormControl(new Date(), [
         Validators.required,
       ]),
       // firstCtrl: ['', Validators.required]
     });
 
 
-    this.secondFormGroup = this._formBuilder.group({
+    this.secondFormGroup = this.formBuilder.group({
       vehiculo: new FormControl(this.model.vehiculo, [
         Validators.required,
         Validators.maxLength(50)
@@ -66,19 +77,20 @@ export class CreateComponent implements OnInit {
       tanque: new FormControl(this.model.tanque, [
         Validators.maxLength(50)
       ]),
+      foto: new FormControl(this.model.foto),
     });
-    
-    
-    
-    this.thirtyFormGroup = this._formBuilder.group({
+    this.getAccesorios();
+    this.model.radio = true;
+    this.model.focos = true;
+    this.thirtyFormGroup = this.formBuilder.group({
       solicitud: new FormControl(this.model.solicitud, [
         Validators.required,
         Validators.maxLength(300)
       ]),
-      otros: new FormControl(this.model.otros, [
-        Validators.required,
+      estado_vehiculo_otros: new FormControl(this.model.estado_vehiculo_otros, [
         Validators.maxLength(300)
       ]),
+      // accesorios: this.formBuilder.array([true, false, true]),
       tapa_ruedas: new FormControl(this.model.tapa_ruedas),
       llanta_auxilio: new FormControl(this.model.llanta_auxilio),
       gata_hidraulica: new FormControl(this.model.gata_hidraulica),
@@ -96,55 +108,69 @@ export class CreateComponent implements OnInit {
     });
   }
 
+  onFileChange(event) {
+    let reader = new FileReader();
 
+    if (event.target.files && event.target.files.length) {
+      const [file] = event.target.files;
+      reader.readAsDataURL(file);
+
+      reader.onload = (e: any) => {
+        this.model.foto = e.target.result;
+        this.secondFormGroup.patchValue({
+          foto: reader.result
+        });
+      };
+    }
+  }
 
   onSubmit() {
     try {
       if ( this.firstFormGroup.invalid && this.secondFormGroup.invalid && this.thirtyFormGroup.invalid ) {
-        throw " Entrada de datos invalido ";
+        throw new Error('Entrada de datos invalido');
       }
       this.submitted = true;
       this.firstFormGroup.value.fecha = moment(this.firstFormGroup.value.fecha).format('YYYY-MM-DD');
-      let objToSend = {
-        'propietario': this.firstFormGroup.value.propietario,
-        'telefono': this.firstFormGroup.value.telefono,
-        'fecha': this.firstFormGroup.value.fecha,
-        'vehiculo': this.secondFormGroup.value.vehiculo,
-        'placa': this.secondFormGroup.value.placa,
-        'modelo': this.secondFormGroup.value.modelo,
-        'color': this.secondFormGroup.value.color,
-        'ano': this.secondFormGroup.value.ano,
-        'tanque': this.secondFormGroup.value.tanque,
-        'solicitud': this.thirtyFormGroup.value.solicitud,
-        'tapa_ruedas': this.thirtyFormGroup.value.tapa_ruedas,
-        'llanta_auxilio': this.thirtyFormGroup.value.llanta_auxilio,
-        'gata_hidraulica': this.thirtyFormGroup.value.gata_hidraulica,
-        'llave_cruz': this.thirtyFormGroup.value.llave_cruz,
-        'pisos': this.thirtyFormGroup.value.pisos,
-        'limpia_parabrisas': this.thirtyFormGroup.value.limpia_parabrisas,
-        'tapa_tanque': this.thirtyFormGroup.value.tapa_tanque,
-        'herramientas': this.thirtyFormGroup.value.herramientas,
-        'mangueras': this.thirtyFormGroup.value.mangueras,
-        'espejos': this.thirtyFormGroup.value.espejos,
-        'tapa_cubos': this.thirtyFormGroup.value.tapa_cubos,
-        'antena': this.thirtyFormGroup.value.antena,
-        'radio': this.thirtyFormGroup.value.radio,
-        'focos': this.thirtyFormGroup.value.focos,
-        'otros': this.thirtyFormGroup.value.otros,
-        'responsable': null,
-        'fecha_ingreso': this.firstFormGroup.value.fecha,
-        'fecha_salida': null,
-        'km_actual': null,
-        'proximo_cambio': null,
-        'pago': null,
-        'detalle_pago': null,
-        'estado': 0,
+      const objToSend = {
+        propietario: this.firstFormGroup.value.propietario,
+        telefono: this.firstFormGroup.value.telefono,
+        vehiculo: this.secondFormGroup.value.vehiculo,
+        placa: this.secondFormGroup.value.placa,
+        modelo: this.secondFormGroup.value.modelo,
+        color: this.secondFormGroup.value.color,
+        ano: this.secondFormGroup.value.ano,
+        foto: this.secondFormGroup.value.foto,
+
+        tanque: this.secondFormGroup.value.tanque,
+        solicitud: this.thirtyFormGroup.value.solicitud,
+        estado_vehiculo_otros: this.thirtyFormGroup.value.otros,
+
+        tapa_ruedas: this.thirtyFormGroup.value.tapa_ruedas,
+        llanta_auxilio: this.thirtyFormGroup.value.llanta_auxilio,
+        gata_hidraulica: this.thirtyFormGroup.value.gata_hidraulica,
+        llave_cruz: this.thirtyFormGroup.value.llave_cruz,
+        pisos: this.thirtyFormGroup.value.pisos,
+        limpia_parabrisas: this.thirtyFormGroup.value.limpia_parabrisas,
+        tapa_tanque: this.thirtyFormGroup.value.tapa_tanque,
+        herramientas: this.thirtyFormGroup.value.herramientas,
+        mangueras: this.thirtyFormGroup.value.mangueras,
+        espejos: this.thirtyFormGroup.value.espejos,
+        tapa_cubos: this.thirtyFormGroup.value.tapa_cubos,
+        antena: this.thirtyFormGroup.value.antena,
+        radio: this.thirtyFormGroup.value.radio,
+        focos: this.thirtyFormGroup.value.focos,
       };
       this.modelService.create(objToSend).subscribe(async data => {
         this.model = new Orden();
-        this.modelService.all(null, true).subscribe((data) => {
+        this.modelService.all(null, true).subscribe(() => {
           this.submitted = false;
-          this.router.navigate(['/ordenes']);
+          // this.router.navigate(['/ordenes']);
+          this.router.navigate(['/ordenes/show'], {
+            queryParams:
+            {
+              id: data.id
+            }
+          });
         });
       }, err => {
         this.submitted = false;
@@ -152,6 +178,20 @@ export class CreateComponent implements OnInit {
     } catch (error) {
       console.log(error);
     }
+  }
+
+  getAccesorios() {
+    this.accesorioService.all(null, true).subscribe(data => {
+      // this.submitted = false;
+      this.accesorios = data.data.map((item) => {
+        return {
+          id: item.id,
+          nombre: item.nombre,
+          checked: false
+        };
+      });
+      // this.notFound = true;
+    });
   }
 
 

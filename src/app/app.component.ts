@@ -9,9 +9,9 @@ import { LoginService } from './login/login.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'pmadmin';  
+  title = 'Vallemotors';  
 
-  constructor(private loginService:LoginService){
+  constructor(private loginService: LoginService){
 
   }
 

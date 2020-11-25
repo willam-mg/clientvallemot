@@ -4,16 +4,32 @@
     <mat-sidenav #drawer [mode]="deviceService.isMobile() ? 'over' : 'side'" [opened]="!deviceService.isMobile()">
       <mat-toolbar color="without-color">
         <mat-toolbar-row class="brand-sidebar">
-          <img src="/assets/img/color_logo.png" alt="" width="200" height="75" class="mt-4">
+          <img src="/assets/img/color_logo_dash.png" alt="" width="181" height="64" class="mt-2">
+          <button *ngIf="drawer.opened" mat-icon-button (click)="drawer.toggle()" class="d-none d-sm-none d-md-block d-lg-block d-xl-block">
+            <mat-icon>menu</mat-icon>
+          </button>
         </mat-toolbar-row>
       </mat-toolbar>
   
       <div class="text-center pt-2 pb-2">
         <div class="p-3">
-          <a [routerLink]="['/users/profile']">
+          <!-- <a [routerLink]="['/users/profile']">
             <img src="{{userData.foto}}" *ngIf="userData.foto" alt="foto" class="img-foto-sidebar">
             <img src="/assets/img/no-image-user.svg" *ngIf="!userData.foto" alt="foto" class="img-foto-sidebar">
-          </a>
+          </a> -->
+
+          <!-- <a > -->
+          <div class="container-profile-picture">
+            <!-- <img src="img_avatar.png" alt="Avatar" class="img-foto-sidebar" style="width:100%"> -->
+            <img src="{{userData.foto}}" *ngIf="userData.foto" alt="foto" class="img-foto-sidebar">
+            <img src="/assets/img/no-image-user.svg" *ngIf="!userData.foto" alt="foto" class="img-foto-sidebar">
+
+            <div class="middle">
+              <a [routerLink]="['/users/profile']" class="text">Editar</a>
+            </div>
+          </div>
+          <!-- </a> -->
+
         </div>
         <span class="mt-2">
           <span *ngIf="!userData">
@@ -30,18 +46,28 @@
           &nbsp;
           Inicio
         </a>
-        <a mat-list-item [routerLink]="['/users']" [routerLinkActive]="router.url=='/users'?'active-menu':''">
+        <a *ngIf="userData.type === 1" mat-list-item [routerLink]="['/users']" [routerLinkActive]="router.url=='/users'?'active-menu':''">
           <mat-icon class="pull-right">person</mat-icon>
           &nbsp;
-          Usuarios
+          Administradores
         </a>
-        <a mat-list-item [routerLink]="['/mecanicos']" [routerLinkActive]="router.url=='/mecanicos'?'active-menu':''">
-          <mat-icon class="pull-right">loupe</mat-icon>
+        <a *ngIf="userData.type === 1" mat-list-item [routerLink]="['/mecanicos']" [routerLinkActive]="router.url=='/mecanicos'?'active-menu':''">
+          <mat-icon class="pull-right">work</mat-icon>
           &nbsp;
           Mecanicos
         </a>
+        <!-- <a mat-list-item [routerLink]="['/accesorios']" [routerLinkActive]="router.url=='/accesorios'?'active-menu':''">
+          <mat-icon class="pull-right">work</mat-icon>
+          &nbsp;
+          Accesorios
+        </a> -->
+        <a *ngIf="userData.type === 1" mat-list-item [routerLink]="['/repuestos']" [routerLinkActive]="router.url=='/repuestos'?'active-menu':''">
+          <mat-icon class="pull-right">settings</mat-icon>
+          &nbsp;
+          Repuestos
+        </a>
         <a mat-list-item [routerLink]="['/ordenes']" [routerLinkActive]="router.url=='/ordenes'?'active-menu':''">
-          <mat-icon class="pull-right">face</mat-icon>
+          <mat-icon class="pull-right">insert_drive_file</mat-icon>
           &nbsp;
           ordenes
         </a>
@@ -54,25 +80,42 @@
     </mat-sidenav>
     <mat-sidenav-content>
       <div [className]="dataService.isLoading ? 'loading show-loading' : 'loading hide-loading'">
-        <mat-progress-bar mode="indeterminate">
+        <mat-progress-bar mode="indeterminate" color="accent">
         </mat-progress-bar>
       </div>
 
       <mat-toolbar class="fix-nav d-none d-sm-none d-md-block d-lg-block d-xl-block" role="heading" color="primary">
         <mat-toolbar-row>
-          <button mat-icon-button (click)="drawer.toggle()">
+          <!-- <button mat-icon-button (click)="drawer.toggle()">
+            <mat-icon>menu</mat-icon>
+          </button> -->
+          <button *ngIf="!drawer.opened" mat-icon-button (click)="drawer.toggle()">
             <mat-icon>menu</mat-icon>
           </button>
       
-          <div class="nav-spacer text-center">
-            <div class="d-block d-sm-block d-md-none d-lg-none d-xl-none">
-              <h2>Administración</h2>
+          <!-- title en desktop view -->
+          <div class="nav-spacer text-left">
+            <div class="d-none d-sm-none d-md-block d-lg-block d-xl-block">
+              <h2>{{title.getTitle()}}</h2>
             </div>
           </div>
       
-          <div class="nav-icon-right">
+          <div class="">
+            <!-- busador aun no implementado -->
+            <!-- <div class="search-toolbar">
+              <input class="form-control" type="text" matInput  placeholder="Buscar" autocomplete="off">
+            </div> -->
+            <!-- <mat-form-field  appearance="outline" class="full-width search-toolbar">
+              <mat-icon matSuffix class="sufix-icon"
+                title="buscar">
+                search
+              </mat-icon>
+            </mat-form-field> -->
+          </div>
+      <!-- Notificaciones no implementadas aun -->
+          <!-- <div class="nav-icon-right">
             <button mat-icon-button [matMenuTriggerFor]="profile">
-              <mat-icon>account_circle</mat-icon>
+              <mat-icon>notifications</mat-icon>
             </button>
             <mat-menu #profile [overlapTrigger]="false">
               <button mat-menu-item [routerLink]="['/users/profile']">
@@ -88,8 +131,44 @@
                 <span>Cerrar sessión</span>
               </button>
             </mat-menu>
+          </div> -->
+          
+          <div class="nav-icon-right">
+            <button mat-icon-button [matMenuTriggerFor]="profile">
+              <mat-icon>account_circle</mat-icon>
+            </button>
+            <mat-menu #profile [overlapTrigger]="false">
+              <button mat-menu-item [routerLink]="['/users/profile']">
+                <mat-icon>person</mat-icon>
+                <span>Mi perfil</span>
+              </button>
+              <button mat-menu-item [routerLink]="['/users/change-password']">
+                <mat-icon>lock</mat-icon>
+                <span>Cambiar password</span>
+              </button>
+              <button mat-menu-item (click)="onLoggedout()">
+                <mat-icon>exit_to_app</mat-icon>
+                <span>Cerrar sessión</span>
+              </button>
+            </mat-menu>
           </div>
       
+        </mat-toolbar-row>
+      </mat-toolbar>
+
+      <!-- heading in mobile -->
+      <mat-toolbar class="d-block d-sm-block d-md-none d-lg-none d-xl-none toolbar-mobile" role="heading" color="primary">
+        <mat-toolbar-row>
+
+          <button *ngIf="!drawer.opened" mat-icon-button (click)="drawer.toggle()">
+            <mat-icon>menu</mat-icon>
+          </button>
+      
+          <div class="nav-spacer text-center" style="left: -15px; position: relative;">
+            <div class="d-block d-sm-block d-md-none d-lg-none d-xl-none">
+              <h2>{{title.getTitle()}}</h2>
+            </div>
+          </div>
         </mat-toolbar-row>
       </mat-toolbar>
 
@@ -110,18 +189,24 @@
       <tbody>
         <tr>
           <td class="text-center">
-            <a mat-icon-button [routerLink]="['/mecanicos']" [color]="router.url=='/mecanicos'?'primary':''">
-              <mat-icon class="pull-right">loupe</mat-icon>
+            <a mat-icon-button [routerLink]="['/']" [color]="router.url=='/'?'primary':''">
+              <mat-icon class="pull-right">home</mat-icon>
             </a>
           </td>
           <td class="text-center">
             <a mat-icon-button [routerLink]="['/ordenes']" [color]="router.url=='/ordenes'?'primary':''">
-              <mat-icon class="pull-right">face</mat-icon>
+              <mat-icon class="pull-right">insert_drive_file</mat-icon>
             </a>
           </td>
-          <td class="text-center">
-            <a mat-icon-button [routerLink]="['/']" [color]="router.url=='/'?'primary':''">
-              <mat-icon class="pull-right">home</mat-icon>
+
+          <td class="text-center" *ngIf="userData.type === 1">
+            <a mat-icon-button [routerLink]="['/mecanicos']" [color]="router.url=='/mecanicos'?'primary':''">
+              <mat-icon class="pull-right">work</mat-icon>
+            </a>
+          </td>
+          <td class="text-center" *ngIf="userData.type === 1">
+            <a mat-icon-button [routerLink]="['/repuestos']" [color]="router.url=='/repuestos'?'primary':''">
+              <mat-icon class="pull-right">settings</mat-icon>
             </a>
           </td>
           <td class="text-center">

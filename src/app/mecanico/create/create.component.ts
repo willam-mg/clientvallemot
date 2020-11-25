@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { Mecanico } from 'src/app/models/mecanico';
@@ -17,7 +18,8 @@ export class CreateComponent implements OnInit {
   passwordIcon: string;
   passwordConfirmationIcon: string;
 
-  constructor(private modelService: MecanicoService, private router: Router) {
+  constructor(private modelService: MecanicoService, private router: Router, private title:Title) {
+    this.title.setTitle('Nuevo mecanico');
     this.submitted = false;
 
     this.model = new Mecanico;
@@ -37,6 +39,10 @@ export class CreateComponent implements OnInit {
         Validators.required,
       ]),
       email: new FormControl(this.model.email, [
+        Validators.required,
+      ]),
+      password: new FormControl(this.model.password, [
+        Validators.required,
       ]),
       especialidad: new FormControl(this.model.especialidad, [
       ]),

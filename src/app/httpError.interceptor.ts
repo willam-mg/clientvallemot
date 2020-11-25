@@ -66,26 +66,34 @@ export class HttpErrorInterceptor implements HttpInterceptor {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if (!window.navigator.onLine) {
-      const err = {
-        status: 0,
-        error: {
-          description: 'Verifique su conexion!'
-        },
-        message: 'No hay conexion a internet'
-      };
-      this.dataService.error = err;
-      this.dataService.errorMessage = err.message;
-      this.dataService.showMessageError();
-      return throwError(new HttpErrorResponse(err));
-    }else{
-      return next.handle(request)
-        .pipe(
-          // retry(1),
-          catchError(err => this.handleError(err)),
-          shareReplay()
-        );
-    }
+    //// verificar si tiene conexion a internet
+    // if (!window.navigator.onLine) {
+    //   const err = {
+    //     status: 0,
+    //     error: {
+    //       description: 'Verifique su conexion!'
+    //     },
+    //     message: 'No hay conexion a internet'
+    //   };
+    //   this.dataService.error = err;
+    //   this.dataService.errorMessage = err.message;
+    //   this.dataService.showMessageError();
+    //   return throwError(new HttpErrorResponse(err));
+    // }else{
+    //   return next.handle(request)
+    //     .pipe(
+    //       // retry(1),
+    //       catchError(err => this.handleError(err)),
+    //       shareReplay()
+    //     );  
+    // }
+
+    return next.handle(request)
+      .pipe(
+        // retry(1),
+        catchError(err => this.handleError(err)),
+        shareReplay()
+      );
     this.dataService.isLoading = false;
 
   }

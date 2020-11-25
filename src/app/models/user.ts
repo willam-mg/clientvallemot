@@ -4,6 +4,7 @@ export class User {
     player_id:string;
     foto:any;
     email:string;
+    type:number;
     password:string;
     password_confirmation:string;
     

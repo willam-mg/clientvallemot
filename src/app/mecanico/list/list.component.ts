@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { Mecanico } from 'src/app/models/mecanico';
 import { MecanicoService } from '../mecanico.service';
 
@@ -18,11 +19,14 @@ export class ListComponent implements OnInit {
     'especialidad',
     'telefono',
     'direccion',
+    'actions',
   ];
   filterSearch: Mecanico;
   formSearch: FormGroup;
+  showSearch: boolean;
 
-  constructor(public modelService: MecanicoService) {
+  constructor(public modelService: MecanicoService, private title: Title) {
+    this.title.setTitle('Mecanicos');
     this.mecanicos = [];
     this.notFound = false;
     this.submitted = false;
@@ -31,6 +35,7 @@ export class ListComponent implements OnInit {
       nombre_completo: new FormControl(this.filterSearch.nombre_completo, []),
       ci: new FormControl(this.filterSearch.ci, []),
     });
+    this.showSearch = false;
   }
 
   ngOnInit() {

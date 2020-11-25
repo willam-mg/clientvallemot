@@ -46,6 +46,31 @@ export class OrdenService {
       );
   }
 
+
+  public detalleCreate(body) {
+    return this.http.post(path + '/orden/detalle/create', body, httpHeaders)
+      .pipe(
+        tap((data: any) => {
+          return of(data);
+        }),
+        catchError((err) => {
+          return throwError(err);
+        }),
+      );
+  }
+  
+  public addManoObra(body) {
+    return this.http.post(path + '/orden/detalle/manoobra', body, httpHeaders)
+      .pipe(
+        tap((data: any) => {
+          return of(data);
+        }),
+        catchError((err) => {
+          return throwError(err);
+        }),
+      );
+  }
+
   public all(filterSearch = null, reload = false) {
     if (this.medicos && reload == false) {
       return of(this.medicos);
@@ -63,6 +88,20 @@ export class OrdenService {
       tap((data: any) => {
         this.medicos = data;
         this.page.setValues(data.current_page, data.total, data.per_page);
+        return of(data);
+      }),
+      catchError((err) => {
+        return throwError(err);
+      }),
+    );
+  }
+
+  public listRepuestos() {
+    return this.http.get(path + '/repuesto/all', {
+      headers: new HttpHeaders(environment.apiConfig.headers),
+      reportProgress: true
+    }).pipe(
+      tap((data: any) => {
         return of(data);
       }),
       catchError((err) => {
@@ -125,15 +164,27 @@ export class OrdenService {
     return htmlStr.join('\r\n');
   }
 
+  public update(id, body) {
+    return this.http.put(path + '/orden/update/' + id, body, httpHeaders)
+      .pipe(
+        tap((data: any) => {
+          return of(data);
+        }),
+        catchError((err) => {
+          return throwError(err);
+        }),
+      );
+  }
+
   /**
    * muestra una ventana emergente con 
    * la pantalla print abierta.
    * @param contenido 
    */
   public printInWindow(contenido: string) {
-    let printContents, popupWin;
-    printContents = document.getElementById(contenido).innerHTML;
-    popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto,fullscreen=yes,menubar=0', false);
+    // let printContents, popupWin;
+    const printContents = document.getElementById(contenido).innerHTML;
+    const popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto,fullscreen=yes,menubar=0', false);
     popupWin.document.open();
     const stylesHtml = this.getTagsHtml('style');
     // const linksHtml = this.getTagsHtml('link');
@@ -144,7 +195,6 @@ export class OrdenService {
         <head>
           <title>Print tab</title>
           ${stylesHtml}
-          <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         </head>
         <script>
           function imprimir(){

@@ -1,5 +1,9 @@
+import { DetalleManoObra } from './detalle-mano-obra';
+import { DetalleRepuesto } from './detalle-repuesto';
+import { EstadoVehiculo } from './estado-vehiculo';
+
 export class Orden {
-    id: any;
+    id: number;
     propietario: string;
     telefono: string;
     fecha: string;
@@ -26,8 +30,8 @@ export class Orden {
     radio: boolean;
     focos: boolean;
 
-    otros: string;
     responsable: string;
+    estado_vehiculo_otros: string;
     fecha_ingreso: string;
     fecha_salida: string;
     km_actual: string;
@@ -35,9 +39,13 @@ export class Orden {
     pago: string;
     detalle_pago: string;
     estado: string;
+    foto: string;
+    repuestos: Array<DetalleRepuesto>;
+    manosobra: Array<DetalleManoObra>;
+    estadoVehiculo: Array<EstadoVehiculo>;
 
     constructor() {
-        this.id = null;
+        this.id = 0;
         this.tapa_ruedas = false;
         this.llanta_auxilio = false;
         this.gata_hidraulica = false;

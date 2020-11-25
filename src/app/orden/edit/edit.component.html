@@ -1,0 +1,175 @@
+<div class="row row-mobile">
+    <div class="col-xs-12 col-sm-7 col-md-5 col-lg-5 mx-auto ">
+        <mat-card class="card-mobile">
+            <form [formGroup]="formModel" (ngSubmit)="onSubmit()" novalidate="">
+                <mat-card-content>
+                    <!-- first step -->
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Propietario</mat-label>
+                        <input type="text" matInput formControlName="propietario" placeholder="Propietario" autocomplete="off" required>
+                    </mat-form-field>
+                    
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>telefono</mat-label>
+                        <input type="number" min="0" step="1" matInput formControlName="telefono" placeholder="telefono" autocomplete="off"
+                            required>
+                    </mat-form-field>
+                    
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>fecha</mat-label>
+                        <input matInput [matDatepicker]="picker" formControlName="fecha" required>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+
+                    <!-- second step -->
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>vehiculo</mat-label>
+                        <input type="text" matInput formControlName="vehiculo" placeholder="vehiculo" autocomplete="off" required>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>placa</mat-label>
+                        <input type="text" matInput formControlName="placa" placeholder="placa" autocomplete="off" required>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>modelo</mat-label>
+                        <input type="text" matInput formControlName="modelo" placeholder="modelo" autocomplete="off">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>color</mat-label>
+                        <input type="text" matInput formControlName="color" placeholder="color" autocomplete="off">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Año</mat-label>
+                        <input type="text" matInput formControlName="ano" placeholder="ano" autocomplete="off">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Tanque</mat-label>
+                        <mat-select name="tanque" formControlName="tanque">
+                            <mat-option>--</mat-option>
+                            <mat-option [value]="1/4">
+                                1/4
+                            </mat-option>
+                            <mat-option [value]="1/2">
+                                1/2
+                            </mat-option>
+                            <mat-option [value]="3/4">
+                                3/4
+                            </mat-option>
+                            <mat-option value="Full">
+                                Full
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    
+                    <!-- thrity step -->
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>solicitud</mat-label>
+                        <textarea matInput formControlName="solicitud" placeholder="solicitud"></textarea>
+                    </mat-form-field>
+                    
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                            <mat-checkbox id="tapa_ruedas" class="tapa_ruedas" color="primary" formControlName="tapa_ruedas">tapa ruedas
+                            </mat-checkbox>
+                            <mat-checkbox id="llanta_auxilio" class="llanta_auxilio" color="primary" formControlName="llanta_auxilio">
+                                llanta_auxilio</mat-checkbox>
+                                <mat-checkbox id="gata_hidraulica" class="gata_hidraulica" color="primary" formControlName="gata_hidraulica">
+                                gata_hidraulica</mat-checkbox>
+                                <mat-checkbox id="llave_cruz" class="llave_cruz" color="primary" formControlName="llave_cruz">llave_cruz
+                                </mat-checkbox>
+                        </div>
+                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                            <mat-checkbox id="pisos" class="pisos" color="primary" formControlName="pisos">pisos</mat-checkbox>
+                            <mat-checkbox id="limpia_parabrisas" class="limpia_parabrisas" color="primary"
+                            formControlName="limpia_parabrisas">limpia_parabrisas</mat-checkbox>
+                            <mat-checkbox id="tapa_tanque" class="tapa_tanque" color="primary" formControlName="tapa_tanque">tapa_tanque
+                            </mat-checkbox>
+                            <mat-checkbox id="herramientas" class="herramientas" color="primary" formControlName="herramientas">herramientas
+                            </mat-checkbox>
+                        </div>
+                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                            <mat-checkbox id="mangueras" class="mangueras" color="primary" formControlName="mangueras">mangueras
+                            </mat-checkbox>
+                            <mat-checkbox id="espejos" class="espejos" color="primary" formControlName="espejos">espejos</mat-checkbox>
+                            <mat-checkbox id="tapa_cubos" class="tapa_cubos" color="primary" formControlName="tapa_cubos">tapa_cubos
+                            </mat-checkbox>
+                            <mat-checkbox id="antena" class="antena" color="primary" formControlName="antena">antena</mat-checkbox>
+                        </div>
+                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                            <mat-checkbox id="radio" class="radio" color="primary" formControlName="radio">radio</mat-checkbox>
+                            <mat-checkbox id="focos" class="focos" color="primary" formControlName="focos">focos</mat-checkbox>
+                            
+                        </div>
+                    </div>
+                    
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Otros</mat-label>
+                        <textarea matInput formControlName="estado_vehiculo_otros" placeholder="otros"></textarea>
+                    </mat-form-field>
+
+                    <mat-divider></mat-divider>
+                    
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>km_actual</mat-label>
+                        <input type="text" matInput formControlName="km_actual" placeholder="km_actual" autocomplete="off">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Proximo cambio</mat-label>
+                        <input matInput [matDatepicker]="picker1" formControlName="proximo_cambio">
+                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Pago</mat-label>
+                        <mat-select name="pago" formControlName="pago">
+                            <mat-option>--</mat-option>
+                            <mat-option [value]="'efectivo'">
+                                Efectivo
+                            </mat-option>
+                            <mat-option [value]="'cheque'">
+                                Cheque
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="full-width" *ngIf="formModel.value.pago == 'cheque'">
+                        <mat-label>Detalle pago</mat-label>
+                        <textarea matInput formControlName="detalle_pago" placeholder="detalle_pago"></textarea>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>estado</mat-label>
+                        <input type="text" matInput formControlName="estado" placeholder="estado" autocomplete="off">
+                    </mat-form-field>
+
+                    
+                    <div class="form-inline mt-1">
+                        <mat-label>Foto</mat-label>
+                        <p>
+                            <img src="{{model.foto}}" alt="foto" *ngIf="model.foto" class="foto-image-edit">
+                        </p>
+                        &nbsp;
+                        <button type="button" mat-raised-button (click)="inputFoto.click()" title="Seleccionar imagen">
+                            <mat-icon>attach_file</mat-icon>
+                            Seleccionar
+                        </button>
+                        <input hidden type="file" accept="image/*" #inputFoto (change)="onFileChange($event)" />
+                    </div>
+                    
+                </mat-card-content>
+                <mat-card-actions>
+                    <div class="text-right">
+                        <button mat-button [routerLink]="['/ordenes/show']" [queryParams]="{id:model.id}">
+                            <mat-icon>clear</mat-icon>
+                            Cerrar
+                        </button>
+                        <button mat-flat-button type="submit" color="primary" #submitBtn class="ml-3"
+                            [disabled]="submitted">
+                            <mat-icon>edit</mat-icon>
+                            Modificar
+                        </button>
+                    </div>
+                </mat-card-actions>
+            </form>
+        </mat-card>
+    </div>
+</div>

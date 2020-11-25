@@ -1,1 +1,92 @@
-<p>edit works!</p>
+<div class="row row-mobile">
+    <div class="col-xs-12 col-sm-7 col-md-5 col-lg-5 mx-auto ">
+        <mat-card class="card-mobile">
+            <mat-card-header>
+                <mat-card-title>Modificar mecanico</mat-card-title>
+            </mat-card-header>
+            <form [formGroup]="formModel" (ngSubmit)="onSubmit()" novalidate="">
+                <mat-card-content>
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Nombre completo</mat-label>
+                        <input type="text" matInput formControlName="nombre_completo" placeholder="Nombre completo" autocomplete="off"
+                            required>
+                    </mat-form-field>
+                    
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>telefono</mat-label>
+                        <input type="number" min="0" step="1" matInput formControlName="telefono" placeholder="telefono" autocomplete="off">
+                    </mat-form-field>
+                    
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>direccion</mat-label>
+                        <textarea matInput formControlName="direccion" placeholder="direccion"></textarea>
+                    </mat-form-field>
+                    
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>ci</mat-label>
+                        <input type="number" min="0" step="1" matInput formControlName="ci" placeholder="ci" autocomplete="off" required>
+                    </mat-form-field>
+                    
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>email</mat-label>
+                        <input matInput formControlName="email" placeholder="email" autocomplete="off">
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>especialidad</mat-label>
+                        <input matInput formControlName="especialidad" placeholder="especialidad" autocomplete="off">
+                    </mat-form-field>
+                    
+                    
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                            <mat-form-field appearance="outline" class="full-width">
+                                <mat-label>fecha_ingreso</mat-label>
+                                <input matInput [matDatepicker]="picker" formControlName="fecha_ingreso">
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                            <mat-form-field appearance="outline" class="full-width">
+                                <mat-label>fecha_salida</mat-label>
+                                <input matInput [matDatepicker]="picker1" formControlName="fecha_salida">
+                                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                <mat-datepicker #picker1></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    
+                    
+                    
+                    <div class="form-inline mt-1">
+                        <mat-label>Foto</mat-label>
+                        <p>
+                            <img src="{{model.foto}}" alt="foto" *ngIf="model.foto" class="foto-image-edit">
+                        </p>
+                        &nbsp;
+                        <button type="button" mat-raised-button (click)="inputFoto.click()" title="Seleccionar imagen">
+                            <mat-icon>attach_file</mat-icon>
+                            Seleccionar
+                        </button>
+                        <input hidden type="file" accept="image/*" #inputFoto (change)="onFileChange($event)" />
+                    </div>
+
+                </mat-card-content>
+                <mat-card-actions>
+                    <div class="text-right">
+                        <button mat-button [routerLink]="['/mecanicos/show']" [queryParams]="{id:model.id}">
+                            <mat-icon>clear</mat-icon>
+                            Cerrar
+                        </button>
+                        <button mat-flat-button type="submit" color="primary" #submitBtn class="ml-3"
+                            [disabled]="submitted">
+                            <mat-icon>edit</mat-icon>
+                            Modificar
+                        </button>
+                    </div>
+                </mat-card-actions>
+            </form>
+        </mat-card>
+    </div>
+</div>

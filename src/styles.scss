@@ -1,13 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 // @import '~bootstrap/scss/bootstrap';
 // @import '~bootstrap/scss/bootstrap-reboot';
+// @import '~material-icons/iconfont/material-icons.css';
+@import '~material-design-icons/iconfont/material-icons.css';
 @import '~bootstrap/scss/functions';
 @import '~bootstrap/scss/variables';
 @import '~bootstrap/scss/mixins';
 @import '~bootstrap/scss/utilities';
 @import '~bootstrap/scss/tables';
 @import '~bootstrap/scss/bootstrap-grid';
-
+// @import '@angular/material/prebuilt-themes/pink-bluegrey.css';
 
 html, body { 
   height: 100%; 
@@ -18,7 +20,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 @media only screen and (max-width: 600px) {
   body {
     // background: #f1eeee;
-    background: #f5f5f5;
+    // background: #2b3e68;
+    // background: #f5f5f5;
+    background: #fafafa;
+    // background: #f5f5f5;
+    // background: #ffffff;
+    // background-color: #f5f5f5;
+        
+
   }
 }
 
@@ -54,6 +63,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   height: 40px;
   border-radius: 50%;
   box-shadow: #000000 0px 0px 1px 0px;
+}
+.foto-image-table-mobile {
+  width: 100%;
+  height: auto;
+  // border-radius: 50%;
+  // box-shadow: #000000 0px 0px 1px 0px;
 }
 
 $sizeImageDesktop:14vw;
@@ -126,10 +141,15 @@ $sizeImageMobile:70vw;
   .row-mobile{
     margin-left: 0 !important;
     margin-right: 0 !important;
+    .mx-auto{
+      padding-left: 0;
+      padding-right: 0;
+    }
   }
   .card-mobile{
     background: #fafafa !important;
     box-shadow: none !important;
+    padding: 0;
   }
 
   // .toolbar-fixed{
@@ -144,7 +164,7 @@ $sizeImageMobile:70vw;
     bottom: 0;
   }
   .content{
-    // margin-top: 3.5rem;
+    margin-top: 3.5rem;
     // margin-bottom: 3.5rem;
     // margin-bottom: 4rem !important;
     // padding-bottom: 2rem !important;

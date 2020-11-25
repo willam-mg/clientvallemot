@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { User } from 'src/app/models/user';
 import { UserService } from '../user.service';
 import { FormGroup, FormControl } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-list',
@@ -20,14 +21,17 @@ export class ListComponent implements OnInit {
   ];
   filterSearch: User;
   formSearch: FormGroup;
+  showSearch:boolean;
 
-  constructor(public userService: UserService) { 
+  constructor(public userService: UserService, private title: Title) { 
+    this.title.setTitle('Administradores');
     this.filterSearch = new User();
     this.formSearch = new FormGroup({
       nombre_completo: new FormControl(this.filterSearch.nombre_completo, []),
       email: new FormControl(this.filterSearch.email, []),
     });
     this.submitted = false;
+    this.showSearch= false;
   }
   
   ngOnInit() {

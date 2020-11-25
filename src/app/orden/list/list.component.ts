@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
+import { LoginService } from 'src/app/login/login.service';
 import { Orden } from 'src/app/models/orden';
+import { User } from 'src/app/models/user';
 import { OrdenService } from '../orden.service';
 
 @Component({
@@ -31,8 +34,12 @@ export class ListComponent implements OnInit {
   ];
   filterSearch: Orden;
   formSearch: FormGroup;
+  userData: User;
+  showSearch: boolean;
 
-  constructor(public modelService: OrdenService) {
+  constructor(public modelService: OrdenService, private title: Title, public loginService:LoginService) {
+    this.userData = loginService.getUser();
+    this.title.setTitle('Ordenes');
     this.ordenes = [];
     this.notFound = false;
     this.submitted = false;
@@ -40,7 +47,10 @@ export class ListComponent implements OnInit {
     this.formSearch = new FormGroup({
       propietario: new FormControl(this.filterSearch.propietario, []),
       placa: new FormControl(this.filterSearch.placa, []),
+      modelo: new FormControl(this.filterSearch.modelo, []),
+      color: new FormControl(this.filterSearch.color, []),
     });
+    this.showSearch = false;
   }
 
   ngOnInit() {

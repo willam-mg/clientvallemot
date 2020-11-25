@@ -32,6 +32,18 @@ const routes: Routes = [
     loadChildren: () => import('./orden/orden.module').then(m => m.OrdenModule),
     canActivate: [AuthGuard]
   },
+  {
+    path: 'repuestos',
+    component: MainLayoutComponent,
+    loadChildren: () => import('./repuesto/repuesto.module').then(m => m.RepuestoModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'accesorios',
+    component: MainLayoutComponent,
+    loadChildren: () => import('./accesorio/accesorio.module').then(m => m.AccesorioModule),
+    canActivate: [AuthGuard]
+  },
   // {
   //   path: 'medicamentos',
   //   component: MainLayoutComponent,
