@@ -1,44 +1,24 @@
-<!-- <table class="full-width" style="background-color: #dac1ba;">
-    <tbody>
-        <tr>
-            <td>
-                <button mat-button [routerLink]="[ '/ordenes']">
-                    <mat-icon>clear</mat-icon>
-                    Cerrar
-                </button>
-                <button mat-button (click)="elminar()" color="warn">
-                                    <mat-icon>delete</mat-icon>
-                                    Eliminar
-                                </button>
-            </td>
-            <td>
-                <button mat-flat-button [routerLink]="[ '/ordenes/edit']" [queryParams]="{id:model.id}">
-                    <mat-icon>edit</mat-icon>
-                    Modificar
-                </button>
-            </td>
-            <td>
-                <button mat-flat-button color="primary" (click)="printOrden()">
-                    <mat-icon>print</mat-icon>
-                    Imprimir
-                </button>
-            </td>
-            <td>
-                <button mat-flat-button color="cyan" (click)="printOrdenSalida()">
-                    <mat-icon>print</mat-icon>
-                    Imprimir <br>
-                    salida
-                </button>
-            </td>
-        </tr>
-    </tbody>
-</table> -->
 <div class="row row-mobile">
 <!-- <div class="row row-mobile" style="display: none;"> -->
     <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 mx-auto">
         <mat-card class="card-mobile">
             <img mat-card-image src="{{model.foto}}" alt="foto" *ngIf="model.foto">
             <mat-card-content>
+                
+                
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+                        <mat-chip-list aria-label="Fish selection">
+                            <mat-chip *ngIf="model.estado == 1">
+                                <mat-icon>done</mat-icon>
+                                Terminado
+                            </mat-chip>
+                            <mat-chip color="accent" *ngIf="model.estado == 0">Pendiente</mat-chip>
+                        
+                        </mat-chip-list>
+                    </div>
+                </div>
+                
 
                 <div class="row">
 
@@ -143,115 +123,12 @@
 
                 <mat-divider></mat-divider>
 
-                <div class="row mt-4">
-                    <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
-                        <div class="form-control">
-                            <mat-icon *ngIf="model.tapa_ruedas">radio_button_checked</mat-icon>
-                            <mat-icon *ngIf="!model.tapa_ruedas">radio_button_unchecked</mat-icon>
-                            <span style="top:-10px; position:relative">
-                                tapa de ruedas
-                            </span>
-                        </div>
-                        <div class="form-control">
-                            <mat-icon *ngIf="model.llanta_auxilio">radio_button_checked</mat-icon>
-                            <mat-icon *ngIf="!model.llanta_auxilio">radio_button_unchecked</mat-icon>
-                            <span style="top:-10px; position:relative">
-                                llanta_auxilio
-                            </span>
-                        </div>
-                        <div class="form-control">
-                            <mat-icon *ngIf="model.gata_hidraulica">radio_button_checked</mat-icon>
-                            <mat-icon *ngIf="!model.gata_hidraulica">radio_button_unchecked</mat-icon>
-                            <span style="top:-10px; position:relative">
-                                gata_hidraulica
-                            </span>
-                        </div>
-                        <div class="form-control">
-                            <mat-icon *ngIf="model.llave_cruz">radio_button_checked</mat-icon>
-                            <mat-icon *ngIf="!model.llave_cruz">radio_button_unchecked</mat-icon>
-                            <span style="top:-10px; position:relative">
-                                llave_cruz
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
-                        <div class="form-control">
-                            <mat-icon *ngIf="model.pisos">radio_button_checked</mat-icon>
-                            <mat-icon *ngIf="!model.pisos">radio_button_unchecked</mat-icon>
-                            <span style="top:-10px; position:relative">
-                                pisos
-                            </span>
-                        </div>
-                        <div class="form-control">
-                            <mat-icon *ngIf="model.limpia_parabrisas">radio_button_checked</mat-icon>
-                            <mat-icon *ngIf="!model.limpia_parabrisas">radio_button_unchecked</mat-icon>
-                            <span style="top:-10px; position:relative">
-                                limpia_parabrisas
-                            </span>
-                        </div>
-                        <div class="form-control">
-                            <mat-icon *ngIf="model.tapa_tanque">radio_button_checked</mat-icon>
-                            <mat-icon *ngIf="!model.tapa_tanque">radio_button_unchecked</mat-icon>
-                            <span style="top:-10px; position:relative">
-                                tapa_tanque
-                            </span>
-                        </div>
-                        <div class="form-control">
-                            <mat-icon *ngIf="model.herramientas">radio_button_checked</mat-icon>
-                            <mat-icon *ngIf="!model.herramientas">radio_button_unchecked</mat-icon>
-                            <span style="top:-10px; position:relative">
-                                herramientas
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
-                        <div class="form-control">
-                            <mat-icon *ngIf="model.mangueras">radio_button_checked</mat-icon>
-                            <mat-icon *ngIf="!model.mangueras">radio_button_unchecked</mat-icon>
-                            <span style="top:-10px; position:relative">
-                                mangueras
-                            </span>
-                        </div>
-                        <div class="form-control">
-                            <mat-icon *ngIf="model.espejos">radio_button_checked</mat-icon>
-                            <mat-icon *ngIf="!model.espejos">radio_button_unchecked</mat-icon>
-                            <span style="top:-10px; position:relative">
-                                espejos
-                            </span>
-                        </div>
-                        <div class="form-control">
-                            <mat-icon *ngIf="model.tapa_cubos">radio_button_checked</mat-icon>
-                            <mat-icon *ngIf="!model.tapa_cubos">radio_button_unchecked</mat-icon>
-                            <span style="top:-10px; position:relative">
-                                tapa_cubos
-                            </span>
-                        </div>
-                        <div class="form-control">
-                            <mat-icon *ngIf="model.antena">radio_button_checked</mat-icon>
-                            <mat-icon *ngIf="!model.antena">radio_button_unchecked</mat-icon>
-                            <span style="top:-10px; position:relative">
-                                antena
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
-                        <div class="form-control">
-                            <mat-icon *ngIf="model.radio">radio_button_checked</mat-icon>
-                            <mat-icon *ngIf="!model.radio">radio_button_unchecked</mat-icon>
-                            <span style="top:-10px; position:relative">
-                                radio
-                            </span>
-                        </div>
-                        <div class="form-control">
-                            <mat-icon *ngIf="model.focos">radio_button_checked</mat-icon>
-                            <mat-icon *ngIf="!model.focos">radio_button_unchecked</mat-icon>
-                            <span style="top:-10px; position:relative">
-                                focos
-                            </span>
-                        </div>
-                
-                    </div>
-                </div>
+                <!-- estado vehiculo -->
+                <mat-selection-list #estadoVehiculoSeleccionado>
+                    <mat-list-option *ngFor="let element of accesorios" [value]="element" [selected]="element.checked" disabled>
+                        {{element.nombre}}
+                    </mat-list-option>
+                </mat-selection-list>
 
                 <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
@@ -314,8 +191,58 @@
                 
 
             </mat-card-content>
-            <mat-card-actions class="text-right">
-                <button mat-button [routerLink]="[ '/ordenes']">
+            <mat-card-actions class="text-center">
+                <button mat-flat-button class="full-width mt-3" color="accent" [routerLink]="[ '/ordenes/edit']" [queryParams]="{id:model.id}">
+                    <mat-icon>edit</mat-icon>
+                    Modificar
+                </button>
+                <button mat-flat-button class="full-width mt-3" color="primary" (click)="printOrden()">
+                    <mat-icon>print</mat-icon>
+                    Imprimir
+                </button>
+                <button mat-flat-button class="full-width mt-3 mb-5" color="cyan" (click)="printOrdenSalida()">
+                    <mat-icon>print</mat-icon>
+                    Imprimir salida
+                </button>
+                <!-- <table class="full-width" style="background-color: #dac1ba;">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <button mat-button [routerLink]="[ '/ordenes']">
+                                    <mat-icon>clear</mat-icon>
+                                    Cerrar
+                                </button>
+                                <button mat-button (click)="elminar()" color="warn">
+                                                    <mat-icon>delete</mat-icon>
+                                                    Eliminar
+                                                </button>
+                            </td>
+                            <td>
+                                <button mat-flat-button [routerLink]="[ '/ordenes/edit']" [queryParams]="{id:model.id}">
+                                    <mat-icon>edit</mat-icon>
+                                    Modificar
+                                </button>
+                            </td>
+                            <td>
+                                <button mat-flat-button color="primary" (click)="printOrden()">
+                                    <mat-icon>print</mat-icon>
+                                    Imprimir
+                                </button>
+                            </td>
+                            <td>
+                                <button mat-flat-button color="cyan" (click)="printOrdenSalida()">
+                                    <mat-icon>print</mat-icon>
+                                    Imprimir <br>
+                                    salida
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table> -->
+
+
+
+                <button mat-button [routerLink]="[ '/ordenes']" class="d-none d-sm-none d-md-block d-lg-block d-xl-block">
                     <mat-icon>clear</mat-icon>
                     Cerrar
                 </button>

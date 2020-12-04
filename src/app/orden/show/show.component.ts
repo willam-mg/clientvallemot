@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AccesorioService } from 'src/app/accesorio/accesorio.service';
 import { DataService } from 'src/app/data.service';
+import { Accesorio } from 'src/app/models/accesorio';
 import { DetalleRepuesto } from 'src/app/models/detalle-repuesto';
 import { Orden } from 'src/app/models/orden';
 import { Repuesto } from 'src/app/models/repuesto';
@@ -21,6 +23,7 @@ export class ShowComponent implements OnInit {
   model: Orden;
   repuestos: Array<DetalleRepuesto>;
   totalRepuestos: number;
+  accesorios: Array<Accesorio>;
 
   constructor(
     private route: ActivatedRoute,
@@ -29,7 +32,8 @@ export class ShowComponent implements OnInit {
     private router: Router,
     private dataService: DataService,
     private title: Title,
-    private navigationService: NavigationService) {
+    private navigationService: NavigationService,
+    private accesoriosService: AccesorioService) {
     this.navigationService.setBack('/ordenes');
     this.repuestos = [];
     this.totalRepuestos = 0;
@@ -52,6 +56,21 @@ export class ShowComponent implements OnInit {
     this.modelService.show(this.id).subscribe(data => {
       console.log(data);
       this.model = data;
+      // accesorios
+      this.accesoriosService.todos().subscribe( (dataAccesorios) => {
+        this.accesorios = dataAccesorios.map(element => {
+          const ez = this.model.estadoVehiculo.some(item => {
+            return item.accesorio_id == element.id;
+          });
+          return {
+            id: element.id,
+            nombre: element.nombre,
+            checked: ez,
+          };
+        });
+      });
+
+      // calcular el total de repuestos
       this.repuestos = this.model.repuestos;
       this.repuestos.forEach(element => {
         this.totalRepuestos += element.precio;

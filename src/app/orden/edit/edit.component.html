@@ -68,7 +68,7 @@
                         <textarea matInput formControlName="solicitud" placeholder="solicitud"></textarea>
                     </mat-form-field>
                     
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
                             <mat-checkbox id="tapa_ruedas" class="tapa_ruedas" color="primary" formControlName="tapa_ruedas">tapa ruedas
                             </mat-checkbox>
@@ -101,7 +101,7 @@
                             <mat-checkbox id="focos" class="focos" color="primary" formControlName="focos">focos</mat-checkbox>
                             
                         </div>
-                    </div>
+                    </div> -->
                     
                     <mat-form-field appearance="outline" class="full-width">
                         <mat-label>Otros</mat-label>
@@ -137,8 +137,15 @@
                         <textarea matInput formControlName="detalle_pago" placeholder="detalle_pago"></textarea>
                     </mat-form-field>
                     <mat-form-field appearance="outline" class="full-width">
-                        <mat-label>estado</mat-label>
-                        <input type="text" matInput formControlName="estado" placeholder="estado" autocomplete="off">
+                        <mat-label>Estado</mat-label>
+                        <mat-select name="estado" formControlName="estado">
+                            <mat-option [value]="0">
+                                Pendiente
+                            </mat-option>
+                            <mat-option [value]="1">
+                                Terminado
+                            </mat-option>
+                        </mat-select>
                     </mat-form-field>
 
                     

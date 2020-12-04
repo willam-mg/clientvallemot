@@ -32,6 +32,7 @@ import { EditComponent } from './edit/edit.component';
 import { AccesoriosComponent } from './shared/accesorios/accesorios.component';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatChipsModule } from '@angular/material/chips';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatCheckboxModule,
     MatSelectModule,
     MatBottomSheetModule,
-    MatDialogModule
+    MatDialogModule,
+    MatChipsModule
   ],
   entryComponents: [
     AccesoriosComponent
