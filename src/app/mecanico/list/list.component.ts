@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Mecanico } from 'src/app/models/mecanico';
+import { NavigationService } from 'src/app/shared/services/navigation.service';
 import { MecanicoService } from '../mecanico.service';
 
 @Component({
@@ -25,7 +26,11 @@ export class ListComponent implements OnInit {
   formSearch: FormGroup;
   showSearch: boolean;
 
-  constructor(public modelService: MecanicoService, private title: Title) {
+  constructor(
+    public modelService: MecanicoService, 
+    private title: Title, 
+    private navigationService: NavigationService) {
+    this.navigationService.setBack('/');
     this.title.setTitle('Mecanicos');
     this.mecanicos = [];
     this.notFound = false;

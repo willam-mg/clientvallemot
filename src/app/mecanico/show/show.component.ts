@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from 'src/app/data.service';
 import { Mecanico } from 'src/app/models/mecanico';
 import { AlertComponent } from 'src/app/shared/alert/alert.component';
+import { NavigationService } from 'src/app/shared/services/navigation.service';
 import { MecanicoService } from '../mecanico.service';
 
 @Component({
@@ -20,7 +21,9 @@ export class ShowComponent implements OnInit {
     private modelService: MecanicoService,
     public dialog: MatDialog,
     private router: Router,
-    private dataService: DataService) {
+    private dataService: DataService,
+    private navigationService: NavigationService) {
+    this.navigationService.setBack('/mecanicos');
   }
 
   ngOnInit() {

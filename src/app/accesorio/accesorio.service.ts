@@ -1,6 +1,6 @@
 import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { of, throwError } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Accesorio } from '../models/accesorio';
@@ -19,9 +19,11 @@ const path = environment.apiConfig.path;
 })
 export class AccesorioService {
   accesorios: any;
+  todosAccesorios: Array<Accesorio>;
   page: Page;
   constructor(private http: HttpClient) {
     this.page = new Page();
+    this.todosAccesorios = [];
   }
 
   public getLocalItem(id: number) {
@@ -69,6 +71,23 @@ export class AccesorioService {
       catchError((err) => {
         return throwError(err);
       }),
+    );
+  }
+
+  public todos(reload = false): Observable<Accesorio[]> {
+    if (this.todosAccesorios.length && reload === false) {
+      console.log('retornando lo que ya existe');
+      return of(this.todosAccesorios);
+    }
+
+    return this.http.get(path + '/accesorio/todos', {
+      headers: new HttpHeaders(environment.apiConfig.headers)
+    }).pipe(
+      tap((data: any) => {
+        this.todosAccesorios = data;
+        console.log('todosAccesorios',  this.todosAccesorios);
+        return of(data);
+      })
     );
   }
 

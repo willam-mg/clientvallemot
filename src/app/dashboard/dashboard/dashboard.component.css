@@ -58,3 +58,33 @@
         background: #2b3e68;
     }
 }
+
+.td-menu-mobile{
+    width: 70px;
+    height: 80px;
+}
+.button-menu-mobile{
+    position: relative;
+    width: 40vw;
+    height: 40vw;
+    border-radius: 5px 20px 5px;
+    border: 1px solid green;
+    padding: 16vw 2vw 16vw;
+    margin: 0 auto;
+    display: block;
+    text-decoration: none;
+    color: green;
+}
+.button-menu-mobile > span{
+    position: relative;
+    top: -7px;
+    text-decoration: none;
+}
+.title-baner{
+    color: white;
+    position: absolute;
+    top: 51px;
+    font-weight: lighter;
+    left: 26px;
+    font-size: 25px;
+}

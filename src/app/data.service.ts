@@ -5,36 +5,48 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   providedIn: 'root'
 })
 export class DataService {
-  public loadingPercent:number = 10;
-  public isLoading:boolean = false;
-  public error:any;
-  public errorMessage:string = '';
-  public errorErrors:string = null;
-  constructor(private _snackBar: MatSnackBar) { 
-    this.isLoading = false;
+  public loadingPercent: number;
+  public isLoading: boolean;
+  public error: any;
+  public errorMessage: string;
+  public errorErrors: string;
+  constructor(private snackBar: MatSnackBar) {
+    this.loadingPercent = 10;
+    // this.isLoading = false;
+    this.errorMessage = '';
   }
 
-  public getStringErrors(){
+  public getStringErrors() {
     let message = '';
-    console.log(this.errorErrors);
-    for (const property in (this.errorErrors as any)) {
-      // message += `${property}: ${this.errorErrors[property][0]} \n `;
+    for (const property of (this.errorErrors as any) ) {
       message += `${this.errorErrors[property][0]} `;
     }
     return message;
   }
 
   public showMessageError(){
-    let errMessage = this.errorErrors ? this.getStringErrors() : this.errorMessage;
+    const errMessage = this.errorErrors ? this.getStringErrors() : this.errorMessage;
     this.openSnackBar(errMessage, 'Cerrar');
     console.log(this.error);
   }
 
   public openSnackBar(message: string, action: string) {
-    return this._snackBar.open(message, action, {
+    return this.snackBar.open(message, action, {
       duration: 10000,
       horizontalPosition: 'center',
       verticalPosition: 'top',
     });
+  }
+
+  public showLoading() {
+    this.isLoading = true;
+  }
+
+  public hideLoading() {
+    this.isLoading = false;
+  }
+
+  public getIsloading(){
+    return this.isLoading;
   }
 }

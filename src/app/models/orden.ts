@@ -38,7 +38,7 @@ export class Orden {
     proximo_cambio: string;
     pago: string;
     detalle_pago: string;
-    estado: string;
+    estado: number;
     foto: string;
     repuestos: Array<DetalleRepuesto>;
     manosobra: Array<DetalleManoObra>;

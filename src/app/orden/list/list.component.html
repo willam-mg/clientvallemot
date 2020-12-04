@@ -52,62 +52,79 @@
             </div>
         </form>
 
-        <div class="row d-block d-sm-block d-md-none d-lg-none d-xl-none">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <mat-card *ngFor="let element of ordenes" class="mt-2">
+        <!-- <div class="row d-block d-sm-block d-md-none d-lg-none d-xl-none"> -->
+        <div class="d-block d-sm-block d-md-none d-lg-none d-xl-none">
+            <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> -->
+                <mat-card *ngFor="let element of ordenes" class="mt-4">
+                    <img mat-card-image src="{{element.foto}}" alt="foto" *ngIf="element.foto" class="foto-image-table-mobile">
+                    <img mat-card-image src="/assets/img/car.png" alt="foto" *ngIf="!element.foto" class="foto-image-table-mobile bakground-grey">
                     <mat-card-content>
                         <table class="full-width">
                             <tbody>
 
                                 <tr>
                                     <td colspan="2">
-                                        <img src="{{element.foto}}" alt="foto" *ngIf="element.foto"
-                                            class="foto-image-table-mobile">
-                                        <img src="/assets/img/car.png" alt="foto" *ngIf="!element.foto"
-                                            class="foto-image-table-mobile">
+                                        
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <strong>Propietario</strong> <br>
-                                        <strong>Vehiculo</strong> <br>
-                                        <strong>Placa</strong> <br>
-                                        <strong>Modelo</strong> <br>
-                                        <strong>Color</strong> <br>
-                                        <strong>Ano</strong> <br>
-                                        
-                                        <strong>Ingreso</strong> <br>
+                                        Propietario <br>
+                                        Vehiculo <br>
+                                        Placa <br>
+                                        Modelo <br>
+                                        Color <br>
+                                        Ano <br>
+                                        Ingreso <br>
                                     </td>
-                                    <td>
-                                        {{element.propietario}} <br>
-                                        {{element.vehiculo}} <br>
-                                        {{element.placa}} <br>
-                                        {{element.modelo}} <br>
-                                        {{element.color}} <br>
-                                        {{element.ano}} <br>
-                                        {{element.fecha_ingreso}} <br>
+                                    <td class="text-right">
+                                        <strong>
+                                            {{element.propietario}}
+                                        </strong> <br>
+                                        <strong>
+                                            {{element.vehiculo}}
+                                        </strong> <br>
+                                        <strong>
+                                            {{element.placa}}
+                                        </strong> <br>
+                                        <strong>
+                                            {{element.modelo}}
+                                        </strong> <br>
+                                        <strong>
+                                            {{element.color}}
+                                        </strong> <br>
+                                        <strong>
+                                            {{element.ano}}
+                                        </strong> <br>
+                                        <strong>
+                                            {{element.fecha_ingreso}}
+                                        </strong> <br>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td colspan="2">
-                                        <strong>Solicitud de trabajo</strong> <br>
+                                        <strong>Problema del vehiculo</strong> <br>
                                         {{element.solicitud}} <br>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td colspan="2" class="text-right">
-                                        <button mat-button [routerLink]="['/ordenes/show']" [queryParams]="{id:element.id}"
-                                            matTooltip="Ver" aria-label="Ver" color="primary">
-                                            Ver
-                                            <mat-icon>keyboard_arrow_right</mat-icon>
-                                        </button>
+                                        
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                     </mat-card-content>
+                    <mat-divider></mat-divider>
+                    <mat-card-actions>
+                        <a href="#" mat-button [routerLink]="['/ordenes/show']" [queryParams]="{id:element.id}" matTooltip="Ver" aria-label="Ver"
+                            color="primary" class="full-width text-left">
+                            Ver orden de trabajo
+                            <mat-icon style="position: absolute; right: 0; top: 5px;">keyboard_arrow_right</mat-icon>
+                        </a>
+                    </mat-card-actions>
                 </mat-card>
-            </div>
+            <!-- </div> -->
         </div>
         
         <div class="table-responsive d-none d-sm-none d-md-block d-lg-block d-xl-block">
@@ -202,7 +219,7 @@
             </div>
         </div>
     </mat-card-content>
-    <mat-card-actions>
+    <mat-card-actions class="text-left">
         <mat-paginator [pageIndex]="modelService.page.pageIndex" [length]="modelService.page.length"
             [pageSize]="modelService.page.size" [pageSizeOptions]="modelService.page.sizeOptions"
             (page)="pagination($event)">

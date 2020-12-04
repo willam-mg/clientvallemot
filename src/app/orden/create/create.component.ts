@@ -1,36 +1,44 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormControl, Validators } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { AccesorioService } from 'src/app/accesorio/accesorio.service';
-import { Accesorio } from 'src/app/models/accesorio';
 import { Orden } from 'src/app/models/orden';
 import { OrdenService } from '../orden.service';
+import { AccesoriosComponent } from '../shared/accesorios/accesorios.component';
+import { NavigationService } from 'src/app/shared/services/navigation.service';
+import { Accesorio } from 'src/app/models/accesorio';
 
 @Component({
   selector: 'app-create',
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.css']
 })
+
 export class CreateComponent implements OnInit {
   model: Orden;
   submitted: boolean;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   thirtyFormGroup: FormGroup;
+  typesOfShoes: Array<string>;
   accesorios: Array<Accesorio>;
 
-  constructor(private modelService: OrdenService,
-              private router: Router,
-              private formBuilder: FormBuilder,
-              private title: Title,
-              public deviceService: DeviceDetectorService,
-              private accesorioService: AccesorioService) {
+  constructor(
+    private modelService: OrdenService,
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private title: Title,
+    public deviceService: DeviceDetectorService,
+    public dialog: MatDialog,
+    private accesorioService: AccesorioService,
+    private navigationService: NavigationService) {
     this.title.setTitle('Nueva Orden');
-    this.getAccesorios();
+    this.navigationService.setBack('/ordenes');
   }
 
   ngOnInit() {
@@ -38,7 +46,6 @@ export class CreateComponent implements OnInit {
     this.model = new Orden();
     const today = moment();
     this.model.fecha = today.format('YYYY-MM-DD');
-    // this.model.fecha = new Date().toISOString().slice(0, 10);
 
     this.firstFormGroup = this.formBuilder.group({
       propietario: new FormControl(this.model.propietario, [
@@ -52,7 +59,6 @@ export class CreateComponent implements OnInit {
       fecha: new FormControl(new Date(), [
         Validators.required,
       ]),
-      // firstCtrl: ['', Validators.required]
     });
 
 
@@ -69,6 +75,7 @@ export class CreateComponent implements OnInit {
         Validators.maxLength(50)
       ]),
       color: new FormControl(this.model.color, [
+        Validators.required,
         Validators.maxLength(50)
       ]),
       ano: new FormControl(this.model.ano, [
@@ -76,40 +83,41 @@ export class CreateComponent implements OnInit {
       ]),
       tanque: new FormControl(this.model.tanque, [
         Validators.maxLength(50)
-      ]),
-      foto: new FormControl(this.model.foto),
+      ])
     });
-    this.getAccesorios();
-    this.model.radio = true;
-    this.model.focos = true;
     this.thirtyFormGroup = this.formBuilder.group({
       solicitud: new FormControl(this.model.solicitud, [
         Validators.required,
         Validators.maxLength(300)
       ]),
+      foto: new FormControl(this.model.foto),
+      estado_vehiculo: new FormControl([]),
       estado_vehiculo_otros: new FormControl(this.model.estado_vehiculo_otros, [
         Validators.maxLength(300)
       ]),
-      // accesorios: this.formBuilder.array([true, false, true]),
-      tapa_ruedas: new FormControl(this.model.tapa_ruedas),
-      llanta_auxilio: new FormControl(this.model.llanta_auxilio),
-      gata_hidraulica: new FormControl(this.model.gata_hidraulica),
-      llave_cruz: new FormControl(this.model.llave_cruz),
-      pisos: new FormControl(this.model.pisos),
-      limpia_parabrisas: new FormControl(this.model.limpia_parabrisas),
-      tapa_tanque: new FormControl(this.model.tapa_tanque),
-      herramientas: new FormControl(this.model.herramientas),
-      mangueras: new FormControl(this.model.mangueras),
-      espejos: new FormControl(this.model.espejos),
-      tapa_cubos: new FormControl(this.model.tapa_cubos),
-      antena: new FormControl(this.model.antena),
-      radio: new FormControl(this.model.radio),
-      focos: new FormControl(this.model.focos),
     });
+
+    this.typesOfShoes = [
+      'tapa_ruedas',
+      'llanta_auxilio',
+      'gata_hidraulica',
+      'llave_cruz',
+      'pisos',
+      'limpia_parabrisas',
+      'tapa_tanque',
+      'herramientas',
+      'mangueras',
+      'espejos',
+      'tapa_cubos',
+      'antena',
+      'radio',
+      'focos',
+    ];
+    this.getAccesorios();
   }
 
   onFileChange(event) {
-    let reader = new FileReader();
+    const reader = new FileReader();
 
     if (event.target.files && event.target.files.length) {
       const [file] = event.target.files;
@@ -117,7 +125,7 @@ export class CreateComponent implements OnInit {
 
       reader.onload = (e: any) => {
         this.model.foto = e.target.result;
-        this.secondFormGroup.patchValue({
+        this.thirtyFormGroup.patchValue({
           foto: reader.result
         });
       };
@@ -131,6 +139,8 @@ export class CreateComponent implements OnInit {
       }
       this.submitted = true;
       this.firstFormGroup.value.fecha = moment(this.firstFormGroup.value.fecha).format('YYYY-MM-DD');
+      const accesoriosSeleccionados = this.accesorios.filter(element => element.checked === true);
+
       const objToSend = {
         propietario: this.firstFormGroup.value.propietario,
         telefono: this.firstFormGroup.value.telefono,
@@ -139,32 +149,18 @@ export class CreateComponent implements OnInit {
         modelo: this.secondFormGroup.value.modelo,
         color: this.secondFormGroup.value.color,
         ano: this.secondFormGroup.value.ano,
-        foto: this.secondFormGroup.value.foto,
-
         tanque: this.secondFormGroup.value.tanque,
-        solicitud: this.thirtyFormGroup.value.solicitud,
-        estado_vehiculo_otros: this.thirtyFormGroup.value.otros,
 
-        tapa_ruedas: this.thirtyFormGroup.value.tapa_ruedas,
-        llanta_auxilio: this.thirtyFormGroup.value.llanta_auxilio,
-        gata_hidraulica: this.thirtyFormGroup.value.gata_hidraulica,
-        llave_cruz: this.thirtyFormGroup.value.llave_cruz,
-        pisos: this.thirtyFormGroup.value.pisos,
-        limpia_parabrisas: this.thirtyFormGroup.value.limpia_parabrisas,
-        tapa_tanque: this.thirtyFormGroup.value.tapa_tanque,
-        herramientas: this.thirtyFormGroup.value.herramientas,
-        mangueras: this.thirtyFormGroup.value.mangueras,
-        espejos: this.thirtyFormGroup.value.espejos,
-        tapa_cubos: this.thirtyFormGroup.value.tapa_cubos,
-        antena: this.thirtyFormGroup.value.antena,
-        radio: this.thirtyFormGroup.value.radio,
-        focos: this.thirtyFormGroup.value.focos,
+        solicitud: this.thirtyFormGroup.value.solicitud,
+        foto: this.thirtyFormGroup.value.foto,
+        estado_vehiculo_otros: this.thirtyFormGroup.value.otros,
+        estado_vehiculo: accesoriosSeleccionados
       };
+
       this.modelService.create(objToSend).subscribe(async data => {
         this.model = new Orden();
         this.modelService.all(null, true).subscribe(() => {
           this.submitted = false;
-          // this.router.navigate(['/ordenes']);
           this.router.navigate(['/ordenes/show'], {
             queryParams:
             {
@@ -172,7 +168,7 @@ export class CreateComponent implements OnInit {
             }
           });
         });
-      }, err => {
+      }, () => {
         this.submitted = false;
       });
     } catch (error) {
@@ -180,17 +176,33 @@ export class CreateComponent implements OnInit {
     }
   }
 
-  getAccesorios() {
-    this.accesorioService.all(null, true).subscribe(data => {
-      // this.submitted = false;
-      this.accesorios = data.data.map((item) => {
+  getAccesorios(reload = false) {
+    this.accesorioService.todos(reload).subscribe(data => {
+      this.accesorios = data.map((element) => {
+        let check = false;
+        if (element.nombre === 'radio') {
+          check = true;
+        }
+        if (element.nombre === 'focos') {
+          check = true;
+        }
         return {
-          id: item.id,
-          nombre: item.nombre,
-          checked: false
+          id: element.id,
+          nombre: element.nombre,
+          checked: check
         };
       });
-      // this.notFound = true;
+    });
+  }
+
+  selectAccesorios() {
+    this.dialog.open(AccesoriosComponent, {
+      data: {
+        accesorios: this.accesorios,
+      },
+      disableClose: true
+    }).afterClosed().subscribe(res => {
+      this.accesorios = res;
     });
   }
 

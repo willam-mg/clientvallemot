@@ -70,6 +70,7 @@ mat-sidenav {
   border-radius: 20px;
   text-align: left;
   padding: 5px 12px 5px 12px;
+  transition: width 2s;
   input, input:active, input:focus{
     outline: none;
     border: 0;

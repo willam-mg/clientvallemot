@@ -1,42 +1,57 @@
 <mat-card>
-    <!-- <mat-card-header>
-        
+    <mat-card-header>
+        <mat-card-title>
+            <button mat-icon-button (click)="showSearch? showSearch = false:showSearch = true">
+                <mat-icon inactive class="md-inactive">search</mat-icon>
+            </button>
+        </mat-card-title>
         <div class="full-width text-right">
-            
+            <a mat-flat-button color="primary" [routerLink]="['/accesorios/create']">
+                <mat-icon>add</mat-icon>
+                Nuevo
+            </a>
         </div>
-    </mat-card-header> -->
+    </mat-card-header>
 
     <mat-card-content>
-        <div class="row">
-            <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-                <form [formGroup]="formSearch" (ngSubmit)="list(true)" novalidate="">
-                    <div class="row">
-                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                            <mat-form-field appearance="outline" class="full-width">
-                                <mat-label>Nombre</mat-label>
-                                <input type="text" matInput formControlName="nombre" placeholder="Nombre" autocomplete="off">
-                            </mat-form-field>
-                        </div>
-                        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">   
-                            <div class="text-right pt-2">
-                                <button mat-flat-button type="submit" #submitBtn class="ml-3" [disabled]="submitted">
-                                    <mat-icon>search</mat-icon>
-                                    Buscar
-                                </button>
-                            </div>
-                        </div>
+        <form *ngIf="showSearch" [formGroup]="formSearch" (ngSubmit)="list(true)" novalidate="">
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Nombre</mat-label>
+                        <input type="text" matInput formControlName="nombre" placeholder="Nombre" autocomplete="off">
+                    </mat-form-field>
+                </div>
+                <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+                    <div class="text-right pt-2">
+                        <button mat-flat-button type="submit" #submitBtn class="ml-3" [disabled]="submitted">
+                            <mat-icon>search</mat-icon>
+                            Buscar
+                        </button>
                     </div>
-                </form>
+                </div>
             </div>
-            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-right">
-                <a mat-flat-button color="primary" [routerLink]="['/accesorios/create']">
-                    <mat-icon>add</mat-icon>
-                    Nuevo
-                </a>
-            </div>
+        </form>
+
+
+        <mat-list role="list">
+            <mat-list-item role="listitem" *ngFor="let element of accesorios">
+                <!-- <a matLine href="#" [routerLink]="['/accesorios/edit']" [queryParams]="{id:element.id}" matTooltip="Ver"> {{element.nombre}} </a> -->
+                <span matLine> {{element.nombre}} </span>
+                <!-- <button mat-icon-button (click)="showInfo(link)">
+                    <mat-icon>info</mat-icon>
+                </button> -->
+                <button mat-icon-button [routerLink]="['/accesorios/edit']" [queryParams]="{id:element.id}" matTooltip="Ver"
+                    aria-label="Ver" color="primary">
+                    <mat-icon>keyboard_arrow_right</mat-icon>
+                </button>
+            </mat-list-item>
+        </mat-list>
+        <div class="text-center" *ngIf="notFound && accesorios.length == 0">
+            No hay accesorios
         </div>
 
-        <div class="table-responsive">
+        <!-- <div class="table-responsive">
             <table mat-table [dataSource]="accesorios" class="full-width table-hover">
                 <ng-container matColumnDef="nombre">
                     <th mat-header-cell *matHeaderCellDef> Accesorio</th>
@@ -56,10 +71,8 @@
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
-            <div class="text-center" *ngIf="notFound && accesorios.length == 0">
-                No hay accesorios
-            </div>
-        </div>
+            
+        </div> -->
     </mat-card-content>
     <mat-card-actions>
         <mat-paginator [pageIndex]="modelService.page.pageIndex" [length]="modelService.page.length"

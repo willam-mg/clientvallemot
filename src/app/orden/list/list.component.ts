@@ -4,6 +4,7 @@ import { Title } from '@angular/platform-browser';
 import { LoginService } from 'src/app/login/login.service';
 import { Orden } from 'src/app/models/orden';
 import { User } from 'src/app/models/user';
+import { NavigationService } from 'src/app/shared/services/navigation.service';
 import { OrdenService } from '../orden.service';
 
 @Component({
@@ -37,9 +38,14 @@ export class ListComponent implements OnInit {
   userData: User;
   showSearch: boolean;
 
-  constructor(public modelService: OrdenService, private title: Title, public loginService:LoginService) {
+  constructor(
+    public modelService: OrdenService, 
+    private title: Title, 
+    public loginService: LoginService,
+    private navigationService: NavigationService) {
     this.userData = loginService.getUser();
     this.title.setTitle('Ordenes');
+    this.navigationService.setBack('/');
     this.ordenes = [];
     this.notFound = false;
     this.submitted = false;
@@ -49,6 +55,7 @@ export class ListComponent implements OnInit {
       placa: new FormControl(this.filterSearch.placa, []),
       modelo: new FormControl(this.filterSearch.modelo, []),
       color: new FormControl(this.filterSearch.color, []),
+      estado: new FormControl(this.filterSearch.estado),
     });
     this.showSearch = false;
   }

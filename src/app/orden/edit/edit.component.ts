@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Orden } from 'src/app/models/orden';
 import { AlertComponent } from 'src/app/shared/alert/alert.component';
+import { NavigationService } from 'src/app/shared/services/navigation.service';
 import { OrdenService } from '../orden.service';
 
 @Component({
@@ -17,10 +18,12 @@ export class EditComponent implements OnInit {
   submitted: boolean;
   formModel: FormGroup;
 
-  constructor(private route: ActivatedRoute,
-              private modelService: OrdenService,
-              private router: Router,
-              public dialog: MatDialog) {
+  constructor(
+    private route: ActivatedRoute,
+    private modelService: OrdenService,
+    private router: Router,
+    public dialog: MatDialog,
+    private navigationService: NavigationService) {
   }
 
   ngOnInit() {
@@ -31,6 +34,7 @@ export class EditComponent implements OnInit {
         this.router.navigate(['/mecanicos']);
       }
     });
+    this.navigationService.setBack('/ordenes/show', this.id);
     this.formModel = new FormGroup({
       propietario: new FormControl(this.model.propietario, [
         Validators.required,

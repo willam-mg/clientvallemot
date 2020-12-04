@@ -7,63 +7,132 @@
         </div>
     </div>
 </div> -->
-<div class="row row-mobile">
-    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 mt-4" *ngIf="userData.type == 1">
-        <div class="card-dashboard" [routerLink]="['/users']">
-            <div class="icon-card">
-                <img src="/assets/img/dash_user.png" alt="" width="100%" height="100px">
+<div *ngIf="!deviceService.isMobile()">
+    <div class="row row-mobile">
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 mt-4" *ngIf="userData.type == 1">
+            <div class="card-dashboard" [routerLink]="['/users']">
+                <div class="icon-card">
+                    <img src="/assets/img/dash_user.png" alt="" width="100%" height="100px">
+                </div>
+                <div class="content-card-dash">
+                    <h1>Usuarios</h1>
+                    <small>
+                        <p>
+                            432 Usuarios registrados
+                        </p>
+                        <p>
+                            usuario admin ingreso hace 7 hrs 
+                        </p>
+    
+                    </small>
+                </div>
+    
             </div>
-            <div class="content-card-dash">
-                <h1>Usuarios</h1>
-                <small>
-                    <p>
-                        432 Usuarios registrados
-                    </p>
-                    <p>
-                        usuario admin ingreso hace 7 hrs 
-                    </p>
-
-                </small>
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 mt-4" *ngIf="userData.type == 1">
+            <div class="card-dashboard" [routerLink]="['/mecanicos']">
+                <div class="icon-card">
+                    <img src="/assets/img/dash_mecanico.png" alt="" width="100%" height="100px">
+                </div>
+                <div class="content-card-dash">
+                    <h1>Mecanicos</h1>
+                    <small>
+                        <p>
+                            432 mecanicos registrados
+                        </p>
+                        <p>
+                            34 activos y disponibles
+                        </p>
+                    </small>
+                </div>
+    
             </div>
-
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 mt-4">
+            <div class="card-dashboard" [routerLink]="['/ordenes']">
+                <div class="icon-card">
+                    <img src="/assets/img/dash_repair1.png" alt="" width="100%" height="100px">
+                </div>
+                <div class="content-card-dash">
+                    <h1>Ordenes</h1>
+                    <small>
+                        <p>
+                            432 ordenes pendientes
+                        </p>
+                        <p class="color-success">
+                            34 ordenes listas
+                        </p>
+                    </small>
+                </div>
+    
+            </div>
         </div>
     </div>
-    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 mt-4" *ngIf="userData.type == 1">
-        <div class="card-dashboard" [routerLink]="['/mecanicos']">
-            <div class="icon-card">
-                <img src="/assets/img/dash_mecanico.png" alt="" width="100%" height="100px">
-            </div>
-            <div class="content-card-dash">
-                <h1>Mecanicos</h1>
-                <small>
-                    <p>
-                        432 mecanicos registrados
-                    </p>
-                    <p>
-                        34 activos y disponibles
-                    </p>
-                </small>
-            </div>
+</div>
 
-        </div>
-    </div>
-    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 mt-4">
-        <div class="card-dashboard" [routerLink]="['/ordenes']">
-            <div class="icon-card">
-                <img src="/assets/img/dash_repair1.png" alt="" width="100%" height="100px">
-            </div>
-            <div class="content-card-dash">
-                <h1>Ordenes</h1>
-                <small>
-                    <p>
-                        432 ordenes pendientes
-                    </p>
-                    <p class="color-success">
-                        34 ordenes listas
-                    </p>
-                </small>
-            </div>
 
-        </div>
-    </div>
+
+<div *ngIf="deviceService.isMobile()">
+    <mat-card>
+        <img mat-card-image src="/assets/img/baner-mobile.jpg" alt="baner">
+        <label class="title-baner">
+            +100 Ordenes en espera
+        </label>
+        <mat-card-content class="content-main-mobile">
+            <table class="full-width">
+                <tbody>
+                    <tr>
+                        <td class="text-center td-menu-mobile">
+                            <a href="#" class="button-menu-mobile" [routerLink]="['/users']" aria-label="Usuarios">
+                                <mat-icon color="accent">person</mat-icon> <br>
+                                <span>Usuarios</span>
+                            </a>
+                        </td>
+                        <td class="text-center td-menu-mobile">
+                            <a href="#" class="button-menu-mobile" [routerLink]="['/mecanicos']" aria-label="Usuarios">
+                                <mat-icon color="accent">work</mat-icon> <br>
+                                <span>Mecanicos</span>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">
+                            <a href="#" class="button-menu-mobile" [routerLink]="['/ordenes']" aria-label="Usuarios">
+                                <mat-icon color="accent">insert_drive_file</mat-icon> <br>
+                                <span>Ordenes</span>
+                            </a>
+                        </td>
+                        <td class="text-center">
+                            <a href="#" class="button-menu-mobile" [routerLink]="['/repuestos']" aria-label="Usuarios">
+                                <mat-icon color="accent">settings</mat-icon> <br>
+                                <span>Repuestos</span>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </mat-card-content>
+
+        <mat-divider></mat-divider>
+
+
+        <mat-card *ngFor="let element of ordenes" class="mt-4" [routerLink]="['/ordenes/show']" [queryParams]="{id:element.id}">
+            <mat-card-content>
+                <table class="full-width">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <strong class="text-capitalize">
+                                    {{element.propietario}}
+                                </strong> <br>
+                                <small> Vehiculo: {{element.vehiculo}} </small> |
+                                <small> Placa: {{element.placa}} </small> |
+                                <small> Modelo: {{element.modelo}} </small> |
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </mat-card-content>
+        </mat-card>
+    </mat-card>
 </div>

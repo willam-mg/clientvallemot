@@ -1,226 +1,180 @@
 <div class="row row-mobile">
-    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 mx-auto ">
+    <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 mx-auto ">
         <mat-card class="card-mobile" style="padding:0">
             <mat-card-content>
-                <mat-horizontal-stepper labelPosition="bottom" [linear]="true" #stepper>
+                <mat-horizontal-stepper labelPosition="bottom" [linear]="false" #stepper>
                     <mat-step [stepControl]="firstFormGroup">
-                        <form [formGroup]="firstFormGroup">
-                            <ng-template matStepLabel>Propietario</ng-template>
-                            
-                            <mat-form-field appearance="outline" class="full-width">
-                                <mat-label>Propietario</mat-label>
-                                <input type="text" matInput formControlName="propietario" placeholder="Propietario" autocomplete="off" required>
-                            </mat-form-field>
-                            
-                            <mat-form-field appearance="outline" class="full-width">
-                                <mat-label>telefono</mat-label>
-                                <input type="number" min="0" step="1" matInput formControlName="telefono" placeholder="telefono" autocomplete="off" required>
-                            </mat-form-field>
-    
-                            <mat-form-field appearance="outline" class="full-width">
-                                <mat-label>fecha</mat-label>
-                                <input matInput [matDatepicker]="picker" formControlName="fecha" required>
-                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                <mat-datepicker #picker></mat-datepicker>
-                            </mat-form-field>
-                            
-                            <table class="full-width mt-2">
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <button mat-button [routerLink]="['/ordenes']">
-                                                <mat-icon>clear</mat-icon>
-                                                Cerrar
-                                            </button>
-                                        </td>
-                                        <td class="text-right">
-                                            <button mat-raised-button matStepperNext>
-                                                <mat-icon>keyboard_arrow_right</mat-icon>
-                                                Continuar
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </form>
+                        
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 mx-auto">
+                                <form [formGroup]="firstFormGroup">
+                                    <ng-template matStepLabel>Propietario</ng-template>
+                                    
+                                    <mat-form-field appearance="outline" class="full-width">
+                                        <mat-label>Propietario</mat-label>
+                                        <input type="text" matInput formControlName="propietario" placeholder="Propietario" autocomplete="off" required>
+                                    </mat-form-field>
+                                    
+                                    <mat-form-field appearance="outline" class="full-width">
+                                        <mat-label>telefono</mat-label>
+                                        <input type="number" min="0" step="1" matInput formControlName="telefono" placeholder="telefono" autocomplete="off" required>
+                                    </mat-form-field>
+            
+                                    <mat-form-field appearance="outline" class="full-width">
+                                        <mat-label>fecha</mat-label>
+                                        <input matInput [matDatepicker]="picker" formControlName="fecha" required>
+                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker></mat-datepicker>
+                                    </mat-form-field>
+                                    
+                                    <table class="full-width mt-2">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <button mat-button [routerLink]="['/ordenes']">
+                                                        <mat-icon>clear</mat-icon>
+                                                        Cerrar
+                                                    </button>
+                                                </td>
+                                                <td class="text-right">
+                                                    <button mat-raised-button matStepperNext>
+                                                        <mat-icon>keyboard_arrow_right</mat-icon>
+                                                        Continuar
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </form>
+                            </div>
+                        </div>
+                        
                     </mat-step>
                     <mat-step [stepControl]="secondFormGroup">
-                        <form [formGroup]="secondFormGroup">
-                            <ng-template matStepLabel>Vehiculo</ng-template>
-
-                            <mat-form-field appearance="outline" class="full-width">
-                                <mat-label>vehiculo</mat-label>
-                                <input type="text" matInput formControlName="vehiculo" placeholder="vehiculo" autocomplete="off" required>
-                            </mat-form-field>
-                            <mat-form-field appearance="outline" class="full-width">
-                                <mat-label>placa</mat-label>
-                                <input #placa type="text" class="text-uppercase" matInput formControlName="placa" placeholder="placa" autocomplete="off" required>
-                            </mat-form-field>
-                            <mat-form-field appearance="outline" class="full-width">
-                                <mat-label>modelo</mat-label>
-                                <input type="text" matInput formControlName="modelo" placeholder="modelo" autocomplete="off">
-                            </mat-form-field>
-                            <mat-form-field appearance="outline" class="full-width">
-                                <mat-label>color</mat-label>
-                                <input type="text" matInput formControlName="color" placeholder="color" autocomplete="off">
-                            </mat-form-field>
-                            <mat-form-field appearance="outline" class="full-width">
-                                <mat-label>Año</mat-label>
-                                <input type="number" min="0" step="1" matInput formControlName="ano" placeholder="ano" autocomplete="off">
-                            </mat-form-field>
-                            <mat-form-field appearance="outline" class="full-width">
-                                <mat-label>Tanque</mat-label>
-                                <mat-select name="tanque" formControlName="tanque">
-                                    <mat-option>--</mat-option>
-                                    <mat-option [value]="1/4">
-                                        1/4
-                                    </mat-option>
-                                    <mat-option [value]="1/2">
-                                        1/2
-                                    </mat-option>
-                                    <mat-option [value]="3/4">
-                                        3/4
-                                    </mat-option>
-                                    <mat-option value="Full">
-                                        Full
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-
-                            <div class="form-inline mt-1 mb-2">
-                                <mat-label>Foto</mat-label>
-                                <p>
-                                    <img src="{{model.foto}}" alt="foto" *ngIf="model.foto" class="foto-image-edit">
-                                </p>
-                                &nbsp;
-                                <button type="button" mat-raised-button (click)="inputFoto.click()" title="Seleccionar imagen">
-                                    <mat-icon>attach_file</mat-icon>
-                                    Seleccionar
-                                </button>
-                                <input hidden type="file" accept="image/*" #inputFoto (change)="onFileChange($event)" />
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 mx-auto">
+                                <form [formGroup]="secondFormGroup">
+                                    <ng-template matStepLabel>Vehiculo</ng-template>
+        
+                                    <mat-form-field appearance="outline" class="full-width">
+                                        <mat-label>vehiculo</mat-label>
+                                        <input type="text" matInput formControlName="vehiculo" placeholder="vehiculo" autocomplete="off" required>
+                                    </mat-form-field>
+                                    <mat-form-field appearance="outline" class="full-width">
+                                        <mat-label>placa</mat-label>
+                                        <input #placa type="text" class="text-uppercase" matInput formControlName="placa" placeholder="placa" autocomplete="off" required>
+                                    </mat-form-field>
+                                    <mat-form-field appearance="outline" class="full-width">
+                                        <mat-label>modelo</mat-label>
+                                        <input type="text" matInput formControlName="modelo" placeholder="modelo" autocomplete="off">
+                                    </mat-form-field>
+                                    <mat-form-field appearance="outline" class="full-width">
+                                        <mat-label>color</mat-label>
+                                        <input type="text" matInput formControlName="color" placeholder="color" autocomplete="off">
+                                    </mat-form-field>
+                                    <mat-form-field appearance="outline" class="full-width">
+                                        <mat-label>Año</mat-label>
+                                        <input type="number" min="0" step="1" matInput formControlName="ano" placeholder="ano" autocomplete="off">
+                                    </mat-form-field>
+                                    <mat-form-field appearance="outline" class="full-width">
+                                        <mat-label>Tanque</mat-label>
+                                        <select matNativeControl name="tanque" formControlName="tanque">
+                                            <option>--</option>
+                                            <option [value]="1/4">
+                                                1/4
+                                            </option>
+                                            <option [value]="1/2">
+                                                1/2
+                                            </option>
+                                            <option [value]="3/4">
+                                                3/4
+                                            </option>
+                                            <option value="Full">
+                                                Full
+                                            </option>
+                                        </select>
+                                    </mat-form-field>
+        
+                                    <table class="full-width mt-2">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <button mat-button matStepperPrevious>
+                                                        <mat-icon>keyboard_arrow_left</mat-icon>
+                                                        Atras
+                                                    </button>
+                                                </td>
+                                                <td class="text-right">
+                                                    <button mat-raised-button matStepperNext>
+                                                        <mat-icon>keyboard_arrow_right</mat-icon>
+                                                        Continuar
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </form>
                             </div>
-
-                            <table class="full-width mt-2">
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <button mat-button matStepperPrevious>
-                                                <mat-icon>keyboard_arrow_left</mat-icon>
-                                                Atras
-                                            </button>
-                                        </td>
-                                        <td class="text-right">
-                                            <button mat-raised-button matStepperNext>
-                                                <mat-icon>keyboard_arrow_right</mat-icon>
-                                                Continuar
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </form>
+                        </div>
                     </mat-step>
                     <mat-step>
-                        <form [formGroup]="thirtyFormGroup" (ngSubmit)="onSubmit()">
-                            <ng-template matStepLabel>Estado</ng-template>
-    
-                            <mat-form-field appearance="outline" class="full-width">
-                                <mat-label>Problema del vehiculo</mat-label>
-                                <textarea matInput formControlName="solicitud" placeholder="Problema del vehiculo" rows="7">
-                                </textarea>
-                            </mat-form-field>
-                            
-                            
-                            <!-- <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3"> -->
-                                <!-- <mat-checkbox *ngFor="let control of thirtyFormGroup.controls['accesorios'].controls" [id]="control.id" class="tapa_ruedas" color="primary" [formControl]="control">
-                                    {{accesorio.nombre}}
-                                </mat-checkbox> -->
-                            <!-- </div> -->
-                            
-                            <mat-divider></mat-divider>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 mx-auto">
+                                <form [formGroup]="thirtyFormGroup" (ngSubmit)="onSubmit(estadoVehiculoSeleccionado)">
+                                    <ng-template matStepLabel>Estado</ng-template>
+            
+                                    <mat-form-field appearance="outline" class="full-width">
+                                        <mat-label>Problema del vehiculo</mat-label>
+                                        <textarea matInput formControlName="solicitud" placeholder="Problema del vehiculo" rows="7">
+                                        </textarea>
+                                    </mat-form-field>
+
+                                    <div class="mb-4">
+                                            <img src="{{model.foto}}" alt="foto" *ngIf="model.foto" class="foto-image-edit">
+                                        <button class="full-width p-2" type="button" mat-raised-button (click)="inputFoto.click()" title="Seleccionar imagen">
+                                            <mat-icon>camera_alt</mat-icon>
+                                            Seleccionar Foto
+                                        </button>
+                                        <input hidden type="file" accept="image/*" #inputFoto (change)="onFileChange($event)" />
+                                    </div>
                                     
-                            <div class="row text-capitalize">
-                                <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
-                                    <p>
-                                        <mat-checkbox id="tapa_ruedas" class="tapa_ruedas" color="primary" formControlName="tapa_ruedas">tapa ruedas</mat-checkbox>
-                                    </p>
-                                    <p>
-                                        <mat-checkbox id="llanta_auxilio" class="llanta_auxilio" color="primary" formControlName="llanta_auxilio">llanta de auxilio</mat-checkbox>
-                                    </p>
-                                    <p>
-                                        <mat-checkbox id="gata_hidraulica" class="gata_hidraulica" color="primary" formControlName="gata_hidraulica">gata hidraulica</mat-checkbox>
-                                    </p>
-                                    <p>
-                                        <mat-checkbox id="llave_cruz" class="llave_cruz" color="primary" formControlName="llave_cruz">llave cruz</mat-checkbox>
-                                    </p>
-                                </div>
-                                <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
-                                    <p>
-                                        <mat-checkbox id="pisos" class="pisos" color="primary" formControlName="pisos">pisos</mat-checkbox>
-                                    </p>
-                                    <p>
-                                        <mat-checkbox id="limpia_parabrisas" class="limpia_parabrisas" color="primary" formControlName="limpia_parabrisas">limpia parabrisas</mat-checkbox>
-                                    </p>
-                                    <p>
-                                        <mat-checkbox id="tapa_tanque" class="tapa_tanque" color="primary" formControlName="tapa_tanque">tapa tanque</mat-checkbox>
-                                    </p>
-                                    <p>
-                                        <mat-checkbox id="herramientas" class="herramientas" color="primary" formControlName="herramientas">herramientas</mat-checkbox>
-                                    </p>
-                                </div>
-                                <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
-                                    <p>
-                                        <mat-checkbox id="mangueras" class="mangueras" color="primary" formControlName="mangueras">mangueras</mat-checkbox>
-                                    </p>
-                                    <p>
-                                        <mat-checkbox id="espejos" class="espejos" color="primary" formControlName="espejos">espejos</mat-checkbox>
-                                    </p>
-                                    <p>
-                                        <mat-checkbox id="tapa_cubos" class="tapa_cubos" color="primary" formControlName="tapa_cubos">tapa cubos</mat-checkbox>
-                                    </p>
-                                    <p>
-                                        <mat-checkbox id="antena" class="antena" color="primary" formControlName="antena">antena</mat-checkbox>
-                                    </p>
-                                </div>
-                                <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
-                                    <p>
-                                        <mat-checkbox id="radio" class="radio" color="primary" formControlName="radio">radio</mat-checkbox>
-                                    </p>
-                                    <p>
-                                        <mat-checkbox id="focos" class="focos" color="primary" formControlName="focos">focos</mat-checkbox>
-                                    </p>
+                                    <p></p>
                                     
-                                </div>
+                                    <mat-divider></mat-divider>
+
+
+                                    <mat-form-field appearance="outline" class="full-width mt-4">
+                                        <mat-label>Objetos en el vehiculo</mat-label>
+                                        <mat-select matNativeControl readonly="true" (click)="selectAccesorios()">
+                                        </mat-select>
+                                    </mat-form-field>
+                                    
+                                    <mat-form-field appearance="outline" class="full-width">
+                                        <mat-label>Otros</mat-label>
+                                        <textarea matInput formControlName="estado_vehiculo_otros" placeholder="Otros"></textarea>
+                                    </mat-form-field>
+                                    
+                                    <table class="full-width mt-2">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <button mat-button matStepperPrevious>
+                                                        <mat-icon>keyboard_arrow_left</mat-icon>
+                                                        Atras
+                                                    </button>
+                                                </td>
+                                                <td class="text-right">
+                                                    <button mat-flat-button type="submit" color="primary" #submitBtn class="ml-3" [disabled]="submitted">
+                                                        <mat-icon>add</mat-icon>
+                                                        Registrar
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </form>
                             </div>
-                            
-    
-    
-    
-                            
-                            <mat-form-field appearance="outline" class="full-width">
-                                <mat-label>Otros</mat-label>
-                                <textarea matInput formControlName="estado_vehiculo_otros" placeholder="Otros"></textarea>
-                            </mat-form-field>
-                            
-                            <table class="full-width mt-2">
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <button mat-button matStepperPrevious>
-                                                <mat-icon>keyboard_arrow_left</mat-icon>
-                                                Atras
-                                            </button>
-                                        </td>
-                                        <td class="text-right">
-                                            <button mat-flat-button type="submit" color="primary" #submitBtn class="ml-3" [disabled]="submitted">
-                                                <mat-icon>add</mat-icon>
-                                                Registrar
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </form>
+                        </div>
                     </mat-step>
                 </mat-horizontal-stepper>
             </mat-card-content>

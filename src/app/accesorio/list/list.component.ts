@@ -18,6 +18,7 @@ export class ListComponent implements OnInit {
   ];
   filterSearch: Accesorio;
   formSearch: FormGroup;
+  showSearch: boolean;
 
   constructor(public modelService: AccesorioService, private title: Title) {
     this.title.setTitle('Accesorios');
@@ -28,6 +29,7 @@ export class ListComponent implements OnInit {
     this.formSearch = new FormGroup({
       nombre: new FormControl(this.filterSearch.nombre, []),
     });
+    this.showSearch = false;
   }
 
   ngOnInit() {

@@ -7,7 +7,21 @@ import { CreateComponent } from './create/create.component';
 import { ShowComponent } from './show/show.component';
 import { ListComponent } from './list/list.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatCardModule, MatToolbarModule, MatSidenavModule, MatListModule, MatIconModule, MatButtonModule, MatMenuModule, MatInputModule, MatFormFieldModule, MatTableModule, MatPaginatorModule, MatSnackBarModule, MatTooltipModule, MatDatepickerModule, MatNativeDateModule } from '@angular/material';
+import { MatCardModule,
+  MatToolbarModule,
+  MatSidenavModule,
+  MatListModule,
+  MatIconModule,
+  MatButtonModule,
+  MatMenuModule,
+  MatInputModule,
+  MatFormFieldModule,
+  MatTableModule,
+  MatPaginatorModule,
+  MatSnackBarModule,
+  MatTooltipModule,
+  MatDatepickerModule,
+  MatNativeDateModule } from '@angular/material';
 import { RouterModule } from '@angular/router';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -15,9 +29,21 @@ import { MatSelectModule } from '@angular/material/select';
 import { DetalleRepuestoComponent } from './detalle-repuesto/detalle-repuesto.component';
 import { ManoObraComponent } from './mano-obra/mano-obra.component';
 import { EditComponent } from './edit/edit.component';
+import { AccesoriosComponent } from './shared/accesorios/accesorios.component';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
-  declarations: [MainComponent, CreateComponent, ShowComponent, ListComponent, DetalleRepuestoComponent, ManoObraComponent, EditComponent],
+  declarations: [
+    MainComponent,
+    CreateComponent,
+    ShowComponent,
+    ListComponent,
+    DetalleRepuestoComponent,
+    ManoObraComponent,
+    EditComponent,
+    AccesoriosComponent
+  ],
   imports: [
     CommonModule,
     OrdenRoutingModule,
@@ -41,7 +67,12 @@ import { EditComponent } from './edit/edit.component';
     MatNativeDateModule,
     MatStepperModule,
     MatCheckboxModule,
-    MatSelectModule
+    MatSelectModule,
+    MatBottomSheetModule,
+    MatDialogModule
+  ],
+  entryComponents: [
+    AccesoriosComponent
   ]
 })
 export class OrdenModule { }

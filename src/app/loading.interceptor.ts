@@ -7,32 +7,34 @@ import {
     HttpEventType,
 
 } from '@angular/common/http';
-import { LoginService } from "./login/login.service";
+import { LoginService } from './login/login.service';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { DataService } from './data.service';
 @Injectable()
 export class LoadingInterceptor implements HttpInterceptor {
     constructor(
-        public auth: LoginService, 
-        private dataService:DataService) {
+        public auth: LoginService,
+        private dataService: DataService) {
     }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         this.dataService.errorErrors = null;
-        this.dataService.isLoading = false;
+        // this.dataService.isLoading = false;
         if (req.reportProgress) {
             return next.handle(req).pipe(
                 tap((event: HttpEvent<any>) => {
                     if (event.type === HttpEventType.Sent) {
-                        this.dataService.isLoading = true;
+                        // this.dataService.isLoading = true;
+                        this.dataService.showLoading();
                     } 
                     if (event.type === HttpEventType.UploadProgress) {
-                        let percent = Math.round(event.loaded / event.total * 100);
+                        const percent = Math.round(event.loaded / event.total * 100);
                         this.dataService.loadingPercent = percent;
                     } else if (event.type === HttpEventType.Response) {
                         this.dataService.loadingPercent = 0;
-                        this.dataService.isLoading = false;
+                        this.dataService.hideLoading();
+                        // this.dataService.isLoading = false;
                     }
                 }
                 // , error => {

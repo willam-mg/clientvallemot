@@ -1,4 +1,4 @@
-<table class="full-width" style="background-color: #dac1ba;">
+<!-- <table class="full-width" style="background-color: #dac1ba;">
     <tbody>
         <tr>
             <td>
@@ -32,18 +32,17 @@
             </td>
         </tr>
     </tbody>
-</table>
+</table> -->
 <div class="row row-mobile">
 <!-- <div class="row row-mobile" style="display: none;"> -->
     <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 mx-auto">
         <mat-card class="card-mobile">
+            <img mat-card-image src="{{model.foto}}" alt="foto" *ngIf="model.foto">
             <mat-card-content>
 
                 <div class="row">
 
                     <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-                        <img src="{{model.foto}}" alt="foto" *ngIf="model.foto" class="foto-image"  width="100%" height="auto">
-                        <img src="/assets/img/car.png" alt="foto" *ngIf="!model.foto" class="foto-model" width="100%" height="auto">
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                         

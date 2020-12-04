@@ -43,49 +43,34 @@
         
         <div class="row d-block d-sm-block d-md-none d-lg-none d-xl-none">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <mat-card *ngFor="let element of mecanicos" class="mt-2">
-                    <mat-card-content>
-                        <table class="full-width">
-                            <tbody>
-                                <tr>
-                                    <td colspan="2">
-                                        <img src="{{element.foto}}" alt="foto" *ngIf="element.foto" class="foto-image-table-mobile">
-                                        <img src="/assets/img/no-image.svg" alt="foto" *ngIf="!element.foto" class="foto-image-table-mobile">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <strong>Nombre</strong> <br>
-                                        <strong>ci</strong> <br>
-                                        <strong>Telefono</strong> <br>
-                                        <strong>Direccion</strong> <br>
-                                        <strong>Especialidad</strong> <br>
-                                        <strong>email</strong> <br>
-                                        <strong>Fecha ingreso</strong> <br>
-                                        <strong>Fecha salida</strong> <br>
-                                    </td>
-                                    <td>
-                                        {{element.nombre_completo}} <br>
-                                        {{element.telefono}} <br>
-                                        {{element.direccion}} <br>
-                                        {{element.especialidad}} <br>
-                                        {{element.email}} <br>
-                                        {{element.fecha_ingreso}} <br>
-                                        {{element.fecha_salida}} <br>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2" class="text-right">
-                                        <button mat-button [routerLink]="['/mecanicos/show']" [queryParams]="{id:element.id}"
-                            matTooltip="Ver" aria-label="Ver" color="primary">
-                                            Ver
-                                            <mat-icon>keyboard_arrow_right</mat-icon>
-                                        </button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </mat-card-content>
+
+                <mat-card *ngFor="let element of mecanicos" class="mt-2 p-1" [routerLink]="['/mecanicos/show']" [queryParams]="{id:element.id}">
+                    <table class="full-width">
+                        <tbody>
+                            <tr>
+                                <td class="text-center" style="width: 22%;">
+                                    <img mat-card-avatar src="{{element.foto}}" alt="foto" *ngIf="element.foto" class="foto-image-table-mobile">
+                                    <img src="/assets/img/no-image-user.svg" alt="foto" *ngIf="!element.foto" class="foto-image-table-mobile">
+                                </td>
+                                <td>
+                                    <strong> {{element.nombre_completo}} </strong> <br>
+                                    <small>
+                                        Ci: 
+                                    </small>
+                                    <!-- <strong>  -->
+                                        <small> {{element.ci}} </small>
+                                    <!-- </strong>  -->
+                                    <br>
+                                    <small>
+                                        Telefono: 
+                                    </small>
+                                    <!-- <strong> -->
+                                        <small> {{element.telefono}} </small>
+                                    <!-- </strong> -->
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </mat-card>
             </div>
         </div>

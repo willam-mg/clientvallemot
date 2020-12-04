@@ -7,6 +7,7 @@ import { DetalleRepuesto } from 'src/app/models/detalle-repuesto';
 import { Orden } from 'src/app/models/orden';
 import { Repuesto } from 'src/app/models/repuesto';
 import { AlertComponent } from 'src/app/shared/alert/alert.component';
+import { NavigationService } from 'src/app/shared/services/navigation.service';
 import { OrdenService } from '../orden.service';
 
 @Component({
@@ -21,14 +22,17 @@ export class ShowComponent implements OnInit {
   repuestos: Array<DetalleRepuesto>;
   totalRepuestos: number;
 
-  constructor(private route: ActivatedRoute,
-              private modelService: OrdenService,
-              public dialog: MatDialog,
-              private router: Router,
-              private dataService: DataService,
-              private title: Title) {
-      this.repuestos = [];
-      this.totalRepuestos = 0;
+  constructor(
+    private route: ActivatedRoute,
+    private modelService: OrdenService,
+    public dialog: MatDialog,
+    private router: Router,
+    private dataService: DataService,
+    private title: Title,
+    private navigationService: NavigationService) {
+    this.navigationService.setBack('/ordenes');
+    this.repuestos = [];
+    this.totalRepuestos = 0;
   }
 
   ngOnInit() {
@@ -67,12 +71,12 @@ export class ShowComponent implements OnInit {
       if (res) {
         this.modelService.delete(this.model.id).subscribe(data => {
           this.dataService.openSnackBar(data.message, 'Deshacer').onAction().subscribe(() => {
-            this.modelService.restore(data.id).subscribe(data => {
-              this.dataService.openSnackBar(data.message, 'cerrar');
+            this.modelService.restore(data.id).subscribe(data1 => {
+              this.dataService.openSnackBar(data1.message, 'cerrar');
               this.router.navigate(['/ordenes/show'], {
                 queryParams:
                 {
-                  id: data.id
+                  id: data1.id
                 }
               });
             });
