@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
-import { of, throwError } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Mecanico } from '../models/mecanico';
@@ -70,6 +70,22 @@ export class MecanicoService {
       }),
     );
   }
+
+
+  public todos(): Observable<Mecanico[]> {
+    return this.http.get<Mecanico[]>(path + '/mecanico/todos', {
+      headers: new HttpHeaders(environment.apiConfig.headers)
+    });
+  }
+  // public todos(): Observable<Mecanico[]> {
+  //   return this.http.get(path + '/mecanico/todos', {
+  //     headers: new HttpHeaders(environment.apiConfig.headers)
+  //   }).pipe(
+  //     tap((data: any) => {
+  //       return of(data);
+  //     })
+  //   );
+  // }
 
   public show(id) {
     return this.http.get(path + '/mecanico/show/' + id, httpHeaders)

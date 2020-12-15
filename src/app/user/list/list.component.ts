@@ -3,6 +3,7 @@ import { User } from 'src/app/models/user';
 import { UserService } from '../user.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
+import { NavigationService } from 'src/app/shared/services/navigation.service';
 
 @Component({
   selector: 'app-list',
@@ -23,7 +24,11 @@ export class ListComponent implements OnInit {
   formSearch: FormGroup;
   showSearch:boolean;
 
-  constructor(public userService: UserService, private title: Title) { 
+  constructor(
+    public userService: UserService,
+    private title: Title,
+    private navigationService: NavigationService) {
+    this.navigationService.setBack('/'); 
     this.title.setTitle('Administradores');
     this.filterSearch = new User();
     this.formSearch = new FormGroup({

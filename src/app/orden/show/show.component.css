@@ -18,6 +18,13 @@
     .visible-print {
       display: block;
     }
+    span, p, b, small, h4, div{
+    font-size: 9px;
+    }
+    div{
+        padding: 0;
+        margin: 0;
+    }
 
     /* // table reprote
     .table-reporte tr th,

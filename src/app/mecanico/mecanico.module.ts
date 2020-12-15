@@ -12,6 +12,7 @@ import { ShowComponent } from './show/show.component';
 import { EditComponent } from './edit/edit.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatSnackBarModule,
     MatTooltipModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatAutocompleteModule
   ]
 })
 export class MecanicoModule { }

@@ -1,5 +1,5 @@
 export class Mecanico {
-    id: any;
+    id: 0;
     nombre_completo: string;
     telefono: string;
     direccion: string;
@@ -12,6 +12,16 @@ export class Mecanico {
     foto: string;
 
     constructor() {
-        this.id = null;
+        this.id = 0;
+        this.nombre_completo = '';
+        this.telefono = '';
+        this.direccion = '';
+        this.ci = '';
+        this.email = '';
+        this.password = '';
+        this.especialidad = '';
+        this.fecha_ingreso = '';
+        this.fecha_salida = '';
+        this.foto = null;
     }
 }

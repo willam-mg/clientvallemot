@@ -5,6 +5,8 @@ import { User } from 'src/app/models/user';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { DataService } from 'src/app/data.service';
 import { LoginService } from 'src/app/login/login.service';
+import { NavigationService } from 'src/app/shared/services/navigation.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-edit',
@@ -13,21 +15,35 @@ import { LoginService } from 'src/app/login/login.service';
 })
 export class EditComponent implements OnInit {
   user: User;
-  idUser: any;
+  idUser: number;
   submitted: boolean;
   formUser: FormGroup;
+  userData: User;
 
-  constructor(private route: ActivatedRoute, 
-    private userService: UserService, 
-    private dataService: DataService, 
+  constructor(
+    private route: ActivatedRoute,
+    private userService: UserService,
+    private dataService: DataService,
     private router: Router,
-    private loginService:LoginService) { }
+    private loginService: LoginService,
+    private navigationService: NavigationService,
+    private title: Title) {
+    this.userData = this.loginService.getUser();
+  }
 
   ngOnInit() {
-    this.user = new User;
+    this.user = new User();
     this.route.queryParams.subscribe(params => {
-      this.idUser = params['id'];
+      this.idUser = params.id;
+      this.title.setTitle('Modificar usuario '+this.idUser);
+      if (this.userData.type == 1){
+        this.navigationService.setBack('/users/show', this.idUser);
+      }else{
+        this.navigationService.setBack('/users/profile');
+      }
+      this.loadUser();
     });
+    
     this.formUser = new FormGroup({
       nombre_completo: new FormControl(this.user.nombre_completo, [
         Validators.required,
@@ -39,16 +55,15 @@ export class EditComponent implements OnInit {
       ]),
       foto: new FormControl(null),
     });
-    this.loadUser();
   }
 
   loadUser() {
     this.userService.getUser(this.idUser).subscribe(data => {
       this.user = data;
       this.formUser.setValue({
-        'nombre_completo':this.user.nombre_completo,
-        'email':this.user.email,
-        'foto':null,
+        nombre_completo: this.user.nombre_completo,
+        email: this.user.email,
+        foto: null,
       });
     });
   }

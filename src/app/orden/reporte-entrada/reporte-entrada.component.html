@@ -1,0 +1,225 @@
+<style>
+    .full-width{
+        width: 100% !important;
+    }
+    .text-center{
+        text-align: center !important;
+    }
+    .text-right{
+        text-align: right !important;
+    }
+    .text-left{
+        text-align: left !important;
+    }
+    table>tbody>tr>td{
+        padding: 0;
+        margin: 0;
+    }
+    p{
+        padding: 0;
+    }
+    h2{
+        padding: 0;
+    }
+    span, b, p, h4, h2, strong{
+        padding: 0;
+        margin: 0;
+    }
+    small{
+        padding: 0;
+        margin: 0;
+    }
+    .letter-content{
+        width: 216mm;    
+        height: 279mm;
+    }
+    .divider{
+        display: block;
+        position: relative;
+        margin: 30px 0 30px 0 !important;
+        width: 100%; 
+        height: 1px; 
+        background-color: rgb(175, 175, 175);
+        margin: 5px auto 5px auto;
+    }
+    .futter-information{
+        position: relative;
+        bottom: -71px;
+        width: 100%;
+        height: 100px;
+        left: 0;
+    }
+</style>
+<div class="letter-content" style="padding: 20px">
+    <table class="full-width">
+        <tbody>
+            <tr>
+                <td style="width: 200px;" class="text-center">
+                    <img src="/assets/img/color_logo.png" width="200" height="100" alt="foto" class="">
+                </td>
+                <td class="text-uppercase text-center">
+                    <h2>
+                        Orden de entrada
+                    </h2>
+                </td>
+                <td style="width: 240px;" class="text-center">
+                    <h4> Nro: 0000{{model.id}} <br>
+                        Fecha: {{model.fecha}} </h4>
+                    <small>
+                        Av. circunvalacion frente al cementerio "parque de las memorias"
+                        Telefonos: <br>
+                        4717408 <br>
+                        70749634
+                    </small>
+
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <b>Propietario</b>
+                    <span class="text-capitalize">
+                        {{model.propietario}}
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <p>
+                        <b>Teléfono</b>
+                        <span class="text-capitalize">
+                            {{model.telefono}}
+                        </span>
+                    </p>
+                </td>
+            </tr>
+        </tbody>
+    </table>  
+
+    <div class="divider"></div>
+
+    <table class="full-width">
+        <tbody>
+            <tr>
+                <td>
+                    <b>Vehículo</b>
+                    <span class="text-capitalize">
+                        {{model.vehiculo}}
+                    </span>
+                </td>
+                <td>
+                    <b>Modelo</b>
+                    <span class="text-capitalize">
+                        {{model.modelo}}
+                    </span>
+                </td>
+                <td>
+                    <b>Color</b>
+                    <span class="text-capitalize">
+                        {{model.color}}
+                    </span>
+                </td>
+                <td>
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Placa</b>
+                    <span class="text-capitalize">
+                        {{model.placa}}
+                    </span>
+                </td>
+                <td>
+                    <b>Tanque</b>
+                    <span class="text-capitalize">
+                        {{model.tanque}}
+                    </span>
+                </td>
+                <td>
+                    <b>Año</b>
+                    <span class="text-capitalize">
+                        {{model.ano}}
+                    </span>
+                </td>
+                <td>
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <div class="divider"></div>
+
+    <table class="full-width">
+        <tbody>
+            <tr>
+                <td>
+                    <h4>Solicitud de trabajo</h4>
+                    <p class="text-capitalize">
+                        {{model.solicitud}}
+                    </p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <div class="divider"></div>
+
+    <table class="full-width">
+        <tbody>
+            <tr>
+                <td>
+                    <h4>Declaracion del estado del vehiculo</h4>
+                    
+                    <div class="full-width text-center">
+                        <img src="/assets/img/autoindicadores.png" width="80%" height="auto" alt="foto" class="">
+                    </div>
+                    
+                    <table class="full-width">
+                        <tbody>
+                            <tr>
+                                <td *ngFor="let group of groupAccesorios">
+                                    <div *ngFor="let accesorio of group">
+                                        <img [src]="accesorio.checked?'/assets/img/check_box-black.svg':'/assets/img/check_box_outline.svg'"
+                                            alt="check">
+                                        <span style="top:-5px; position:relative; text-transform: capitalize;">
+                                            {{accesorio.nombre}}
+                                        </span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <span>
+                        Otros objetos:
+                    </span> 
+                    {{model.estado_vehiculo_otros}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <div class="divider"></div>
+
+    <h4>Conformidad cliente</h4>
+    <table class="full-width" style="margin-top: 100px">
+        <tbody>
+            <tr>
+                <td class="text-center">
+                    _______________________ <br>
+                    <span>Entrada</span>
+                </td>
+                <td class="text-center">
+                    _______________________ <br>
+                    <span>Salida</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="text-center futter-information">
+        <small>
+            NOTA: La empresa no se responsaviliza por objetos no de clarados. Por favor revise su vehiculo antes
+            de dejarlo y recogerlo.
+        </small>
+    </div>
+</div>

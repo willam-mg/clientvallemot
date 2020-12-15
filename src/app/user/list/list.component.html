@@ -40,6 +40,34 @@
 
     <div class="row d-block d-sm-block d-md-none d-lg-none d-xl-none">
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    
+        <mat-card *ngFor="let element of usuarios" class="mt-2 p-1" [routerLink]="['/users/show']"
+          [queryParams]="{id:element.id}">
+          <table class="full-width">
+            <tbody>
+              <tr>
+                <td class="text-center" style="width: 22%;">
+                  <img mat-card-avatar src="{{element.foto}}" alt="foto" *ngIf="element.foto"
+                    class="foto-image-table-mobile">
+                  <img src="/assets/img/no-image-user.svg" alt="foto" *ngIf="!element.foto" class="foto-image-table-mobile">
+                </td>
+                <td>
+                  <strong> {{element.nombre_completo}} </strong> <br>
+                  <small>
+                    Email:
+                  </small>
+                  <small> {{element.email}} </small>
+                  <br>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </mat-card>
+      </div>
+    </div>
+
+    <!-- <div class="row d-block d-sm-block d-md-none d-lg-none d-xl-none">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <mat-card *ngFor="let element of usuarios" class="mt-2">
           <mat-card-content>
             <table class="full-width">
@@ -74,7 +102,7 @@
           </mat-card-content>
         </mat-card>
       </div>
-    </div>
+    </div> -->
 
     <div class="table-responsive d-none d-sm-none d-md-block d-lg-block d-xl-block">
       <table mat-table [dataSource]="usuarios" class="full-width table-hover">

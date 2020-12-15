@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { SeoService } from './seo.service';
-import { Meta } from '@angular/platform-browser';
-import { LoginService } from './login/login.service';
+import { LoadingService } from './loading/loading.service';
 
 @Component({
   selector: 'app-root',
@@ -10,41 +8,17 @@ import { LoginService } from './login/login.service';
 })
 export class AppComponent {
   title = 'Vallemotors';  
-
-  constructor(private loginService: LoginService){
-
+  constructor() {
   }
 
-  // ngOnInit() {
-  //   this.onesignalStart();
-  // }
-
-  // onesignalStart(){
-  //   var OneSignal = window['OneSignal'] || [];
-  //   OneSignal.push(["init", {
-  //     appId: "c7c1cfea-0f28-4d29-a622-512183e410f0",
-  //     autoRegister: false,
-  //     allowLocalhostAsSecureOrigin: true,
-  //     notifyButton: {
-  //       enable: false
-  //     }
-  //   }]);
-
-
-  //   // console.log('OneSignal Initialized');
-  //   OneSignal.push(function () {
-  //     // console.log('Register For Push');
-  //     OneSignal.push(["registerForPushNotifications"])
-  //   });
-  //   OneSignal.push(function () {
-  //     // Occurs when the user's subscription changes to a new value.
-  //     OneSignal.on('subscriptionChange', function (isSubscribed) {
-  //       console.log("The user's subscription state is now:", isSubscribed);
-  //       OneSignal.getUserId().then(function (userId) {
-  //         console.log("User ID is", userId);
-  //         this.loginService.setPlayerId(userId);
-  //       });
-  //     });
-  //   });
-  // }
+  onActivate(event) {
+    // let scrollToTop = window.setInterval(() => {
+    //   let pos = window.pageYOffset;
+    //   if (pos > 0) {
+    //     window.scrollTo(0, pos - 20); // how far to scroll on each step
+    //   } else {
+    //     window.clearInterval(scrollToTop);
+    //   }
+    // }, 16);
+  }
 }

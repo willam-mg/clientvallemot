@@ -1,9 +1,6 @@
 <div class="row row-mobile">
   <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 mx-auto ">
     <mat-card class="card-mobile">
-      <mat-card-header>
-        <mat-card-title>Modificar usuario</mat-card-title>
-      </mat-card-header>
       <!-- <form #userForm (ngSubmit)="onSubmit(userForm, submitBtn)"> -->
       <form [formGroup]="formUser" (ngSubmit)="onSubmit()">
         <mat-card-content>
@@ -33,7 +30,13 @@
           </div>
         </mat-card-content>
         <mat-card-actions>
-          <div class="text-right">
+          <div class="d-block d-sm-block d-md-none d-lg-none d-xl-none">
+            <button mat-flat-button class="full-width" type="submit" color="accent" [disabled]="submitted">
+              <mat-icon>edit</mat-icon>
+              Modificar
+            </button>
+          </div>
+          <div class="d-none d-sm-none d-md-block d-lg-block d-xl-block text-right">
             <button mat-button [routerLink]="['/users/show']" [queryParams]="{id:user.id}">
               <mat-icon>clear</mat-icon>
               Cerrar

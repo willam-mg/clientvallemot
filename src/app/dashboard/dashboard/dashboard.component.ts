@@ -18,6 +18,7 @@ export class DashboardComponent implements OnInit {
   model: Orden;
   notFound: boolean;
   ordenes: Array<Orden>;
+  loading: boolean;
   constructor(
     private title: Title,
     private formBuilder: FormBuilder,
@@ -39,19 +40,23 @@ export class DashboardComponent implements OnInit {
       color: new FormControl(this.model.color),
       estado: new FormControl(this.model.estado),
     });
+    this.loading = false;
   }
 
   ngOnInit() {
-    this.list();
+    this.list(true);
   }
 
+
   list(reload = false) {
+    this.loading = true;
     this.notFound = false;
     console.log(this.formSearch.value);
     // return false;
     this.modelService.all(this.formSearch.value, reload).subscribe(data => {
       this.ordenes = data.data;
       this.notFound = true;
+      this.loading = false;
     });
   }
 

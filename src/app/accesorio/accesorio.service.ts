@@ -1,7 +1,7 @@
 import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
-import { tap, catchError } from 'rxjs/operators';
+import { tap, catchError, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Accesorio } from '../models/accesorio';
 import { Page } from '../shared/page';
@@ -21,9 +21,11 @@ export class AccesorioService {
   accesorios: any;
   todosAccesorios: Array<Accesorio>;
   page: Page;
+  headers: HttpHeaders;
   constructor(private http: HttpClient) {
     this.page = new Page();
     this.todosAccesorios = [];
+    this.headers = new HttpHeaders(environment.apiConfig.headers);
   }
 
   public getLocalItem(id: number) {
@@ -75,21 +77,30 @@ export class AccesorioService {
   }
 
   public todos(reload = false): Observable<Accesorio[]> {
-    if (this.todosAccesorios.length && reload === false) {
-      console.log('retornando lo que ya existe');
-      return of(this.todosAccesorios);
-    }
+    // if (this.todosAccesorios.length && reload === false) {
+    //   console.log('retornando lo que ya existe');
+    //   return of(this.todosAccesorios);
+    // }
 
-    return this.http.get(path + '/accesorio/todos', {
-      headers: new HttpHeaders(environment.apiConfig.headers)
-    }).pipe(
-      tap((data: any) => {
-        this.todosAccesorios = data;
-        console.log('todosAccesorios',  this.todosAccesorios);
-        return of(data);
-      })
-    );
+    return this.http.get<Accesorio[]>(path + '/accesorio/todos', { headers: this.headers });
+      // .pipe(
+      //   map( (res: any) => 
+      //     res.map( (data) => {
+      //       return {
+      //         id: data.id
+      //       };
+      //     })
+      //   )
+      // );
   }
+  // return this.http.get(path + '/accesorio/todos', {
+  //   headers: new HttpHeaders(environment.apiConfig.headers)
+  // }).pipe(
+  //   tap((data: any) => {
+  //     this.todosAccesorios = data;
+  //     return of(data);
+  //   })
+  // );
 
   public show(id) {
     return this.http.get(path + '/accesorio/show/' + id, httpHeaders)

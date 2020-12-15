@@ -1,7 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-// @import '~bootstrap/scss/bootstrap';
-// @import '~bootstrap/scss/bootstrap-reboot';
-// @import '~material-icons/iconfont/material-icons.css';
+
 @import '~material-design-icons/iconfont/material-icons.css';
 @import '~bootstrap/scss/functions';
 @import '~bootstrap/scss/variables';
@@ -9,7 +7,6 @@
 @import '~bootstrap/scss/utilities';
 @import '~bootstrap/scss/tables';
 @import '~bootstrap/scss/bootstrap-grid';
-// @import '@angular/material/prebuilt-themes/pink-bluegrey.css';
 
 html, body { 
   height: 100%; 
@@ -17,19 +14,9 @@ html, body {
 }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-@media only screen and (max-width: 600px) {
-  body {
-    // background: #f1eeee;
-    // background: #2b3e68;
-    // background: #f5f5f5;
-    background: #fafafa;
-    // background: #f5f5f5;
-    // background: #ffffff;
-    // background-color: #f5f5f5;
-        
+// @media only screen and (max-width: 600px) {
 
-  }
-}
+// }
 
 // color primary aplication #6e78f7 para el toolbar
 // color primary aplication #3a58fc para botones 
@@ -84,26 +71,17 @@ $sizeImageMobile:70vw;
   border-radius: 50%;
   box-shadow: #000000 0px 0px 1px 0px;
 }
-@media only screen and (max-width: 600px) {
-  .foto-image {
-    width: $sizeImageMobile;
-    height: $sizeImageMobile;
-    border-radius: 50%;
-    box-shadow: #000000 0px 0px 1px 0px;
-  }
-}
+// @media only screen and (max-width: 600px) {
+  
+// }
 
 .foto-image-edit {
   width: $sizeImageDesktop;
   height: $sizeImageDesktop;
 }
-@media only screen and (max-width: 600px) {
-  .foto-image-edit {
-    margin: 0 auto;
-    width: $sizeImageMobile;
-    height: $sizeImageMobile;
-  }
-}
+// @media only screen and (max-width: 600px) {
+  
+// }
 
 .active-menu{
   background-color: #f5f5f5;
@@ -112,11 +90,9 @@ $sizeImageMobile:70vw;
 .hidde-only-xs {
   display: block;
 }
-@media only screen and (max-width: 600px) {
-  .hidde-only-xs {
-      display: none;
-  }
-}
+// @media only screen and (max-width: 600px) {
+  
+// }
 
 .v-only-xs {
   display: none;
@@ -128,6 +104,35 @@ $sizeImageMobile:70vw;
   }
 
 @media only screen and (max-width: 600px) {
+  body {
+    // background: #f1eeee;
+    // background: #2b3e68;
+    // background: #f5f5f5;
+    background: #fafafa;
+    // background: #f5f5f5;
+    // background: #ffffff;
+    // background-color: #f5f5f5;
+        
+
+  }
+
+  .foto-image {
+    width: $sizeImageMobile;
+    height: $sizeImageMobile;
+    border-radius: 50%;
+    box-shadow: #000000 0px 0px 1px 0px;
+  }
+
+
+  .foto-image-edit {
+    margin: 0 auto;
+    width: $sizeImageMobile;
+    height: $sizeImageMobile;
+  }
+
+  .hidde-only-xs {
+      display: none;
+  }
   .v-only-xs {
       display: block;
   }
@@ -179,4 +184,28 @@ $sizeImageMobile:70vw;
     margin-bottom: 3.5rem !important;
     // padding-bottom: 2rem !important;
   }
+  .button-edit-menu{
+    display: block  !important;
+    position: fixed !important;
+    top: 8px;
+    right: 10px;
+    color: white;
+    z-index: 100;
+    visibility: visible !important;
+  }
+}
+
+
+.loading-bar{
+  position: fixed;
+  width: 100%;
+  z-index: 99;
+  top: 0;
+  left: 0;
+}
+
+.button-edit-menu{
+  visibility: hidden;
+  // display: none !important;
+  // top: -80px;
 }

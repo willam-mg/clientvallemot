@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Mecanico } from 'src/app/models/mecanico';
 import { AlertComponent } from 'src/app/shared/alert/alert.component';
+import { NavigationService } from 'src/app/shared/services/navigation.service';
 import { MecanicoService } from '../mecanico.service';
 
 @Component({
@@ -18,10 +19,12 @@ export class EditComponent implements OnInit {
   submitted: boolean;
   formModel: FormGroup;
 
-  constructor(private route: ActivatedRoute,
-              private modelService: MecanicoService,
-              private router: Router,
-              public dialog: MatDialog) {
+  constructor(
+    private route: ActivatedRoute,
+    private modelService: MecanicoService,
+    private router: Router,
+    public dialog: MatDialog,
+    private navigationService: NavigationService) {
   }
 
   ngOnInit() {
@@ -32,6 +35,7 @@ export class EditComponent implements OnInit {
         this.router.navigate(['/mecanicos']);
       }
     });
+    this.navigationService.setBack('/mecanicos/show', this.id);
     this.formModel = new FormGroup({
       nombre_completo: new FormControl(this.model.nombre_completo, [
         Validators.required,

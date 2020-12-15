@@ -6,6 +6,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoginService } from 'src/app/login/login.service';
 import { Location } from '@angular/common';
+import { Title } from '@angular/platform-browser';
+import { NavigationService } from 'src/app/shared/services/navigation.service';
 
 @Component({
   selector: 'app-profile',
@@ -24,8 +26,12 @@ export class ProfileComponent implements OnInit {
     public dialog: MatDialog,
     private router: Router,
     private _snackBar: MatSnackBar,
-    public location:Location) {
+    public location:Location,
+    private title: Title,
+    private navigationService: NavigationService) {
     this.submitted = false;
+    this.title.setTitle('Mi perfil');
+    this.navigationService.setBack('/');
   }
 
   openSnackBar(message: string, action: string) {

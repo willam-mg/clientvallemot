@@ -1,65 +1,45 @@
+<!-- <button mat-flat-button class="full-width mt-4 mb-5" *ngIf="userData.type == 1" color="accent"
+    (click)="printOrdenSalida()">
+    <mat-icon>print</mat-icon>
+    Imprimir salida
+</button> -->
+
+
+<button mat-icon-button *ngIf="userData.type == 1" class="button-edit-menu" [routerLink]="['/ordenes/edit']" [queryParams]="{id:model.id}">
+    <mat-icon>edit</mat-icon>
+</button>
 <div class="row row-mobile">
-<!-- <div class="row row-mobile" style="display: none;"> -->
     <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 mx-auto">
         <mat-card class="card-mobile">
-            <img mat-card-image src="{{model.foto}}" alt="foto" *ngIf="model.foto">
+            <img class="d-block d-sm-block d-md-none d-lg-none d-xl-none" mat-card-image src="{{model.foto}}" alt="foto" *ngIf="model.foto">
             <mat-card-content>
-                
-                
                 <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
-                        <mat-chip-list aria-label="Fish selection">
-                            <mat-chip *ngIf="model.estado == 1">
-                                <mat-icon>done</mat-icon>
-                                Terminado
-                            </mat-chip>
-                            <mat-chip color="accent" *ngIf="model.estado == 0">Pendiente</mat-chip>
-                        
-                        </mat-chip-list>
-                    </div>
-                </div>
-                
-
-                <div class="row">
-
-                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                        <img class="d-none d-sm-none d-md-block d-lg-block d-xl-block" mat-card-image src="{{model.foto}}" alt="foto" *ngIf="model.foto">
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                        
                         <div class="row">
                             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                 <p>
-                                    <b>propietario</b>
-                                    <span class="text-capitalize">
-                                        {{model.propietario}}
-                                    </span>
-                                </p>
-                                <p>
-                                    <b>telefono</b>
-                                    <span class="text-capitalize">
-                                        {{model.telefono}}
-                                    </span>
-                                </p>
-                                <p>
-                                    <b>vehiculo</b>
+                                    <b>Vehiculo</b>
                                     <span class="text-capitalize">
                                         {{model.vehiculo}}
                                     </span>
                                 </p>
                                 <p>
-                                    <b>placa</b>
+                                    <b>Placa</b>
                                     <span class="text-capitalize">
                                         {{model.placa}}
                                     </span>
                                 </p>
                                 <p>
-                                    <b>modelo</b>
+                                    <b>Modelo</b>
                                     <span class="text-capitalize">
                                         {{model.modelo}}
                                     </span>
                                 </p>
                                 <p>
-                                    <b>tanque</b>
+                                    <b>Tanque</b>
                                     <span class="text-capitalize">
                                         {{model.tanque}}
                                     </span>
@@ -67,19 +47,13 @@
                             </div>
                             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                 <p>
-                                    <b>fecha</b>
-                                    <span class="text-capitalize">
-                                        {{model.fecha}}
-                                    </span>
-                                </p>
-                                <p>
-                                    <b>color</b>
+                                    <b>Color</b>
                                     <span class="text-capitalize">
                                         {{model.color}}
                                     </span>
                                 </p>
                                 <p>
-                                    <b>ano</b>
+                                    <b>Año</b>
                                     <span class="text-capitalize">
                                         {{model.ano}}
                                     </span>
@@ -92,164 +66,272 @@
 
                 <mat-divider></mat-divider>
 
-                <div class="row pt-3">
+                <div class="row mt-3 mb-3">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+                        <mat-chip-list>
+                            <mat-chip *ngIf="model.estado == 1">
+                                <mat-icon>done</mat-icon>
+                                Terminado
+                            </mat-chip>
+                            <mat-chip color="warn" *ngIf="model.estado == 0">
+                                <mat-icon>visibility</mat-icon> 
+                                En espera
+                            </mat-chip>
+                        </mat-chip-list>
+                    </div>
+                </div>
+
+                
+                <div class="row mt-3">
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                        <strong>Propietario</strong>
+                        <span class="text-capitalize">
+                            {{model.propietario}}
+                        </span>
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                        <strong>Telf.</strong>
+                        <span class="text-capitalize">
+                            {{model.telefono}}
+                        </span>
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                        <strong>Fecha de ingreso</strong>
+                        <span class="text-capitalize">
+                            {{model.fecha}}
+                        </span>
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                        <strong>Fecha de salida</strong>
+                        <span class="text-capitalize">
+                            {{model.fecha_salida}}
+                        </span>
+                    </div>
+                </div>
+                
+
+                <div class="row mt-2">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <h4 class="text-capitalize">Solicitud de trabajo del cliente</h4>
+                        <h4>Solicitud de trabajo</h4>
                         <p class="text-capitalize">
                             {{model.solicitud}}
                         </p>
                     </div>
                 </div>
 
+                <div class="mt-3">
+                    <h4>Estado del vehiculo</h4>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3" *ngFor="let group of groupAccesorios">
+                            <div *ngFor="let accesorio of group">
+                                <img [src]="accesorio.checked?'/assets/img/check_box-black.svg':'/assets/img/check_box_outline.svg'" alt="check">
+                                <span style="top:-5px; position:relative">
+                                    {{accesorio.nombre}}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                            <p class="text-capitalize">
+                                {{model.estado_vehiculo_otros}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-3">
+                    <strong>Kilometraje actual</strong>
+                    <span class="text-capitalize">
+                        {{model.km_actual}}
+                    </span>
+                </div>
+                <div class="mt-3">
+                    <strong>Proximo cambio</strong>
+                    <span class="text-capitalize">
+                        {{model.proximo_cambio}}
+                    </span>
+                </div>
+                <div class="mt-3 mb-3">
+                    <strong>Pago</strong>
+                    <span class="text-capitalize">
+                        {{model.pago}} <br>
+                        {{model.detalle_pago}}
+                    </span>
+                </div>
+
+
+                <mat-divider></mat-divider>
+
+                
+
                 <div class="row pt-3">
                     <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
                         <h4 class="text-capitalize">Mano de obra extra</h4>
                     </div>
                     <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-right">
-                        <button class="mt-2" mat-mini-fab [routerLink]="[ '/ordenes/manoobra-create']" [queryParams]="{id:model.id}">
+                        <button class="mt-2" mat-mini-fab (click)="addManoObra()">
                             <mat-icon>add</mat-icon>
                         </button>
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                        <p class="text-capitalize" *ngFor="let item of model.manosobra">
-                            {{item.descripcion}}
-                            {{item.precio}}
-                        </p>
+                <div class="row mb-3">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <mat-list class="full-width">
+                            <mat-list-item *ngFor="let item of model.manosobra">
+                                <div mat-line>
+                                    {{item.descripcion}}
+                                    <button mat-icon-button (click)="addManoObra(item, true)" style="position: absolute; top:5px; right: 5px;">
+                                        <mat-icon>edit</mat-icon>
+                                    </button>
+                                </div>
+                                <div mat-line *ngIf="userData.type == 1 && item.precio"> 
+                                    <strong>
+                                        {{item.precio | number}}  Bs.
+                                    </strong>
+                                </div>
+                            </mat-list-item>
+                        </mat-list>
                     </div>
                 </div>
-
-                <mat-divider></mat-divider>
-
-                <!-- estado vehiculo -->
-                <mat-selection-list #estadoVehiculoSeleccionado>
-                    <mat-list-option *ngFor="let element of accesorios" [value]="element" [selected]="element.checked" disabled>
-                        {{element.nombre}}
-                    </mat-list-option>
-                </mat-selection-list>
-
-                <div class="row">
-                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                        <p>
-                            <b>Otros</b>
-                        </p>
-                        <p class="text-capitalize">
-                            {{model.estado_vehiculo_otros}}
-                        </p>
+                <div class="row mb-3">
+                    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 text-right">
+                        <strong>Total</strong> {{model.totalManoObra | number}} Bs.
                     </div>
                 </div>
-
-                <!-- <div class="row">
-                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                        <button mat-button (click)="elminar()" color="warn">
-                            <mat-icon>delete</mat-icon>
-                            Eliminar
-                        </button>
-                    </div>
-                </div> -->
                 
                 <mat-divider></mat-divider>
 
-                <div class="row pt-5">
+                <div class="row pt-3">
                     <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-                        <h4 class="text-capitalize">detalle de repuestos</h4>
+                        <h4 class="text-capitalize">Detalle de respuestos e insumos</h4>
                     </div>
                     <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-right">
-                        <button class="mt-2" mat-mini-fab [routerLink]="[ '/ordenes/detalle-create']" [queryParams]="{id:model.id}">
+                        <button class="mt-2" mat-mini-fab (click)="addRepuesto()">
                             <mat-icon>add</mat-icon>
                         </button>
                     </div>
                 </div>
+
+                <div class="row mb-3">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <mat-list class="full-width">
+                            <mat-list-item *ngFor="let item of model.repuestos">
+                                <div mat-line>
+                                    {{item.repuesto}}
+                                    <button mat-icon-button (click)="addRepuesto(item, true)" style="position: absolute; top:5px; right: 5px;">
+                                        <mat-icon>edit</mat-icon>
+                                    </button>
+                                </div>
+                                <div mat-line *ngIf="userData.type == 1 && item.precio">
+                                    <strong>
+                                        {{item.precio | number}} Bs.
+                                    </strong>
+                                </div>
+                            </mat-list-item>
+                        </mat-list>
+                    </div>
+                </div>
                 <div class="row">
-                    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 text-left">
-                        
-                        
-                        <table class="table table-light">
-                            <thead>
-                                <tr>
-                                    <th>Nombre</th>
-                                    <th>Precio</th>
-                                </tr>
-                            </thead>
+                    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 text-right">
+                        <strong>Total</strong> {{model.totalRepuesto | number}} Bs.
+                    </div>
+                </div>
+
+                <div class="pt-3" *ngIf="model.mecanico">
+                    <strong>Mecanico responsable</strong> <br>
+                    <mat-card class="p-1" [routerLink]="['/mecanicos/show']"
+                        [queryParams]="{id:model.mecanico.id}">
+                        <table class="full-width">
                             <tbody>
-                                <tr *ngFor="let repuesto of repuestos">
-                                    <td> {{repuesto.repuesto.nombre}} </td>
-                                    <td> {{repuesto.precio}} </td>
+                                <tr>
+                                    <td class="text-center" style="width: 22%;">
+                                        <img mat-card-avatar src="{{model.mecanico.foto}}" alt="foto" *ngIf="model.mecanico.foto"
+                                            class="foto-image-table-mobile">
+                                        <img src="/assets/img/no-image-user.svg" alt="foto" *ngIf="!model.mecanico.foto"
+                                            class="foto-image-table-mobile">
+                                    </td>
+                                    <td>
+                                        <strong> {{model.mecanico.nombre_completo}} </strong> <br>
+                                        <small> Ci: </small>
+                                        <small> {{model.mecanico.ci}} </small> <br>
+                                        <small> Telefono: </small>
+                                        <small> {{model.mecanico.telefono}} </small>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
-                    </div>
-                </div>
-                <div class="row pt-1">
-                    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-                        <h4 class="text-capitalize">total repuestos</h4>
-                        <h4 class="text-capitalize">{{totalRepuestos}}</h4>
-                    </div>
+                    </mat-card>
+
+                    <!-- <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 text-center">
+                        <strong>Mecanico responsable</strong> <br> 
+                        <img *ngIf="model.mecanico.foto" src="{{model.mecanico.foto}}" width="100" height="auto" alt="foto" class="foto-image">
+                        <br>
+                        <span class="text-capitalize">
+                            {{model.mecanico.nombre_completo}}
+                        </span>
+                    </div> -->
                 </div>
                 
 
             </mat-card-content>
             <mat-card-actions class="text-center">
-                <button mat-flat-button class="full-width mt-3" color="accent" [routerLink]="[ '/ordenes/edit']" [queryParams]="{id:model.id}">
-                    <mat-icon>edit</mat-icon>
-                    Modificar
-                </button>
-                <button mat-flat-button class="full-width mt-3" color="primary" (click)="printOrden()">
-                    <mat-icon>print</mat-icon>
-                    Imprimir
-                </button>
-                <button mat-flat-button class="full-width mt-3 mb-5" color="cyan" (click)="printOrdenSalida()">
-                    <mat-icon>print</mat-icon>
-                    Imprimir salida
-                </button>
-                <!-- <table class="full-width" style="background-color: #dac1ba;">
-                    <tbody>
-                        <tr>
-                            <td>
-                                <button mat-button [routerLink]="[ '/ordenes']">
-                                    <mat-icon>clear</mat-icon>
-                                    Cerrar
-                                </button>
-                                <button mat-button (click)="elminar()" color="warn">
-                                                    <mat-icon>delete</mat-icon>
-                                                    Eliminar
-                                                </button>
-                            </td>
-                            <td>
-                                <button mat-flat-button [routerLink]="[ '/ordenes/edit']" [queryParams]="{id:model.id}">
-                                    <mat-icon>edit</mat-icon>
-                                    Modificar
-                                </button>
-                            </td>
-                            <td>
-                                <button mat-flat-button color="primary" (click)="printOrden()">
-                                    <mat-icon>print</mat-icon>
-                                    Imprimir
-                                </button>
-                            </td>
-                            <td>
-                                <button mat-flat-button color="cyan" (click)="printOrdenSalida()">
-                                    <mat-icon>print</mat-icon>
-                                    Imprimir <br>
-                                    salida
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table> -->
+                <div class="d-block d-sm-block d-md-none d-lg-none d-xl-none">
+                    <button mat-flat-button  *ngIf="userData.type == 1" class="full-width mt-4" color="warn"  [routerLink]="[ '/ordenes/edit']" [queryParams]="{id:model.id}">
+                        <mat-icon>edit</mat-icon>
+                        Modificar
+                    </button>
+                    <button mat-flat-button class="full-width mt-4"  *ngIf="userData.type == 1" color="primary" (click)="printOrden()">
+                        <mat-icon>print</mat-icon>
+                        Imprimir entrada
+                    </button>
+                    <button mat-flat-button class="full-width mt-4 mb-5" *ngIf="userData.type == 1" color="accent" (click)="printOrdenSalida()">
+                        <mat-icon>print</mat-icon>
+                        Imprimir salida
+                    </button>
+                </div>
 
 
-
-                <button mat-button [routerLink]="[ '/ordenes']" class="d-none d-sm-none d-md-block d-lg-block d-xl-block">
-                    <mat-icon>clear</mat-icon>
-                    Cerrar
-                </button>
-                <!-- <button mat-flat-button [routerLink]="[ '/ordenes/edit']" [queryParams]="{id:model.id}">
-                    <mat-icon>edit</mat-icon>
-                    Modificar
-                </button> -->
+                
+                <div class="d-none d-sm-none d-md-block d-lg-block d-xl-block">
+                    <table class="full-width">
+                        <tbody>
+                            <tr>
+                                <td class="text-center">
+                                    <button mat-button class="p-2" [routerLink]="[ '/ordenes']">
+                                        <mat-icon>clear</mat-icon>
+                                        Cerrar
+                                    </button>
+                                </td>
+                                <td class="text-center">
+                                    <button mat-flat-button class="p-2" *ngIf="userData.type == 1" (click)="elminar()" color="warn">
+                                        <mat-icon>delete</mat-icon>
+                                        Eliminar
+                                    </button>
+                                </td>
+                                <td class="text-center">
+                                    <button mat-flat-button class="p-2" *ngIf="userData.type == 1" [routerLink]="[ '/ordenes/edit']" [queryParams]="{id:model.id}">
+                                        <mat-icon>edit</mat-icon>
+                                        Modificar
+                                    </button>
+                                </td>
+                                <td class="text-center">
+                                    <button mat-flat-button class="p-2" *ngIf="userData.type == 1" color="primary" (click)="printOrden()">
+                                        <mat-icon>print</mat-icon>
+                                        Imprimir entrada
+                                    </button>
+                                </td>
+                                <td class="text-center">
+                                    <button mat-flat-button class="p-2" *ngIf="userData.type == 1" color="accent" (click)="printOrdenSalida()">
+                                        <mat-icon>print</mat-icon>
+                                        Imprimir salida
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </mat-card-actions>
         </mat-card>
     </div>
@@ -257,533 +339,7 @@
 
 
 
+<!-- reportes -->
+<app-reporte-entrada #reporte id="reporte" class="visible-print" [groupAccesorios]="groupAccesorios" [model]="model"></app-reporte-entrada>
 
-
-
-
-
-
-
-
-
-
-<div #reporte id="reporte" class="visible-print">
-    <div style="padding: 20px;">
-        <table class="full-width">
-            <tbody>
-                <tr>
-                    <td style="width: 200px;" class="text-center">
-                        <img src="/assets/img/color_logo.png" width="200" height="100" alt="foto" class="">
-                    </td>
-                    <td class="text-uppercase text-center">
-                        <h2>
-                            Orden de entrada
-                        </h2>
-                    </td>
-                    <td style="width: 240px;" class="text-center">
-                        <h4> Nro: 0000{{model.id}}  <br>
-                        Fecha: {{model.fecha}} </h4>
-                        <small>
-                            Av. circunvalacion frente al cementerio "parque de las memorias"
-                            Telefonos: <br>
-                            4717048 <br>
-                            70749634
-                        </small>
-                        
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <p>
-                    <b>propietario</b>
-                    <span class="text-capitalize">
-                        {{model.propietario}}
-                    </span>
-                </p>
-                <p>
-                    <b>telefono</b>
-                    <span class="text-capitalize">
-                        {{model.telefono}}
-                    </span>
-                </p>
-            </div>
-        </div>
-        
-        <mat-divider></mat-divider>
-
-        <div class="row">
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 text-capitalize">
-        
-                <div class="row">
-                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                        <p>
-                            <b>vehiculo</b>
-                            <span class="text-capitalize">
-                                {{model.vehiculo}}
-                            </span>
-                        </p>
-                        <p>
-                            <b>placa</b>
-                            <span class="text-capitalize">
-                                {{model.placa}}
-                            </span>
-                        </p>
-                    </div>
-                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                        <p>
-                            <b>modelo</b>
-                            <span class="text-capitalize">
-                                {{model.modelo}}
-                            </span>
-                        </p>
-                        <p>
-                            <b>tanque</b>
-                            <span class="text-capitalize">
-                                {{model.tanque}}
-                            </span>
-                        </p>
-                    </div>
-                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                        <p>
-                            <b>color</b>
-                            <span class="text-capitalize">
-                                {{model.color}}
-                            </span>
-                        </p>
-                        <p>
-                            <b>ano</b>
-                            <span class="text-capitalize">
-                                {{model.ano}}
-                            </span>
-                        </p>
-                    </div>
-                </div>
-        
-            </div>
-        </div>
-
-        <mat-divider></mat-divider>
-        
-        <div class="row">
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                <h4>Solicitud de trabajo cliente</h4>
-                <p class="text-capitalize">
-                    {{model.solicitud}}
-                </p>
-            </div>
-        </div>
-
-        <mat-divider></mat-divider>
-        <h4>Declaracion del estado del vehiculo</h4>
-
-        <div class="full-width">
-            <img src="/assets/img/autoindicadores.png" width="100%" height="auto" alt="foto" class="">
-        </div>
-        <div class="row mt-3">
-            <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
-                <div class="form-control">
-                    <img src="/assets/img/check_box-black.svg" alt="check" *ngIf="model.tapa_ruedas">
-                    <img src="/assets/img/check_box_outline.svg" alt="check" *ngIf="!model.tapa_ruedas">
-                    <span style="top:-10px; position:relative">
-                        tapa de ruedas
-                    </span>
-                </div>
-                <div class="form-control">
-                    <img src="/assets/img/check_box-black.svg" alt="check" *ngIf="model.llanta_auxilio">
-                    <img src="/assets/img/check_box_outline.svg" alt="check" *ngIf="!model.llanta_auxilio">
-                    <span style="top:-10px; position:relative">
-                        llanta_auxilio
-                    </span>
-                </div>
-                <div class="form-control">
-                    <img src="/assets/img/check_box-black.svg" alt="check" *ngIf="model.gata_hidraulica">
-                    <img src="/assets/img/check_box_outline.svg" alt="check" *ngIf="!model.gata_hidraulica">
-                    <span style="top:-10px; position:relative">
-                        gata_hidraulica
-                    </span>
-                </div>
-                <div class="form-control">
-                    <img src="/assets/img/check_box-black.svg" alt="check" *ngIf="model.llave_cruz">
-                    <img src="/assets/img/check_box_outline.svg" alt="check" *ngIf="!model.llave_cruz">
-                    <span style="top:-10px; position:relative">
-                        llave_cruz
-                    </span>
-                </div>
-            </div>
-            <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
-                <div class="form-control">
-                    <img src="/assets/img/check_box-black.svg" alt="check" *ngIf="model.pisos">
-                    <img src="/assets/img/check_box_outline.svg" alt="check" *ngIf="!model.pisos">
-                    <span style="top:-10px; position:relative">
-                        pisos
-                    </span>
-                </div>
-                <div class="form-control">
-                    <img src="/assets/img/check_box-black.svg" alt="check" *ngIf="model.limpia_parabrisas">
-                    <img src="/assets/img/check_box_outline.svg" alt="check" *ngIf="!model.limpia_parabrisas">
-                    <span style="top:-10px; position:relative">
-                        limpia_parabrisas
-                    </span>
-                </div>
-                <div class="form-control">
-                    <img src="/assets/img/check_box-black.svg" alt="check" *ngIf="model.tapa_tanque">
-                    <img src="/assets/img/check_box_outline.svg" alt="check" *ngIf="!model.tapa_tanque">
-                    <span style="top:-10px; position:relative">
-                        tapa_tanque
-                    </span>
-                </div>
-                <div class="form-control">
-                    <img src="/assets/img/check_box-black.svg" alt="check" *ngIf="model.herramientas">
-                    <img src="/assets/img/check_box_outline.svg" alt="check" *ngIf="!model.herramientas">
-                    <span style="top:-10px; position:relative">
-                        herramientas
-                    </span>
-                </div>
-            </div>
-            <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
-                <div class="form-control">
-                    <img src="/assets/img/check_box-black.svg" alt="check" *ngIf="model.mangueras">
-                    <img src="/assets/img/check_box_outline.svg" alt="check" *ngIf="!model.mangueras">
-                    <span style="top:-10px; position:relative">
-                        mangueras
-                    </span>
-                </div>
-                <div class="form-control">
-                    <img src="/assets/img/check_box-black.svg" alt="check" *ngIf="model.espejos">
-                    <img src="/assets/img/check_box_outline.svg" alt="check" *ngIf="!model.espejos">
-                    <span style="top:-10px; position:relative">
-                        espejos
-                    </span>
-                </div>
-                <div class="form-control">
-                    <img src="/assets/img/check_box-black.svg" alt="check" *ngIf="model.tapa_cubos">
-                    <img src="/assets/img/check_box_outline.svg" alt="check" *ngIf="!model.tapa_cubos">
-                    <span style="top:-10px; position:relative">
-                        tapa_cubos
-                    </span>
-                </div>
-                <div class="form-control">
-                    <img src="/assets/img/check_box-black.svg" alt="check" *ngIf="model.antena">
-                    <img src="/assets/img/check_box_outline.svg" alt="check" *ngIf="!model.antena">
-                    <span style="top:-10px; position:relative">
-                        antena
-                    </span>
-                </div>
-            </div>
-            <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
-                <div class="form-control">
-                    <img src="/assets/img/check_box-black.svg" alt="check" *ngIf="model.radio">
-                    <img src="/assets/img/check_box_outline.svg" alt="check" *ngIf="!model.radio">
-                    <span style="top:-10px; position:relative">
-                        radio
-                    </span>
-                </div>
-                <div class="form-control">
-                    <img src="/assets/img/check_box-black.svg" alt="check" *ngIf="model.focos">
-                    <img src="/assets/img/check_box_outline.svg" alt="check" *ngIf="!model.focos">
-                    <span style="top:-10px; position:relative">
-                        focos
-                    </span>
-                </div>
-        
-            </div>
-        </div>
-        
-        <div class="row">
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                <p>
-                    <b>Otros</b>
-                </p>
-                <p class="text-capitalize">
-                    {{model.estado_vehiculo_otros}}
-                </p>
-            </div>
-        </div>
-
-        
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
-                <h5>conformidad cliente</h5>
-                <div class="row">
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                        _______________________ <br>
-                        Entrada
-                    </div>
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                        _______________________ <br>
-                        Salida
-                    </div>
-                </div>
-                
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
-                <small>
-                    NOTA:  La empresa no se responsaviliza por objetos no de clarados. Por favor revise su vehiculo antes de dejarlo y recogerlo.
-                </small>
-            </div>
-        </div>
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div #reporte2 id="reporte2" class="visible-print">
-<!-- <div #reporte2 id="reporte2" > -->
-    <div style="padding: 20px;">
-        <table class="full-width">
-            <tbody>
-                <tr>
-                    <td style="width: 200px;" class="text-center">
-                        <img src="/assets/img/color_logo.png" width="200" height="100" alt="foto" class="">
-                    </td>
-                    <td class="text-uppercase text-center">
-                        <h2>
-                            Orden de Salida
-                        </h2>
-                    </td>
-                    <td style="width: 240px;" class="text-center">
-                        <h4> Nro: 0000{{model.id}}  <br>
-                        Fecha: {{model.fecha}} </h4>
-                        <small>
-                            Av. circunvalacion frente al cementerio "parque de las memorias"
-                            Telefonos: <br>
-                            4717048 <br>
-                            70749634
-                        </small>
-                        
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        
-        <table class="full-width">
-            <tbody>
-                <tr>
-                    <td class="text-left">
-                        <p>
-                            <b>propietario</b>
-                            <span class="text-capitalize">
-                                {{model.propietario}}
-                            </span>
-                        </p>
-                        <p>
-                            <b>telefono</b>
-                            <span class="text-capitalize">
-                                {{model.telefono}}
-                            </span>
-                        </p>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        
-        
-        <mat-divider></mat-divider>
-
-        <div class="row">
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 text-capitalize">
-        
-                <div class="row">
-                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                        <p>
-                            <b>vehiculo</b>
-                            <span class="text-capitalize">
-                                {{model.vehiculo}}
-                            </span>
-                        </p>
-                        <p>
-                            <b>placa</b>
-                            <span class="text-capitalize">
-                                {{model.placa}}
-                            </span>
-                        </p>
-                    </div>
-                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                        <p>
-                            <b>modelo</b>
-                            <span class="text-capitalize">
-                                {{model.modelo}}
-                            </span>
-                        </p>
-                        <p>
-                            <b>tanque</b>
-                            <span class="text-capitalize">
-                                {{model.tanque}}
-                            </span>
-                        </p>
-                    </div>
-                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                        <p>
-                            <b>color</b>
-                            <span class="text-capitalize">
-                                {{model.color}}
-                            </span>
-                        </p>
-                        <p>
-                            <b>ano</b>
-                            <span class="text-capitalize">
-                                {{model.ano}}
-                            </span>
-                        </p>
-                    </div>
-                </div>
-        
-            </div>
-        </div>
-
-        <mat-divider></mat-divider>
-        
-        <div class="row">
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                <h4>Solicitud del cliente</h4>
-                <p class="text-capitalize">
-                    {{model.solicitud}}
-                </p>
-                <p class="text-capitalize" *ngFor="let item of model.manosobra">
-                    {{item.descripcion}}
-                </p>
-            </div>
-        </div>
-
-        
-
-        <mat-divider></mat-divider>
-        
-
-        
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-left">
-                <h5>Detalle mano de obra</h5>
-                <table class="full-width">
-                    <tbody>
-                        <tr *ngFor="let repuesto of repuestos">
-                            <td  style="width: 90%;">
-                                {{repuesto.repuesto.nombre}}
-                            </td>
-                            <td class="text-right" style="width: 20%;">
-                                {{repuesto.repuesto.precio}}
-                            </td>
-                            
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="row pt-1">
-                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 text-right">
-                    <h4 class="text-capitalize">total</h4>
-                    <h4 class="text-capitalize">{{totalRepuestos}}</h4>
-                </div>
-            </div>
-        </div>
-
-        <mat-divider></mat-divider>
-        
-        <div class="row">
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                <h4>Detalle de mano de obra</h4>
-                <p class="text-capitalize" *ngFor="let item of model.manosobra">
-                    {{item.descripcion}}
-                </p>
-            </div>
-        </div>
-        
-        <mat-divider></mat-divider>
-
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-capitalize">
-        
-                <div class="row">
-                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                        <p>
-                            <b>km actual</b>
-                            <span class="text-capitalize">
-                                {{model.km_actual}}
-                            </span>
-                        </p>
-                        <p>
-                            <b>Prox cambio</b>
-                            <span class="text-capitalize">
-                                {{model.proximo_cambio}}
-                            </span>
-                        </p>
-                    </div>
-                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                        <p>
-                            <b>fecha ingreso</b>
-                            <span class="text-capitalize">
-                                {{model.fecha_ingreso}}
-                            </span>
-                        </p>
-                        <p>
-                            <b>fecha salida</b>
-                            <span class="text-capitalize">
-                                {{model.fecha_salida}}
-                            </span>
-                        </p>
-                    </div>
-                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                        <p>
-                            <b>pago</b>
-                            <span class="text-capitalize">
-                                {{model.pago}}
-                            </span>
-                        </p>
-                        <p>
-                            <b>responsable</b>
-                            <span class="text-capitalize">
-                                {{model.responsable}}
-                            </span>
-                        </p>
-                    </div>
-                </div>
-        
-            </div>
-        </div>
-
-
-
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
-                <small class="text-center">
-                    Av. circunvalacion frente al cementerio "parque de las memorias"
-                    Telefonos: <br>
-                    4717408 <br>
-                    70749634
-                </small>
-            </div>
-        </div>
-        
-    </div>
-</div>
+<app-reporte-salida #reporte2 id="reporte2" class="visible-print" [model]="model"></app-reporte-salida>

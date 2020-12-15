@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, AfterContentInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
+import { Observable, Observer, Subscription } from 'rxjs';
 import { LoginService } from 'src/app/login/login.service';
 import { Orden } from 'src/app/models/orden';
 import { User } from 'src/app/models/user';
@@ -12,41 +13,34 @@ import { OrdenService } from '../orden.service';
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.css']
 })
-export class ListComponent implements OnInit {
+export class ListComponent implements OnInit, OnDestroy {
   ordenes: Array<Orden>;
   notFound: boolean;
+  loading: boolean;
   submitted: boolean;
   displayedColumns: string[] = [
-    'nombre_completo',
+    'propietario',
     'vehiculo',
     'placa',
     'modelo',
     'color',
     'ano',
-    'tanque',
-    'solicitud',
-    'fecha_ingreso',
-    'fecha_salida',
-    'km_actual',
-    'proximo_cambio',
-    'pago',
-    'otros',
     'actions',
   ];
   filterSearch: Orden;
   formSearch: FormGroup;
   userData: User;
   showSearch: boolean;
+  subscription: Subscription;
 
   constructor(
-    public modelService: OrdenService, 
-    private title: Title, 
+    public modelService: OrdenService,
+    private title: Title,
     public loginService: LoginService,
     private navigationService: NavigationService) {
     this.userData = loginService.getUser();
     this.title.setTitle('Ordenes');
     this.navigationService.setBack('/');
-    this.ordenes = [];
     this.notFound = false;
     this.submitted = false;
     this.filterSearch = new Orden();
@@ -58,20 +52,30 @@ export class ListComponent implements OnInit {
       estado: new FormControl(this.filterSearch.estado),
     });
     this.showSearch = false;
+    this.loading = false;
+    this.subscription = new Subscription();
   }
 
   ngOnInit() {
-    this.list();
+    this.list(true);
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   list(reload = false) {
     this.submitted = true;
+    this.loading = true;
     this.notFound = false;
-    this.modelService.all(this.formSearch.value, reload).subscribe(data => {
-      this.submitted = false;
-      this.ordenes = data.data;
-      this.notFound = true;
-    });
+    this.subscription.add(
+      this.modelService.all(this.formSearch.value, reload).subscribe(data => {
+        this.submitted = false;
+        this.ordenes = data.data;
+        this.notFound = true;
+        this.loading = false;
+      })
+    );
   }
 
   pagination(event) {

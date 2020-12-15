@@ -12,63 +12,64 @@
                         <img src="{{model.foto}}" alt="foto" *ngIf="model.foto" class="foto-image">
                         <img src="/assets/img/no-image.svg" alt="foto" *ngIf="!model.foto"
                             class="foto-model">
+                        <mat-card-title class="text-capitalize text-center">
+                            {{model.nombre_completo}}
+                        </mat-card-title>
+                        <mat-card-subtitle class="text-capitalize text-center"> 
+                            {{model.especialidad}}
+                        </mat-card-subtitle>
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                        <p>
-                            <b>Nombre</b>
-                        </p>
-                        <p class="text-capitalize">
-                            {{model.nombre_completo}}
-                        </p>
-                        <p>
-                            <b>telefono</b>
-                        </p>
-                        <p class="text-capitalize">
-                            {{model.telefono}}
-                        </p>
-                        <p>
-                            <b>direccion</b>
-                        </p>
-                        <p class="text-capitalize">
-                            {{model.direccion}}
-                        </p>
-                        <p>
-                            <b>ci</b>
-                        </p>
-                        <p class="text-capitalize">
-                            {{model.ci}}
-                        </p>
-                        <p>
-                            <b>email</b>
-                        </p>
-                        <p class="text-capitalize">
-                            {{model.email}}
-                        </p>
-                        <p>
-                            <b>especialidad</b>
-                        </p>
-                        <p class="text-capitalize">
-                            {{model.especialidad}}
-                        </p>
-                        <p>
-                            <b>fecha_ingreso</b>
-                        </p>
-                        <p class="text-capitalize">
-                            {{model.fecha_ingreso}}
-                        </p>
-                        <p>
-                            <b>fecha_salida</b>
-                        </p>
-                        <p class="text-capitalize">
-                            {{model.fecha_salida}}
-                        </p>
-
-
-
-
-
-                      
-
+                        <mat-list>
+                            <mat-list-item>
+                                <div mat-line class="text-muted">
+                                    <small>
+                                        Telefono
+                                    </small>
+                                </div>
+                                {{model.telefono}} 
+                            </mat-list-item>
+                            <mat-list-item>
+                                <div mat-line class="text-muted">
+                                    <small>
+                                        Direccion
+                                    </small>
+                                </div>
+                                {{model.direccion}}
+                            </mat-list-item>
+                            <mat-list-item>
+                                <div mat-line class="text-muted">
+                                    <small>
+                                        Ci
+                                    </small>
+                                </div>
+                                {{model.ci}}
+                            </mat-list-item>
+                            <mat-list-item>
+                                <div mat-line class="text-muted">
+                                    <small>
+                                        Email
+                                    </small>
+                                </div>
+                                {{model.email}}
+                            </mat-list-item>
+                            <mat-list-item>
+                                <div mat-line class="text-muted">
+                                    <small>
+                                        Fecha de ingreso
+                                    </small>
+                                </div>
+                                {{model.fecha_ingreso}}
+                            </mat-list-item>
+                            <mat-list-item>
+                                <div mat-line class="text-muted">
+                                    <small>
+                                        Fecha de salida
+                                    </small>
+                                </div>
+                                {{model.fecha_salida}}
+                            </mat-list-item>
+                        </mat-list>
                         <button mat-button (click)="elminar()" color="warn">
                             <mat-icon>delete</mat-icon>
                             Eliminar

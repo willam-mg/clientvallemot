@@ -5,6 +5,7 @@ import { UserService } from '../user.service';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/data.service';
 import { Title } from '@angular/platform-browser';
+import { NavigationService } from 'src/app/shared/services/navigation.service';
 // import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -13,22 +14,24 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./create.component.css']
 })
 export class CreateComponent implements OnInit {
-  user:User;
+  user: User;
   submitted: boolean;
-  formUser:FormGroup;
+  formUser: FormGroup;
   passwordIcon: string;
   passwordConfirmationIcon: string;
 
   constructor(
-    private userService: UserService, 
+    private userService: UserService,
     private router: Router,
-    private title:Title) {
+    private title: Title,
+    private navigationService: NavigationService) {
+    this.navigationService.setBack('/users');
     this.title.setTitle('Nuevo administrador');
     this.submitted = false;
     this.passwordIcon = 'visibility';
     this.passwordConfirmationIcon = 'visibility';
-    
-    this.user = new User;
+
+    this.user = new User();
     this.formUser = new FormGroup({
       nombre_completo: new FormControl(this.user.nombre_completo, [
         Validators.required,
@@ -42,7 +45,7 @@ export class CreateComponent implements OnInit {
       password: new FormControl(this.user.password, [
         Validators.required,
       ]),
-      password_confirmation: new FormControl(this.user.password_confirmation,[
+      password_confirmation: new FormControl(this.user.password_confirmation, [
         Validators.required
       ]),
     });

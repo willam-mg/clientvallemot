@@ -1,1 +1,62 @@
-<p>edit works!</p>
+<div class="row row-mobile">
+    <div class="col-xs-12 col-sm-7 col-md-5 col-lg-5 mx-auto ">
+        <mat-card class="card-mobile">
+            <form [formGroup]="formModel" (ngSubmit)="onSubmit()" novalidate="">
+                <mat-card-content>
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Nombre</mat-label>
+                        <input type="text" matInput formControlName="nombre" placeholder="Nombre completo"
+                            autocomplete="off" required>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Precio</mat-label>
+                        <input type="number" min="0" step="1" matInput formControlName="precio" placeholder="Precio"
+                            autocomplete="off" required>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>cantidad</mat-label>
+                        <input type="number" min="0" step="1" matInput formControlName="cantidad" placeholder="cantidad"
+                            autocomplete="off" required>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Medida</mat-label>
+                        <select matNativeControl name="medida" formControlName="medida">
+                            <option [value]="'Unidades'">
+                                Unidades
+                            </option>
+                            <option [value]="'Kilos'">
+                                Kilos
+                            </option>
+                            <option [value]="'Litros'">
+                                Litros
+                            </option>
+                            <option [value]="'Metros'">
+                                Metros
+                            </option>
+                        </select>
+                    </mat-form-field>
+
+                </mat-card-content>
+                <mat-card-actions>
+                    <div class="d-block d-sm-block d-md-none d-lg-none d-xl-none">
+                        <button mat-flat-button class="full-width d-block d-sm-block d-md-none d-lg-none d-xl-none p-1" type="submit" color="accent" #submitBtn [disabled]="submitted">
+                            <mat-icon>edit</mat-icon>
+                            Modificar
+                        </button>
+                    </div>
+                    <div class="d-none d-sm-none d-md-block d-lg-block d-xl-block text-right">
+                        <button mat-button [routerLink]="['/repuestos']">
+                            <mat-icon>clear</mat-icon>
+                            Cerrar
+                        </button>
+                        <button mat-flat-button type="submit"
+                            color="accent" [disabled]="submitted">
+                            <mat-icon>edit</mat-icon>
+                            Modificar
+                        </button>
+                    </div>
+                </mat-card-actions>
+            </form>
+        </mat-card>
+    </div>
+</div>

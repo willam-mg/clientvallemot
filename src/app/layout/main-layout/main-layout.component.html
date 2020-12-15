@@ -61,11 +61,11 @@
           &nbsp;
           Accesorios
         </a> -->
-        <a *ngIf="userData.type === 1" mat-list-item [routerLink]="['/repuestos']" [routerLinkActive]="router.url=='/repuestos'?'active-menu':''">
+        <!-- <a *ngIf="userData.type === 1" mat-list-item [routerLink]="['/repuestos']" [routerLinkActive]="router.url=='/repuestos'?'active-menu':''">
           <mat-icon class="pull-right">settings</mat-icon>
           &nbsp;
           Repuestos
-        </a>
+        </a> -->
         <a mat-list-item [routerLink]="['/ordenes']" [routerLinkActive]="router.url=='/ordenes'?'active-menu':''">
           <mat-icon class="pull-right">insert_drive_file</mat-icon>
           &nbsp;
@@ -79,10 +79,8 @@
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>
-      <div *ngIf="dataService.isLoading$ | async ">
-        <mat-progress-bar mode="indeterminate" color="accent">
-        </mat-progress-bar>
-      </div>
+
+      
 
       <mat-toolbar class="fix-nav d-none d-sm-none d-md-block d-lg-block d-xl-block" role="heading" color="primary">
         <mat-toolbar-row>
@@ -97,28 +95,19 @@
             </div>
           </div>
       
-          <div class="">
-            <!-- busador aun no implementado -->
-            <button mat-icon-button *ngIf="!showSearch" (click)="showSearch=true; searchInput.nativeElement.focus()">
-              <mat-icon>search</mat-icon>
-            </button>
-            <div class="search-toolbar" *ngIf="showSearch">
-              <input #searchInput class="form-control" type="text" matInput  placeholder="Buscar" autocomplete="off" (focusout)="showSearch = false">
-            </div>
-          </div>
+          
       <!-- Notificaciones no implementadas aun -->
-          <div class="nav-icon-right">
+          <!-- <div class="nav-icon-right">
             <button mat-icon-button [matMenuTriggerFor]="notifications">
               <mat-icon>notifications</mat-icon>
             </button>
             <mat-menu #notifications [overlapTrigger]="false">
               <button mat-menu-item [routerLink]="['/users/profile']">
-                <!-- <mat-icon>account_circle</mat-icon> -->
                 <strong>Jose inturias</strong>
                 Agrego una nueva orden de trabajo
               </button>
             </mat-menu>
-          </div>
+          </div> -->
           
           <div class="nav-icon-right">
             <button mat-icon-button [matMenuTriggerFor]="profile">
@@ -201,15 +190,10 @@
               <mat-icon class="pull-right">work</mat-icon>
             </a>
           </td>
-          <td class="text-center" *ngIf="userData.type === 1">
+          <!-- <td class="text-center" *ngIf="userData.type === 1">
             <a mat-icon-button href="#" [routerLink]="['/repuestos']" [color]="router.url=='/repuestos'?'accent':''">
               <mat-icon class="pull-right">settings</mat-icon>
             </a>
-          </td>
-          <!-- <td class="text-center">
-            <button mat-icon-button (click)="drawer.toggle()">
-              <mat-icon>menu</mat-icon>
-            </button>
           </td> -->
         </tr>
       </tbody>

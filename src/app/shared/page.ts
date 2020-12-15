@@ -4,7 +4,7 @@ export class Page {
     size:number; // total
     sizeOptions: number[];
     // pageIndex:number;
-    constructor(current = 1, length = 0, size = 5){
+    constructor(current = 1, length = 0, size = 25){
     // constructor(current = 0, length = 0, size = 5){
         // this.pageIndex = 0; 
         this.index = current; 

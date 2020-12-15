@@ -12,6 +12,7 @@ import { OrdenService } from '../orden.service';
 import { AccesoriosComponent } from '../shared/accesorios/accesorios.component';
 import { NavigationService } from 'src/app/shared/services/navigation.service';
 import { Accesorio } from 'src/app/models/accesorio';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
   selector: 'app-create',
@@ -25,8 +26,10 @@ export class CreateComponent implements OnInit {
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   thirtyFormGroup: FormGroup;
-  typesOfShoes: Array<string>;
   accesorios: Array<Accesorio>;
+  loading: boolean;
+  colores: Array<string>;
+  modelos: Array<string>;
 
   constructor(
     private modelService: OrdenService,
@@ -39,6 +42,39 @@ export class CreateComponent implements OnInit {
     private navigationService: NavigationService) {
     this.title.setTitle('Nueva Orden');
     this.navigationService.setBack('/ordenes');
+    this.loading = false;
+    this.colores = [
+      'Blanco',
+      'Negro',
+      'Plata',
+      'Gris',
+      'Azul',
+      'Rojo',
+      'Amarillo',
+      'Naranja',
+      'Verde',
+      'Violeta',
+      'Café Claro',
+    ];
+    this.modelos = [
+      'Audi',
+      'BMW',
+      'Cadillac',
+      'Caterham',
+      'Chevrolet',
+      'Ferrari',
+      'Ford',
+      'Honda',
+      'Infiniti',
+      'Jaguar',
+      'Jeep',
+      'Subaru',
+      'Suzuki',
+      'Tesla',
+      'Toyota',
+      'Volkswagen',
+      'Volvo',
+    ];
   }
 
   ngOnInit() {
@@ -97,22 +133,6 @@ export class CreateComponent implements OnInit {
       ]),
     });
 
-    this.typesOfShoes = [
-      'tapa_ruedas',
-      'llanta_auxilio',
-      'gata_hidraulica',
-      'llave_cruz',
-      'pisos',
-      'limpia_parabrisas',
-      'tapa_tanque',
-      'herramientas',
-      'mangueras',
-      'espejos',
-      'tapa_cubos',
-      'antena',
-      'radio',
-      'focos',
-    ];
     this.getAccesorios();
   }
 
@@ -177,6 +197,7 @@ export class CreateComponent implements OnInit {
   }
 
   getAccesorios(reload = false) {
+    this.loading = true;
     this.accesorioService.todos(reload).subscribe(data => {
       this.accesorios = data.map((element) => {
         let check = false;
@@ -192,6 +213,7 @@ export class CreateComponent implements OnInit {
           checked: check
         };
       });
+      this.loading = false;
     });
   }
 

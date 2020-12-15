@@ -24,7 +24,7 @@ export class NavigationService {
       this.router.navigate([this.urlBack], {
         queryParams:
         {
-          id: '7'
+          id: this.paramId
         }
       });
     }

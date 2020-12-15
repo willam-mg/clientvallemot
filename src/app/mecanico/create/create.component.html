@@ -11,42 +11,51 @@
                     </mat-form-field>
 
                     <mat-form-field appearance="outline" class="full-width">
-                        <mat-label>telefono</mat-label>
+                        <mat-label>Telefono</mat-label>
                         <input type="number" min="0" step="1" matInput formControlName="telefono" placeholder="telefono"
-                            autocomplete="off">
+                            autocomplete="off" required>
                     </mat-form-field>
 
                     <mat-form-field appearance="outline" class="full-width">
-                        <mat-label>direccion</mat-label>
-                        <textarea matInput formControlName="direccion" placeholder="direccion"></textarea>
+                        <mat-label>Dirección</mat-label>
+                        <textarea matInput formControlName="direccion" placeholder="Soy mecanico"></textarea>
                     </mat-form-field>
 
                     <mat-form-field appearance="outline" class="full-width">
-                        <mat-label>ci</mat-label>
+                        <mat-label>Ci</mat-label>
                         <input type="number" min="0" step="1" matInput formControlName="ci" placeholder="ci" autocomplete="off"
                             required>
                     </mat-form-field>
 
                     <mat-form-field appearance="outline" class="full-width">
-                        <mat-label>email</mat-label>
-                        <input type="email" matInput formControlName="email" placeholder="email" autocomplete="off">
+                        <mat-label>Especialidad</mat-label>
+                        <input matInput formControlName="especialidad" placeholder="especialidad" autocomplete="off" [matAutocomplete]="autoEspecialidades">
+                        <mat-autocomplete #autoEspecialidades="matAutocomplete">
+                            <mat-option [value]="'Automotriz general'">
+                                Automotriz general
+                            </mat-option>
+                            <mat-option [value]="'Electricista'">
+                                Electricista
+                            </mat-option>
+                            <mat-option [value]="'Especialista de motores'">
+                                Especialista de motores
+                            </mat-option>
+                            <mat-option [value]="'Tecnico de gas'">
+                                Tecnico de gas
+                            </mat-option>
+                            <mat-option [value]="'Chapero'">
+                                Chapero
+                            </mat-option>
+                            <mat-option [value]="'Ayudante'">
+                                Ayudante
+                            </mat-option>
+                        </mat-autocomplete>
                     </mat-form-field>
-                    
-                    <mat-form-field appearance="outline" class="full-width">
-                        <mat-label>Password</mat-label>
-                        <input type="password" matInput formControlName="password" placeholder="password" autocomplete="off">
-                    </mat-form-field>
-
-                    <mat-form-field appearance="outline" class="full-width">
-                        <mat-label>especialidad</mat-label>
-                        <input matInput formControlName="especialidad" placeholder="especialidad" autocomplete="off">
-                    </mat-form-field>
-
                     
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                             <mat-form-field appearance="outline" class="full-width">
-                                <mat-label>fecha_ingreso</mat-label>
+                                <mat-label>Fecha de ingreso</mat-label>
                                 <input matInput [matDatepicker]="picker" formControlName="fecha_ingreso">
                                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                 <mat-datepicker #picker></mat-datepicker>
@@ -54,13 +63,27 @@
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                             <mat-form-field appearance="outline" class="full-width">
-                                <mat-label>fecha_salida</mat-label>
+                                <mat-label>Fecha de salida</mat-label>
                                 <input matInput [matDatepicker]="picker1" formControlName="fecha_salida">
                                 <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                                 <mat-datepicker #picker1></mat-datepicker>
                             </mat-form-field>
                         </div>
                     </div>
+
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Email</mat-label>
+                        <input type="email" matInput formControlName="email" placeholder="email" autocomplete="off" required>
+                    </mat-form-field>
+                    
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Password</mat-label>
+                        <input type="password" matInput formControlName="password" placeholder="password" autocomplete="off" required>
+                        <mat-hint>Minimo 8 caracteres</mat-hint>
+                    </mat-form-field>
+
+                    
+                    
                     
                     
 

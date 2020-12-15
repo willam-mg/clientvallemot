@@ -1,15 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable, Observer, Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { AccesorioService } from 'src/app/accesorio/accesorio.service';
 import { DataService } from 'src/app/data.service';
+import { LoginService } from 'src/app/login/login.service';
 import { Accesorio } from 'src/app/models/accesorio';
 import { DetalleRepuesto } from 'src/app/models/detalle-repuesto';
 import { Orden } from 'src/app/models/orden';
 import { Repuesto } from 'src/app/models/repuesto';
+import { User } from 'src/app/models/user';
 import { AlertComponent } from 'src/app/shared/alert/alert.component';
 import { NavigationService } from 'src/app/shared/services/navigation.service';
+import { DetalleRepuestoComponent } from '../detalle-repuesto/detalle-repuesto.component';
+import { ManoObraComponent } from '../mano-obra/mano-obra.component';
 import { OrdenService } from '../orden.service';
 
 @Component({
@@ -17,13 +23,18 @@ import { OrdenService } from '../orden.service';
   templateUrl: './show.component.html',
   styleUrls: ['./show.component.css']
 })
-export class ShowComponent implements OnInit {
+export class ShowComponent implements OnInit, OnDestroy {
 
-  id: any;
+  id: number;
   model: Orden;
   repuestos: Array<DetalleRepuesto>;
   totalRepuestos: number;
+  totalManoObra: number;
   accesorios: Array<Accesorio>;
+  groupAccesorios: Array<Array<Accesorio>>;
+  userData: User;
+  modelSubscribe: Subscription;
+  subscription: Subscription;
 
   constructor(
     private route: ActivatedRoute,
@@ -33,49 +44,66 @@ export class ShowComponent implements OnInit {
     private dataService: DataService,
     private title: Title,
     private navigationService: NavigationService,
-    private accesoriosService: AccesorioService) {
+    private accesoriosService: AccesorioService,
+    private loginService: LoginService) {
     this.navigationService.setBack('/ordenes');
     this.repuestos = [];
     this.totalRepuestos = 0;
+    this.totalManoObra = 0;
+    this.groupAccesorios = [];
+    this.userData = this.loginService.getUser();
+    this.model = new Orden();
+    this.subscription = new Subscription();
   }
 
   ngOnInit() {
-    this.model = new Orden;
-    this.route.queryParams.subscribe(params => {
-      this.id = params.id;
-      if (!this.id) {
-        this.router.navigate(['/ordenes']);
-      }
-    });
-    this.title.setTitle('Orden ' + this.id);
-    this.model = this.modelService.getLocalItem(this.id);
-    this.loadData();
+    this.subscription.add(
+      this.route.queryParams.subscribe(params => {
+        this.title.setTitle('Orden ' + params.id);
+        this.loadData(params.id);
+      })
+    );
   }
 
-  loadData() {
-    this.modelService.show(this.id).subscribe(data => {
-      console.log(data);
-      this.model = data;
-      // accesorios
-      this.accesoriosService.todos().subscribe( (dataAccesorios) => {
-        this.accesorios = dataAccesorios.map(element => {
-          const ez = this.model.estadoVehiculo.some(item => {
-            return item.accesorio_id == element.id;
-          });
-          return {
-            id: element.id,
-            nombre: element.nombre,
-            checked: ez,
-          };
-        });
-      });
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 
-      // calcular el total de repuestos
-      this.repuestos = this.model.repuestos;
-      this.repuestos.forEach(element => {
-        this.totalRepuestos += element.precio;
-      });
-    });
+  loadData(id) {
+    this.subscription.add(
+      this.modelService.show(id).subscribe(response => {
+        this.model = response;
+        this.getAccesorios();
+      })
+    );
+  }
+
+
+  getAccesorios() {
+    this.subscription.add(
+      this.accesoriosService.todos()
+      .pipe(
+        map( (res:Array<Accesorio>) =>
+          res.map( data => {
+            return {
+              id: data.id,
+              nombre: data.nombre,
+              checked: this.model.estadoVehiculo.some(item => item.accesorio_id == data.id)
+            };
+          })
+        )
+      )
+      .subscribe((dataAccesorios) => {
+        this.groupAccesorios = [];
+        this.accesorios = dataAccesorios;
+        if (this.accesorios.length >= 14 ){
+          this.groupAccesorios.push( this.accesorios.slice(0, 3) );
+          this.groupAccesorios.push( this.accesorios.slice(4, 7) );
+          this.groupAccesorios.push( this.accesorios.slice(8, 11) );
+          this.groupAccesorios.push( this.accesorios.slice(12, this.accesorios.length) );
+        }
+      })
+    );
   }
 
   elminar() {
@@ -89,18 +117,6 @@ export class ShowComponent implements OnInit {
     }).afterClosed().subscribe(res => {
       if (res) {
         this.modelService.delete(this.model.id).subscribe(data => {
-          this.dataService.openSnackBar(data.message, 'Deshacer').onAction().subscribe(() => {
-            this.modelService.restore(data.id).subscribe(data1 => {
-              this.dataService.openSnackBar(data1.message, 'cerrar');
-              this.router.navigate(['/ordenes/show'], {
-                queryParams:
-                {
-                  id: data1.id
-                }
-              });
-            });
-          });
-
           this.modelService.all(null, true).subscribe(() => {
             this.router.navigate(['/ordenes']);
           });
@@ -115,6 +131,38 @@ export class ShowComponent implements OnInit {
   }
   printOrdenSalida() {
     this.modelService.printInWindow('reporte2');
+  }
+
+  addManoObra(manoObra = 0, idUpdate = false) {
+    this.dialog.open(ManoObraComponent, {
+      data: {
+        model: this.model,
+        userData: this.userData,
+        isUpdate: idUpdate,
+        manoObra: manoObra,
+      },
+      disableClose: true
+    }).afterClosed().subscribe(res => {
+      if (res){
+        this.loadData(this.model.id);
+      }
+    });
+  }
+
+  addRepuesto(repuesto = 0, idUpdate = false) {
+    this.dialog.open(DetalleRepuestoComponent, {
+      data: {
+        model: this.model,
+        userData: this.userData,
+        isUpdate: idUpdate,
+        repuesto: repuesto,
+      },
+      disableClose: true
+    }).afterClosed().subscribe(res => {
+      if (res){
+        this.loadData(this.model.id);
+      }
+    });
   }
 
 }

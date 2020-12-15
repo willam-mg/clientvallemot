@@ -1,59 +1,39 @@
-<div class="row row-mobile">
-    <div class="col-xs-12 col-sm-7 col-md-6 col-lg-6 mx-auto ">
-        <mat-card class="card-mobile">
-            <mat-card-content>
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <mat-form-field appearance="outline" class="full-width">
-                            <mat-label>solicitud</mat-label>
-                            <textarea matInput [(ngModel)]="descripcion" placeholder="Descripcion"></textarea>
-                        </mat-form-field>
-                    </div>
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <mat-form-field appearance="outline" class="full-width">
-                            <mat-label>Precio</mat-label>
-                            <input matInput type="number" min="0" step="1" [(ngModel)]="precio" placeholder="precio">
-                        </mat-form-field>
-                    </div>
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right">
-                        <button mat-flat-button class="ml-3" (click)="agregarDetalle()">
-                            <mat-icon>add</mat-icon>
-                            Agregar
-                        </button>
-                    </div>
-                </div>
-            </mat-card-content>
-
-            <table class="table table-light">
-                <thead>
-                    <tr>
-                        <th>Descripcion</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let repuesto of model.manosobra">
-                        <td> {{repuesto.descripcion}} </td>
-                        <td> {{repuesto.precio}} </td>
-                    </tr>
-                </tbody>
-            </table>
-
-
-            <form [formGroup]="formModel" (ngSubmit)="onSubmit()" novalidate="">
-                <mat-card-actions>
-                    <div class="text-right">
-                        <button mat-button [routerLink]="['/ordenes/show']" [queryParams]="{id:model.id}">
-                            <mat-icon>clear</mat-icon>
-                            Cerrar
-                        </button>
-                        <button mat-flat-button type="submit" color="accent" #submitBtn class="ml-3"
-                            [disabled]="submitted">
-                            <mat-icon>done</mat-icon>
-                            Guardar
-                        </button>
-                    </div>
-                </mat-card-actions>
-            </form>
-        </mat-card>
+<mat-card-title>
+    Mano de obra
+</mat-card-title>
+<mat-dialog-content class="text-capitalize mat-typography">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Descripcion</mat-label>
+                <textarea matInput [(ngModel)]="descripcion" placeholder="Descripcion"></textarea>
+            </mat-form-field>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <mat-form-field appearance="outline" class="full-width" *ngIf="userData.type == 1">
+                <mat-label>Precio</mat-label>
+                <input matInput type="number" min="0" step="1" [(ngModel)]="precio" placeholder="precio">
+                <mat-hint>Bs.</mat-hint>
+            </mat-form-field>
+        </div>
     </div>
-</div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button cdkFocusInitial (click)="closeDialog()">
+        <mat-icon>clear</mat-icon>
+        Cancelar
+    </button>
+    <button mat-flat-button *ngIf="!isUpdate" (click)="onSubmit()" color="primary" #submitBtn class="ml-3" [disabled]="submitted">
+        <mat-icon>add</mat-icon>
+        Agregar
+    </button>
+    <button mat-flat-button *ngIf="isUpdate" (click)="onDelete()" color="warn" #submitBtn class="ml-3" [disabled]="submitted">
+        <mat-icon>delete</mat-icon>
+        Eliminar
+    </button>
+    <button mat-flat-button *ngIf="isUpdate" (click)="onUpdate()" color="accent" #submitBtn class="ml-3" [disabled]="submitted">
+        <mat-icon>edit</mat-icon>
+        Modificar
+    </button>
+</mat-dialog-actions>

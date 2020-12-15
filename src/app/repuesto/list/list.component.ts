@@ -3,6 +3,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { RepuestoService } from 'src/app/repuesto/repuesto.service';
 import { Repuesto } from 'src/app/models/repuesto';
 import { Title } from '@angular/platform-browser';
+import { NavigationService } from 'src/app/shared/services/navigation.service';
 
 @Component({
   selector: 'app-list',
@@ -16,12 +17,17 @@ export class ListComponent implements OnInit {
   displayedColumns: string[] = [
     'nombre',
     'precio',
+    'actions',
   ];
   filterSearch: Repuesto;
   formSearch: FormGroup;
   showSearch:boolean;
 
-  constructor(public modelService: RepuestoService, private title:Title) {
+  constructor(
+    public modelService: RepuestoService,
+    private title: Title,
+    private navigationService: NavigationService) {
+    this.navigationService.setBack('/');
     this.title.setTitle('Repuestos');
     this.repuestos = [];
     this.notFound = false;

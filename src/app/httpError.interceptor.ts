@@ -23,7 +23,8 @@ export class HttpErrorInterceptor implements HttpInterceptor {
   private handleError(err: HttpErrorResponse): Observable<any> {
     //  interceptor erro server bloqued or error cors hosting
     if (err.status === 0) {
-      this.dataService.isLoading = false;
+      // this.dataService.isLoading = false;
+      // this.dataService.hideLoading();
       this.dataService.error = err;
       this.dataService.errorMessage = 'Servidor no responde';
       this.dataService.showMessageError();
@@ -32,7 +33,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 
     // interceptor token and login enrrro 
     if (err.status === 401) {
-      this.dataService.isLoading = false;
+      // this.dataService.hideLoading();
       this.auth.logOut();
       this.router.navigate(['/login']);
       // return of(err.message); // or EMPTY may be appropriate here
@@ -52,7 +53,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     }
 
     this.dataService.loadingPercent = 0;
-    this.dataService.isLoading = false;
+    // this.dataService.hideLoading();
 
     this.dataService.error = err;
     this.dataService.errorMessage = err.error.message;
@@ -92,9 +93,10 @@ export class HttpErrorInterceptor implements HttpInterceptor {
       .pipe(
         // retry(1),
         catchError(err => this.handleError(err)),
-        shareReplay()
+        // shareReplay()
       );
-    this.dataService.isLoading = false;
+    // this.dataService.isLoading = false;
+    // this.dataService.hideLoading();
 
   }
 }

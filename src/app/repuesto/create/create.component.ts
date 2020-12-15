@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Repuesto } from 'src/app/models/repuesto';
+import { NavigationService } from 'src/app/shared/services/navigation.service';
 import { RepuestoService } from '../repuesto.service';
 
 @Component({
@@ -18,7 +19,12 @@ export class CreateComponent implements OnInit {
   passwordIcon: string;
   passwordConfirmationIcon: string;
 
-  constructor(private modelService: RepuestoService, private router: Router, private title: Title) {
+  constructor(
+    private modelService: RepuestoService, 
+    private router: Router,
+    private title: Title,
+    private navigationService: NavigationService) {
+    this.navigationService.setBack('/repuestos');
     this.title.setTitle('Nuevo repuesto');
     this.submitted = false;
 
@@ -30,6 +36,10 @@ export class CreateComponent implements OnInit {
       ]),
       precio: new FormControl(this.model.precio, [
         Validators.required,
+      ]),
+      cantidad: new FormControl(this.model.cantidad),
+      medida: new FormControl(this.model.medida, [
+        Validators.maxLength(50)
       ]),
     });
   }

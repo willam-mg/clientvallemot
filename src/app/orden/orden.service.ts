@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { of, throwError } from 'rxjs';
-import { tap, catchError } from 'rxjs/operators';
+import { Observable, Observer, of, throwError } from 'rxjs';
+import { tap, catchError, shareReplay } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Orden } from '../models/orden';
 import { Page } from '../shared/page';
@@ -17,18 +17,18 @@ const path = environment.apiConfig.path;
 })
 export class OrdenService {
 
-  medicos: any;
+  ordenes: any;
   page: Page;
   constructor(private http: HttpClient) {
     this.page = new Page();
   }
 
   public getLocalItem(id: number) {
-    let model = new Orden;
-    if (!this.medicos) {
+    let model = new Orden();
+    if (!this.ordenes) {
       return model;
     }
-    model = this.medicos.data.find((item) => {
+    model = this.ordenes.data.find((item) => {
       return item.id == id;
     });
     return model;
@@ -58,7 +58,7 @@ export class OrdenService {
         }),
       );
   }
-  
+
   public addManoObra(body) {
     return this.http.post(path + '/orden/detalle/manoobra', body, httpHeaders)
       .pipe(
@@ -71,22 +71,58 @@ export class OrdenService {
       );
   }
 
+  public addRepuesto(body) {
+    return this.http.post(path + '/orden/detalle/add-repuesto', body, httpHeaders)
+      .pipe(
+        tap((data: any) => {
+          return of(data);
+        }),
+        catchError((err) => {
+          return throwError(err);
+        }),
+      );
+  }
+
+  public editManoObra(id, body) {
+    return this.http.put(path + '/orden/detalle/editmanoobra/' + id, body, httpHeaders)
+      .pipe(
+        tap((data: any) => {
+          return of(data);
+        }),
+        catchError((err) => {
+          return throwError(err);
+        }),
+      );
+  }
+
+  public editRepuesto(id, body) {
+    return this.http.put(path + '/orden/detalle/edit-repuesto/' + id, body, httpHeaders)
+      .pipe(
+        tap((data: any) => {
+          return of(data);
+        }),
+        catchError((err) => {
+          return throwError(err);
+        }),
+      );
+  }
+
   public all(filterSearch = null, reload = false) {
-    if (this.medicos && reload == false) {
-      return of(this.medicos);
+    if (this.ordenes && reload === false) {
+      return of(this.ordenes);
     }
-    let params = new HttpParams();
-    params = params.append('page', this.page.index.toString());
-    params = params.append('per_page', this.page.size.toString());
-    params = params.append('filter', JSON.stringify(filterSearch));
+    let myParams = new HttpParams();
+    myParams = myParams.append('page', this.page.index.toString());
+    myParams = myParams.append('per_page', this.page.size.toString());
+    myParams = myParams.append('filter', JSON.stringify(filterSearch));
 
     return this.http.get(path + '/orden/all', {
       headers: new HttpHeaders(environment.apiConfig.headers),
       reportProgress: true,
-      params: params
+      params: myParams
     }).pipe(
       tap((data: any) => {
-        this.medicos = data;
+        this.ordenes = data;
         this.page.setValues(data.current_page, data.total, data.per_page);
         return of(data);
       }),
@@ -110,16 +146,8 @@ export class OrdenService {
     );
   }
 
-  public show(id) {
-    return this.http.get(path + '/orden/show/' + id, httpHeaders)
-      .pipe(
-        tap((data: any) => {
-          return of(data);
-        }),
-        catchError((err) => {
-          return throwError(err);
-        }),
-      );
+  public show(id: number): Observable<Orden> {
+    return this.http.get<Orden>(path + '/orden/show/' + id, httpHeaders);
   }
 
   public delete(id) {
@@ -134,8 +162,56 @@ export class OrdenService {
       );
   }
 
+  public deleteManoObra(id) {
+    return this.http.delete(path + '/orden/detalle/deletemanoobra/' + id, httpHeaders)
+      .pipe(
+        tap((data: any) => {
+          return of(data);
+        }),
+        catchError((err) => {
+          return throwError(err);
+        }),
+      );
+  }
+
+  public deleteRepuesto(id) {
+    return this.http.delete(path + '/orden/detalle/delete-repuesto/' + id, httpHeaders)
+      .pipe(
+        tap((data: any) => {
+          return of(data);
+        }),
+        catchError((err) => {
+          return throwError(err);
+        }),
+      );
+  }
+
   public restore(id) {
     return this.http.delete(path + '/orden/restore/' + id, httpHeaders)
+      .pipe(
+        tap((data: any) => {
+          return of(data);
+        }),
+        catchError((err) => {
+          return throwError(err);
+        }),
+      );
+  }
+
+  public restoreManoObra(id) {
+    return this.http.delete(path + '/orden/detalle/restoremanoobra/' + id, httpHeaders)
+      .pipe(
+        tap((data: any) => {
+          return of(data);
+        }),
+        catchError((err) => {
+          return throwError(err);
+        }),
+      );
+  }
+
+  public restoreRepuesto(id) {
+    return this.http.delete(path + '/orden/detalle/restore-repuesto/' + id, httpHeaders)
       .pipe(
         tap((data: any) => {
           return of(data);

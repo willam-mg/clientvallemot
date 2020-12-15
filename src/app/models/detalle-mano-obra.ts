@@ -5,6 +5,10 @@ export class DetalleManoObra {
     precio: number;
     fecha: string;
     constructor(){
-        this.id = null;
+        this.id = 0;
+        this.orden_id = 0;
+        this.descripcion = '';
+        this.precio = 0;
+        this.fecha = '';
     }
 }

@@ -1,8 +1,11 @@
+<div *ngIf="loading" class="loading-bar">
+    <mat-progress-bar mode="indeterminate" color="accent"></mat-progress-bar>
+</div>
 <div class="row row-mobile">
     <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 mx-auto ">
         <mat-card class="card-mobile" style="padding:0">
             <mat-card-content>
-                <mat-horizontal-stepper labelPosition="bottom" [linear]="false" #stepper>
+                <mat-horizontal-stepper labelPosition="bottom" [linear]="true" #stepper>
                     <mat-step [stepControl]="firstFormGroup">
                         
                         <div class="row">
@@ -24,7 +27,7 @@
                                         <mat-label>fecha</mat-label>
                                         <input matInput [matDatepicker]="picker" formControlName="fecha" required>
                                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                        <mat-datepicker #picker></mat-datepicker>
+                                        <mat-datepicker touchUi  #picker></mat-datepicker>
                                     </mat-form-field>
                                     
                                     <table class="full-width mt-2">
@@ -66,16 +69,26 @@
                                     </mat-form-field>
                                     <mat-form-field appearance="outline" class="full-width">
                                         <mat-label>modelo</mat-label>
-                                        <input type="text" matInput formControlName="modelo" placeholder="modelo" autocomplete="off" required>
+                                        <input type="text" matInput formControlName="modelo" placeholder="modelo" autocomplete="off"  [matAutocomplete]="autoModelos" required>
+                                        <mat-autocomplete #autoModelos="matAutocomplete">
+                                            <mat-option *ngFor="let modelo of modelos" [value]="modelo">
+                                                {{modelo}}
+                                            </mat-option>
+                                        </mat-autocomplete>
                                     </mat-form-field>
                                     <mat-form-field appearance="outline" class="full-width">
                                         <mat-label>color</mat-label>
-                                        <input type="text" matInput formControlName="color" placeholder="color" autocomplete="off" required>
+                                        <input type="text" matInput formControlName="color" placeholder="color" autocomplete="off" [matAutocomplete]="autoColors" required>
+                                        <mat-autocomplete #autoColors="matAutocomplete">
+                                            <mat-option *ngFor="let color of colores" [value]="color">
+                                                {{color}}
+                                            </mat-option>
+                                        </mat-autocomplete>
                                     </mat-form-field>
                                     <mat-form-field appearance="outline" class="full-width">
                                         <mat-label>Año</mat-label>
-                                        <input type="number" min="0" step="1" matInput formControlName="ano" placeholder="ano" autocomplete="off">
-                                    </mat-form-field>
+                                        <input type="number" min="0" step="1" matInput formControlName="ano" placeholder="Año" autocomplete="off">
+                                    </mat-form-field>                                    
                                     <mat-form-field appearance="outline" class="full-width">
                                         <mat-label>Tanque</mat-label>
                                         <select matNativeControl name="tanque" formControlName="tanque">
@@ -120,7 +133,7 @@
                     <mat-step>
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 mx-auto">
-                                <form [formGroup]="thirtyFormGroup" (ngSubmit)="onSubmit(estadoVehiculoSeleccionado)">
+                                <form [formGroup]="thirtyFormGroup" (ngSubmit)="onSubmit()">
                                     <ng-template matStepLabel>Estado</ng-template>
             
                                     <mat-form-field appearance="outline" class="full-width">

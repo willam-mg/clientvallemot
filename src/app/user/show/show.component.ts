@@ -5,6 +5,9 @@ import { User } from 'src/app/models/user';
 import { MatDialog} from '@angular/material/dialog';
 import { AlertComponent } from 'src/app/shared/alert/alert.component';
 import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
+import { NavigationService } from 'src/app/shared/services/navigation.service';
+import { Title } from '@angular/platform-browser';
+import { LoginService } from 'src/app/login/login.service';
 
 @Component({
   selector: 'app-show',
@@ -14,13 +17,18 @@ import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 export class ShowComponent implements OnInit {
   idUser: any;
   user: User;
+  userData: User;
   constructor(
-    private route: ActivatedRoute, 
-    private userService: UserService, 
-    public dialog: MatDialog, 
-    private router:Router,
-    private _snackBar: MatSnackBar) { 
-    
+    private route: ActivatedRoute,
+    private userService: UserService,
+    public dialog: MatDialog,
+    private router: Router,
+    private _snackBar: MatSnackBar,
+    private navigationService: NavigationService,
+    private loginService: LoginService,
+    private title: Title) {
+    this.navigationService.setBack('/users');
+    this.userData = this.loginService.getUser();
   }
 
   openSnackBar(message: string, action: string) {
@@ -36,6 +44,7 @@ export class ShowComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.idUser = params['id'];
     });
+    this.title.setTitle('Usuario ' + this.idUser);
     this.user = this.userService.getLocalUser(this.idUser);
     this.loadUser();
   }
@@ -57,17 +66,17 @@ export class ShowComponent implements OnInit {
     }).afterClosed().subscribe(result => {
       if (result){
         this.userService.delete(this.user.id).subscribe(data=>{
-          this.openSnackBar(data.message, 'Deshacer').onAction().subscribe(() => {
-            this.userService.restore(data.id).subscribe(data => {
-              this.openSnackBar(data.message, 'cerrar');
-              this.router.navigate(['/users/show'], {
-                queryParams:
-                {
-                  id: data.id
-                }
-              });
-            });
-          });
+          // this.openSnackBar(data.message, 'Deshacer').onAction().subscribe(() => {
+          //   this.userService.restore(data.id).subscribe(data => {
+          //     this.openSnackBar(data.message, 'cerrar');
+          //     this.router.navigate(['/users/show'], {
+          //       queryParams:
+          //       {
+          //         id: data.id
+          //       }
+          //     });
+          //   });
+          // });
           this.router.navigate(['/users']);
     
         });

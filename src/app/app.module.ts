@@ -22,7 +22,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { LoadingInterceptor } from './loading.interceptor';
+import { LoadingInterceptor } from './loading/loading.interceptor';
 import { TokenInterceptor } from './token.interceptor';
 import { DeviceDetectorModule } from 'ngx-device-detector';
 import { HttpErrorInterceptor } from './httpError.interceptor';
@@ -30,7 +30,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -60,6 +60,7 @@ import { environment } from '../environments/environment';
     ReactiveFormsModule,
     MatDialogModule,
     MatSnackBarModule,
+    MatProgressSpinnerModule,
     DeviceDetectorModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],

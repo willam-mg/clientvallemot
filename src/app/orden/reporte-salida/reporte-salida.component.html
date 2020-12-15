@@ -1,0 +1,296 @@
+<style>
+    .full-width {
+        width: 100% !important;
+    }
+
+    .text-center {
+        text-align: center !important;
+    }
+
+    .text-right {
+        text-align: right !important;
+    }
+
+    .text-left {
+        text-align: left !important;
+    }
+
+    table>tbody>tr>td{
+        padding: 5px;
+        margin: 5px;
+    }
+    p{
+        padding: 0;
+    }
+    h2{
+        padding: 0;
+    }
+    span, b, p, h4, h2, strong{
+        padding: 0;
+        margin: 0;
+    }
+    small{
+        padding: 0;
+        margin: 0;
+    }
+    .letter-content{
+        border: 1px solid black;
+        width: 216mm;    
+        height: 279mm;
+        padding: 20px;
+    }
+    .divider{
+        display: block;
+        position: relative;
+        margin: 5px 0 5px 0 !important;
+        width: 100%; 
+        height: 1px; 
+        background-color: rgb(175, 175, 175);
+        margin: 5px auto 5px auto;
+    }
+    .footer-content{
+        padding: 20px;
+        position: fixed;
+        z-index: 1;
+        bottom: 200px;
+        width: 100%;
+        height: 100px;
+        left: 0;
+    }
+</style>
+<div class="letter-content">
+    <table class="full-width">
+        <tbody>
+            <tr>
+                <td style="width: 200px;" class="text-center">
+                    <img src="/assets/img/color_logo.png" width="200" height="100" alt="foto" class="">
+                </td>
+                <td class="text-uppercase text-center">
+                    <h2>
+                        Orden de salida
+                    </h2>
+                </td>
+                <td style="width: 240px;" class="text-center">
+                    <h4> Nro: 0000{{model.id}} <br>
+                        Fecha: {{model.fecha}} </h4>
+                    <small>
+                        Av. circunvalacion frente al cementerio "parque de las memorias"
+                        Telefonos: <br>
+                        4717048 <br>
+                        70749634
+                    </small>
+
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <b>Propietario</b>
+                    <span class="text-capitalize">
+                        {{model.propietario}}
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <p>
+                        <b>teléfono</b>
+                        <span class="text-capitalize">
+                            {{model.telefono}}
+                        </span>
+                    </p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="divider"></div>
+
+    <table class="full-width">
+        <tbody>
+            <tr>
+                <td>
+                    <b>Vehículo</b>
+                    <span class="text-capitalize">
+                        {{model.vehiculo}}
+                    </span>
+                </td>
+                <td>
+                    <b>Modelo</b>
+                    <span class="text-capitalize">
+                        {{model.modelo}}
+                    </span>
+                </td>
+                <td>
+                    <b>Color</b>
+                    <span class="text-capitalize">
+                        {{model.color}}
+                    </span>
+                </td>
+                <td>
+    
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Placa</b>
+                    <span class="text-capitalize">
+                        {{model.placa}}
+                    </span>
+                </td>
+                <td>
+                    <b>Tanque</b>
+                    <span class="text-capitalize">
+                        {{model.tanque}}
+                    </span>
+                </td>
+                <td>
+                    <b>Año</b>
+                    <span class="text-capitalize">
+                        {{model.ano}}
+                    </span>
+                </td>
+                <td>
+    
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="divider"></div>
+    
+    <table class="full-width">
+        <tbody>
+            <tr>
+                <td>
+                    <h4>Solicitud de trabajo</h4>
+                    <p class="text-capitalize">
+                        {{model.solicitud}}
+                    </p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <div class="divider"></div>
+    
+    <h4>Detalle mano de obra</h4>
+    <table class="full-width">
+        <tbody>
+            <tr *ngFor="let element of model.manosobra">
+                <td style="width: 90%;">
+                    {{element.descripcion}}
+                </td>
+                <td class="text-right" style="width: 10%;">
+                    {{element.precio | number}}
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td class="text-right">
+                    <strong>Total: </strong>
+                    {{model.totalManoObra | number}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <div class="divider"></div>
+
+
+    <h4>Detalle de repuestos e insumos</h4>
+    <table class="full-width">
+        <tbody>
+            <tr *ngFor="let repuesto of model.repuestos">
+                <td style="width: 90%;">
+                    {{repuesto.repuesto}}
+                </td>
+                <td class="text-right" style="width: 10%;">
+                    {{repuesto.precio | number}}
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td class="text-right">
+                    <strong>Total: </strong>
+                    {{model.totalRepuesto | number}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="footer-content">
+        <div class="divider"></div>
+        
+        <table class="full-width">
+            <tbody>
+                <tr>
+                    <td class="text-right">
+                        <h2>
+                            Total 
+                            {{model.totalRepuesto + model.totalManoObra | number }} Bs.
+                        </h2>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="divider"></div>
+    
+    
+        <table class="full-width">
+            <tbody>
+                <tr>
+                    <td>
+                        <b>km actual</b>
+                        <span class="text-capitalize">
+                            {{model.km_actual}}
+                        </span>
+                    </td>
+                    <td>
+                        <b>Fecha de ingreso</b>
+                        <span class="text-capitalize">
+                            {{model.fecha}}
+                        </span>
+                    </td>
+                    <td>
+                        <b>pago</b>
+                        <span class="text-capitalize">
+                            {{model.pago}}
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Prox cambio</b>
+                        <span class="text-capitalize">
+                            {{model.proximo_cambio}}
+                        </span>
+                    </td>
+                    <td>
+                        <b>Fecha de salida</b>
+                        <span class="text-capitalize">
+                            {{model.fecha_salida}}
+                        </span>
+                    </td>
+                    <td>
+                        <b>Mecanico responsable</b>
+                        <span *ngIf="model.mecanico" class="text-capitalize">
+                            {{model.mecanico.nombre_completo}}
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    
+        <div class="text-center" style="margin-top: 30px;">
+            <small class="text-center">
+                Av. circunvalacion frente al cementerio "parque de las memorias"
+                Telefonos: <br>
+                4717408 <br>
+                70749634
+            </small>
+        </div>
+    </div>
+</div>
+
+

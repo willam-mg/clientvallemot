@@ -55,17 +55,17 @@ export class ShowComponent implements OnInit {
     }).afterClosed().subscribe(res => {
       if (res) {
         this.modelService.delete(this.model.id).subscribe(data => {
-          this.dataService.openSnackBar(data.message, 'Deshacer').onAction().subscribe(() => {
-            this.modelService.restore(data.id).subscribe( data1 => {
-              this.dataService.openSnackBar(data1.message, 'cerrar');
-              this.router.navigate(['/mecanicos/show'], {
-                queryParams:
-                {
-                  id: data1.id
-                }
-              });
-            });
-          });
+          // this.dataService.openSnackBar(data.message, 'Deshacer').onAction().subscribe(() => {
+          //   this.modelService.restore(data.id).subscribe( data1 => {
+          //     this.dataService.openSnackBar(data1.message, 'cerrar');
+          //     this.router.navigate(['/mecanicos/show'], {
+          //       queryParams:
+          //       {
+          //         id: data1.id
+          //       }
+          //     });
+          //   });
+          // });
           this.router.navigate(['/mecanicos']);
 
         });

@@ -1,40 +1,44 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
+import * as moment from 'moment';
+import { forkJoin, Subscription } from 'rxjs';
+import { finalize, map } from 'rxjs/operators';
+import { AccesorioService } from 'src/app/accesorio/accesorio.service';
+import { MecanicoService } from 'src/app/mecanico/mecanico.service';
+import { Accesorio } from 'src/app/models/accesorio';
+import { Mecanico } from 'src/app/models/mecanico';
 import { Orden } from 'src/app/models/orden';
 import { AlertComponent } from 'src/app/shared/alert/alert.component';
 import { NavigationService } from 'src/app/shared/services/navigation.service';
 import { OrdenService } from '../orden.service';
+import { AccesoriosComponent } from '../shared/accesorios/accesorios.component';
 
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.css']
 })
-export class EditComponent implements OnInit {
+export class EditComponent implements OnInit, OnDestroy {
   model: Orden;
-  id: any;
   submitted: boolean;
   formModel: FormGroup;
+  accesorios: Array<Accesorio>;
+  mecanicos: Array<Mecanico>;
+  loading: boolean;
+  subscripction: Subscription;
 
   constructor(
     private route: ActivatedRoute,
     private modelService: OrdenService,
     private router: Router,
     public dialog: MatDialog,
-    private navigationService: NavigationService) {
-  }
-
-  ngOnInit() {
+    private navigationService: NavigationService,
+    private mecanicoService: MecanicoService,
+    private accesorioService: AccesorioService) {
+    this.loading = false;
     this.model = new Orden();
-    this.route.queryParams.subscribe(params => {
-      this.id = params.id;
-      if (!this.id) {
-        this.router.navigate(['/mecanicos']);
-      }
-    });
-    this.navigationService.setBack('/ordenes/show', this.id);
     this.formModel = new FormGroup({
       propietario: new FormControl(this.model.propietario, [
         Validators.required,
@@ -47,7 +51,7 @@ export class EditComponent implements OnInit {
       fecha: new FormControl(this.model.fecha, [
         Validators.required,
       ]),
-
+      fecha_salida: new FormControl(this.model.fecha_salida),
       vehiculo: new FormControl(this.model.vehiculo, [
         Validators.required,
         Validators.maxLength(50)
@@ -68,7 +72,6 @@ export class EditComponent implements OnInit {
       tanque: new FormControl(this.model.tanque, [
         Validators.maxLength(50)
       ]),
-
       solicitud: new FormControl(this.model.solicitud, [
         Validators.required,
         Validators.maxLength(300)
@@ -76,69 +79,93 @@ export class EditComponent implements OnInit {
       estado_vehiculo_otros: new FormControl(this.model.estado_vehiculo_otros, [
         Validators.maxLength(300)
       ]),
-      tapa_ruedas: new FormControl(this.model.tapa_ruedas),
-      llanta_auxilio: new FormControl(this.model.llanta_auxilio),
-      gata_hidraulica: new FormControl(this.model.gata_hidraulica),
-      llave_cruz: new FormControl(this.model.llave_cruz),
-      pisos: new FormControl(this.model.pisos),
-      limpia_parabrisas: new FormControl(this.model.limpia_parabrisas),
-      tapa_tanque: new FormControl(this.model.tapa_tanque),
-      herramientas: new FormControl(this.model.herramientas),
-      mangueras: new FormControl(this.model.mangueras),
-      espejos: new FormControl(this.model.espejos),
-      tapa_cubos: new FormControl(this.model.tapa_cubos),
-      antena: new FormControl(this.model.antena),
-      radio: new FormControl(this.model.radio),
-      focos: new FormControl(this.model.focos),
-      foto: new FormControl(null),
-      estado: new FormControl(0),
+      foto: new FormControl(this.model.foto),
+      estado: new FormControl(this.model.estado),
       km_actual: new FormControl(this.model.km_actual),
       proximo_cambio: new FormControl(this.model.proximo_cambio),
       pago: new FormControl(this.model.pago, [
         Validators.maxLength(50)
       ]),
       detalle_pago: new FormControl(this.model.detalle_pago),
+      mecanico_id: new FormControl(this.model.mecanico_id),
     });
-    this.loadData();
+    this.subscripction = new Subscription();
   }
 
-  loadData() {
-    this.modelService.show(this.id).subscribe(data => {
-      this.model = data;
-      this.formModel.setValue({
-        propietario: this.model.propietario,
-        telefono: this.model.telefono,
-        fecha: this.model.fecha,
-        vehiculo: this.model.vehiculo,
-        placa: this.model.placa,
-        modelo: this.model.modelo,
-        color: this.model.color,
-        ano: this.model.ano,
-        tanque: this.model.tanque,
-        solicitud: this.model.solicitud,
-        estado_vehiculo_otros: this.model.estado_vehiculo_otros,
-        tapa_ruedas: this.model.tapa_ruedas,
-        llanta_auxilio: this.model.llanta_auxilio,
-        gata_hidraulica: this.model.gata_hidraulica,
-        llave_cruz: this.model.llave_cruz,
-        pisos: this.model.pisos,
-        limpia_parabrisas: this.model.limpia_parabrisas,
-        tapa_tanque: this.model.tapa_tanque,
-        herramientas: this.model.herramientas,
-        mangueras: this.model.mangueras,
-        espejos: this.model.espejos,
-        tapa_cubos: this.model.tapa_cubos,
-        antena: this.model.antena,
-        radio: this.model.radio,
-        focos: this.model.focos,
-        foto: this.model.foto,
-        estado: this.model.estado,
-        km_actual: this.model.km_actual,
-        proximo_cambio: this.model.proximo_cambio,
-        pago: this.model.pago,
-        detalle_pago: this.model.detalle_pago,
-      });
-    });
+  ngOnInit() {
+    this.getParamId();
+    this.getMecanicos();
+  }
+
+  ngOnDestroy(){
+    this.subscripction.unsubscribe();
+  }
+  
+  getParamId(){
+    this.subscripction.add(
+      this.route.queryParams.subscribe(params => {
+        this.navigationService.setBack('/ordenes/show', params.id);
+        this.getModel(params.id);
+      })
+    );
+  }
+
+  getModel(id: number) {
+    this.subscripction.add(
+      this.modelService.show(id).subscribe(data => {
+        this.model = data;
+        this.formModel.setValue({
+          propietario: this.model.propietario,
+          telefono: this.model.telefono,
+          fecha: this.model.fecha,
+          fecha_salida: this.model.fecha_salida,
+          vehiculo: this.model.vehiculo,
+          placa: this.model.placa,
+          modelo: this.model.modelo,
+          color: this.model.color,
+          ano: this.model.ano,
+          tanque: this.model.tanque,
+          solicitud: this.model.solicitud,
+          estado_vehiculo_otros: this.model.estado_vehiculo_otros,
+          foto: this.model.foto,
+          estado: this.model.estado,
+          km_actual: this.model.km_actual,
+          proximo_cambio: this.model.proximo_cambio,
+          pago: this.model.pago,
+          detalle_pago: this.model.detalle_pago,
+          mecanico_id: this.model.mecanico_id,
+        });
+        this.getAccesorios();
+      })
+    );
+  }
+
+  getAccesorios() {
+    this.subscripction.add(
+      this.accesorioService.todos()
+      .pipe(
+        map( (res: Accesorio[]) => 
+          res.map( (data) => {
+            return {
+              id: data.id,
+              nombre: data.nombre,
+              checked: this.model.estadoVehiculo.some(elm => elm.accesorio_id == data.id)
+            };
+          })
+        )
+      )
+      .subscribe(data => {
+        this.accesorios = data;
+      })
+    );
+  }
+
+  getMecanicos() {
+    this.subscripction.add(
+      this.mecanicoService.todos().subscribe(data => {
+        this.mecanicos = data;
+      })
+    );
   }
 
   onFileChange(event) {
@@ -170,8 +197,38 @@ export class EditComponent implements OnInit {
             throw new Error('Entrada de datos invalido');
           }
           this.submitted = true;
+          this.formModel.value.fecha = moment(this.formModel.value.fecha).format('YYYY-MM-DD');
+          if (this.formModel.value.proximo_cambio){
+            this.formModel.value.proximo_cambio = moment(this.formModel.value.proximo_cambio).format('YYYY-MM-DD');
+          }
+          if (this.formModel.value.fecha_salida){
+            this.formModel.value.fecha_salida = moment(this.formModel.value.fecha_salida).format('YYYY-MM-DD');
+          }
 
-          this.modelService.update(this.model.id, this.formModel.value).subscribe(async data => {
+          const objToSend = {
+            propietario: this.formModel.value.propietario,
+            telefono: this.formModel.value.telefono,
+            fecha: this.formModel.value.fecha,
+            fecha_salida: this.formModel.value.fecha_salida,
+            vehiculo: this.formModel.value.vehiculo,
+            placa: this.formModel.value.placa,
+            modelo: this.formModel.value.modelo,
+            color: this.formModel.value.color,
+            ano: this.formModel.value.ano,
+            tanque: this.formModel.value.tanque,
+
+            solicitud: this.formModel.value.solicitud,
+            foto: this.formModel.value.foto,
+            estado_vehiculo_otros: this.formModel.value.otros,
+            estado_vehiculo: this.accesorios.filter(element => element.checked === true),
+            km_actual: this.formModel.value.km_actual,
+            proximo_cambio: this.formModel.value.proximo_cambio,
+            pago: this.formModel.value.pago,
+            estado: this.formModel.value.estado,
+            mecanico_id: this.formModel.value.mecanico_id,
+          };
+
+          this.modelService.update(this.model.id, objToSend).subscribe(async data => {
             this.model = data;
             this.modelService.all(null, true).subscribe(() => {
               this.submitted = false;
@@ -189,6 +246,17 @@ export class EditComponent implements OnInit {
           console.log(error);
         }
       }
+    });
+  }
+
+  selectAccesorios() {
+    this.dialog.open(AccesoriosComponent, {
+      data: {
+        accesorios: this.accesorios,
+      },
+      disableClose: true
+    }).afterClosed().subscribe(res => {
+      this.accesorios = res;
     });
   }
 }

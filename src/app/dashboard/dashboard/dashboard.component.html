@@ -1,12 +1,8 @@
 
-<!-- <div class="row row-mobile">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mt-12">
-        <div class="text-uppercase text-center d-block d-sm-block d-md-none d-lg-none d-xl-none">
-            <h2>VALLE MOTOR'S</h2>
-            <mat-divider></mat-divider>
-        </div>
-    </div>
-</div> -->
+<div *ngIf="loading" class="loading-bar">
+    <mat-progress-bar mode="indeterminate" color="accent"></mat-progress-bar>
+</div>
+
 <div *ngIf="!deviceService.isMobile()">
     <div class="row row-mobile">
         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 mt-4" *ngIf="userData.type == 1">
@@ -15,7 +11,7 @@
                     <img src="/assets/img/dash_user.png" alt="" width="100%" height="100px">
                 </div>
                 <div class="content-card-dash">
-                    <h1>Usuarios</h1>
+                    <h1>Adminsitradores</h1>
                     <small>
                         <p>
                             432 Usuarios registrados
@@ -74,18 +70,14 @@
 
 <div *ngIf="deviceService.isMobile()">
     <mat-card>
-        <img mat-card-image src="/assets/img/baner-mobile.jpg" alt="baner">
-        <label class="title-baner">
-            +100 Ordenes en espera
-        </label>
         <mat-card-content class="content-main-mobile">
             <table class="full-width">
                 <tbody>
-                    <tr>
-                        <td class="text-center td-menu-mobile">
+                    <tr *ngIf="userData.type == 1">
+                        <td class="text-center td-menu-mobile" >
                             <a href="#" class="button-menu-mobile" [routerLink]="['/users']" aria-label="Usuarios">
                                 <mat-icon color="accent">person</mat-icon> <br>
-                                <span>Usuarios</span>
+                                <span>Administradores</span>
                             </a>
                         </td>
                         <td class="text-center td-menu-mobile">
@@ -103,9 +95,9 @@
                             </a>
                         </td>
                         <td class="text-center">
-                            <a href="#" class="button-menu-mobile" [routerLink]="['/repuestos']" aria-label="Usuarios">
+                            <a href="#" class="button-menu-mobile" [routerLink]="['/users/profile']" aria-label="Usuarios">
                                 <mat-icon color="accent">settings</mat-icon> <br>
-                                <span>Repuestos</span>
+                                <span>Mi perfil</span>
                             </a>
                         </td>
                     </tr>
@@ -134,5 +126,11 @@
                 </table>
             </mat-card-content>
         </mat-card>
+
+        <div class="mt-2 text-center">
+            <a href="#" [routerLink]="['/ordenes']">
+                Mas
+            </a>
+        </div>
     </mat-card>
 </div>

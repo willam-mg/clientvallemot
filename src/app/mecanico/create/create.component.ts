@@ -4,6 +4,7 @@ import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { Mecanico } from 'src/app/models/mecanico';
+import { NavigationService } from 'src/app/shared/services/navigation.service';
 import { MecanicoService } from '../mecanico.service';
 
 @Component({
@@ -18,7 +19,12 @@ export class CreateComponent implements OnInit {
   passwordIcon: string;
   passwordConfirmationIcon: string;
 
-  constructor(private modelService: MecanicoService, private router: Router, private title:Title) {
+  constructor(
+    private modelService: MecanicoService, 
+    private router: Router, 
+    private title: Title,
+    private navigationService: NavigationService) {
+    this.navigationService.setBack('/mecanicos');
     this.title.setTitle('Nuevo mecanico');
     this.submitted = false;
 
@@ -31,6 +37,7 @@ export class CreateComponent implements OnInit {
         Validators.maxLength(50)
       ]),
       telefono: new FormControl(this.model.telefono, [
+        Validators.required,
       ]),
       direccion: new FormControl(this.model.direccion, [
         Validators.maxLength(250)
@@ -41,15 +48,12 @@ export class CreateComponent implements OnInit {
       email: new FormControl(this.model.email, [
         Validators.required,
       ]),
-      password: new FormControl(this.model.password, [
+      password: new FormControl(12345678, [
         Validators.required,
       ]),
-      especialidad: new FormControl(this.model.especialidad, [
-      ]),
-      fecha_ingreso: new FormControl(this.model.fecha_ingreso, [
-      ]),
-      fecha_salida: new FormControl(this.model.fecha_salida, [
-      ]),
+      especialidad: new FormControl(this.model.especialidad),
+      fecha_ingreso: new FormControl(this.model.fecha_ingreso),
+      fecha_salida: new FormControl(this.model.fecha_salida),
       foto: new FormControl(null),
     });
   }

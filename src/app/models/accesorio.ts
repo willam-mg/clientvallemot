@@ -4,6 +4,7 @@ export class Accesorio {
     checked: boolean;
     constructor(){
         this.id = 0;
+        this.nombre = '';
         this.checked = false;
     }
 }

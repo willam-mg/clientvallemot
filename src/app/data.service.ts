@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
   public loadingPercent: number;
-  public isLoading: boolean;
+  public isLoading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
   public error: any;
   public errorMessage: string;
   public errorErrors: string;
@@ -38,15 +39,20 @@ export class DataService {
     });
   }
 
-  public showLoading() {
-    this.isLoading = true;
-  }
+  // public showLoading() {
+  //   // this.isLoading = true;
+  //   this.isLoading.next(true);
+  // }
 
-  public hideLoading() {
-    this.isLoading = false;
-  }
+  // public hideLoading() {
+  //   this.isLoading.next(false);
+  //   // this.isLoading = false;
+  // }
 
-  public getIsloading(){
-    return this.isLoading;
-  }
+  // public getIsloading(): Observable<boolean> {
+  //   return new Observable(observer => {
+  //     observer.next(this.isLoading);
+  //   });
+  //   // return this.isLoading;
+  // }
 }
