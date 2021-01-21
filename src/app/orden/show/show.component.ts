@@ -35,6 +35,8 @@ export class ShowComponent implements OnInit, OnDestroy {
   userData: User;
   modelSubscribe: Subscription;
   subscription: Subscription;
+  loading: boolean;
+  showImage: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -53,10 +55,14 @@ export class ShowComponent implements OnInit, OnDestroy {
     this.groupAccesorios = [];
     this.userData = this.loginService.getUser();
     this.model = new Orden();
+    this.model.foto = '/assets/img/no-image-user.svg';
     this.subscription = new Subscription();
+    this.loading = false;
+    this.showImage = true;
   }
 
   ngOnInit() {
+    this.loading = true;
     this.subscription.add(
       this.route.queryParams.subscribe(params => {
         this.title.setTitle('Orden ' + params.id);
@@ -83,7 +89,7 @@ export class ShowComponent implements OnInit, OnDestroy {
     this.subscription.add(
       this.accesoriosService.todos()
       .pipe(
-        map( (res:Array<Accesorio>) =>
+        map( (res: Array<Accesorio>) =>
           res.map( data => {
             return {
               id: data.id,
@@ -96,12 +102,13 @@ export class ShowComponent implements OnInit, OnDestroy {
       .subscribe((dataAccesorios) => {
         this.groupAccesorios = [];
         this.accesorios = dataAccesorios;
-        if (this.accesorios.length >= 14 ){
+        if (this.accesorios.length >= 14 ) {
           this.groupAccesorios.push( this.accesorios.slice(0, 3) );
           this.groupAccesorios.push( this.accesorios.slice(4, 7) );
           this.groupAccesorios.push( this.accesorios.slice(8, 11) );
           this.groupAccesorios.push( this.accesorios.slice(12, this.accesorios.length) );
         }
+        this.loading = false;
       })
     );
   }
@@ -133,36 +140,35 @@ export class ShowComponent implements OnInit, OnDestroy {
     this.modelService.printInWindow('reporte2');
   }
 
-  addManoObra(manoObra = 0, idUpdate = false) {
+  addManoObra(myManoObra = 0, idUpdate = false) {
     this.dialog.open(ManoObraComponent, {
       data: {
         model: this.model,
         userData: this.userData,
         isUpdate: idUpdate,
-        manoObra: manoObra,
+        manoObra: myManoObra
       },
       disableClose: true
     }).afterClosed().subscribe(res => {
-      if (res){
+      if (res) {
         this.loadData(this.model.id);
       }
     });
   }
 
-  addRepuesto(repuesto = 0, idUpdate = false) {
+  addRepuesto(myRepuesto = 0, idUpdate = false) {
     this.dialog.open(DetalleRepuestoComponent, {
       data: {
         model: this.model,
         userData: this.userData,
         isUpdate: idUpdate,
-        repuesto: repuesto,
+        repuesto: myRepuesto,
       },
-      disableClose: true
+      disableClose: false
     }).afterClosed().subscribe(res => {
-      if (res){
+      if (res) {
         this.loadData(this.model.id);
       }
     });
   }
-
 }

@@ -20,32 +20,62 @@
     <mat-card-content>
         <form *ngIf="showSearch" [formGroup]="formSearch" (ngSubmit)="list(true)" novalidate="">
             <div class="row">
-                <div class="col-xs-6 col-sm-2 col-md-2 col-lg-2">
-                    <mat-form-field class="full-width">
+                <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
+                    <mat-form-field appearance="outline" class="full-width">
                         <mat-label>Propietario</mat-label>
-                        <input type="text" matInput formControlName="propietario" placeholder="Propietario"
-                            autocomplete="off">
+                        <input type="text" matInput formControlName="propietario" placeholder="Propietario" [matAutocomplete]="autoPropietario" autocomplete="off">
+                        <mat-autocomplete autoActiveFirstOption #autoPropietario="matAutocomplete">
+                            <mat-option *ngFor="let item of propietarioOptions  | async" [value]="item">
+                                {{item}}
+                            </mat-option>
+                        </mat-autocomplete>
                     </mat-form-field>
                 </div>
-                <div class="col-xs-6 col-sm-2 col-md-2 col-lg-2">
-                    <mat-form-field class="full-width">
-                        <mat-label>placa</mat-label>
-                        <input type="text" matInput formControlName="placa" placeholder="placa" autocomplete="off">
+                <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Placa</mat-label>
+                        <input type="text" matInput formControlName="placa" placeholder="placa" [matAutocomplete]="autoPlaca" autocomplete="off">
+                        <mat-autocomplete autoActiveFirstOption #autoPlaca="matAutocomplete">
+                            <mat-option *ngFor="let item of placaOptions  | async" [value]="item">
+                                {{item}}
+                            </mat-option>
+                        </mat-autocomplete>
                     </mat-form-field>
                 </div>
-                <div class="col-xs-6 col-sm-2 col-md-2 col-lg-2">
-                    <mat-form-field class="full-width">
-                        <mat-label>modelo</mat-label>
-                        <input type="text" matInput formControlName="modelo" placeholder="modelo" autocomplete="off">
+                <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Modelo</mat-label>
+                        <input type="text" matInput formControlName="modelo" placeholder="modelo" [matAutocomplete]="autoModelos" autocomplete="off">
+                        <mat-autocomplete autoActiveFirstOption #autoModelos="matAutocomplete">
+                            <mat-option *ngFor="let modelo of modeloOptions | async" [value]="modelo">
+                                {{modelo}}
+                            </mat-option>
+                        </mat-autocomplete>
                     </mat-form-field>
                 </div>
-                <div class="col-xs-6 col-sm-2 col-md-2 col-lg-2">
-                    <mat-form-field class="full-width">
-                        <mat-label>color</mat-label>
+                <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Color</mat-label>
                         <input type="text" matInput formControlName="color" placeholder="color" autocomplete="off">
                     </mat-form-field>
                 </div>
-                <div class="col-xs-6 col-sm-1 col-md-1 col-lg-1">
+                <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Estado</mat-label>
+                        <select matNativeControl name="estado" formControlName="estado">
+                            <option [value]="2">
+                                Todos
+                            </option>
+                            <option [value]="0">
+                                Pendiente
+                            </option>
+                            <option [value]="1">
+                                Terminado
+                            </option>
+                        </select>
+                    </mat-form-field>
+                </div>
+                <div class="col-xs-12 col-sm-1 col-md-1 col-lg-1">
                     <div class="text-right">
                         <button mat-flat-button type="submit" #submitBtn class="ml-3" [disabled]="submitted">
                             <mat-icon>search</mat-icon>
@@ -63,44 +93,53 @@
                     <mat-card-content>
                         <table class="full-width">
                             <tbody>
-
                                 <tr>
                                     <td colspan="2">
-                                        
+                                        <mat-chip-list>
+                                            <mat-chip class="color-success" *ngIf="element.estado == 1">
+                                                <mat-icon>done</mat-icon>
+                                                Terminado
+                                            </mat-chip>
+                                            <mat-chip class="color-warn" *ngIf="element.estado == 0">
+                                                <mat-icon>visibility</mat-icon>
+                                                En espera
+                                            </mat-chip>
+                                        </mat-chip-list>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>
-                                        Propietario <br>
-                                        Vehiculo <br>
-                                        Placa <br>
-                                        Modelo <br>
-                                        Color <br>
-                                        Año <br>
-                                        Ingreso <br>
+                                    <td>Propietario</td> 
+                                    <td class="text-right text-capitalize">
+                                        <strong> {{element.propietario}} </strong>
                                     </td>
+                                </tr>
+                                <tr>
+                                    <td>Vehiculo</td> 
+                                    <td class="text-right text-capitalize">
+                                        <strong> {{element.vehiculo}} </strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Placa</td> 
+                                    <td class="text-right text-uppercase">
+                                        <strong> {{element.placa}} </strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Fecha de ingreso</td> 
                                     <td class="text-right">
-                                        <strong>
-                                            {{element.propietario}}
-                                        </strong> <br>
-                                        <strong>
-                                            {{element.vehiculo}}
-                                        </strong> <br>
-                                        <strong>
-                                            {{element.placa}}
-                                        </strong> <br>
-                                        <strong>
-                                            {{element.modelo}}
-                                        </strong> <br>
-                                        <strong>
-                                            {{element.color}}
-                                        </strong> <br>
-                                        <strong>
-                                            {{element.ano}}
-                                        </strong> <br>
-                                        <strong>
-                                            {{element.fecha_ingreso}}
-                                        </strong> <br>
+                                        <strong> {{element.fecha}} </strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <strong>Mecanico responsable</strong>
+                                        <div *ngIf="element.mecanico" class="text-capitalize">
+                                            {{element.mecanico.nombre_completo}}
+                                        </div>
+                                        <div *ngIf="!element.mecanico">
+                                            No tiene Mecanico asignado
+                                        </div>
                                     </td>
                                 </tr>
                                 <tr>
@@ -174,8 +213,8 @@
         </div>
     </mat-card-content>
     <mat-card-actions class="text-left">
-        <mat-paginator [pageIndex]="modelService.page.pageIndex" [length]="modelService.page.length"
-            [pageSize]="modelService.page.size" [pageSizeOptions]="modelService.page.sizeOptions"
+        <mat-paginator [pageIndex]="page.pageIndex" [length]="page.length"
+            [pageSize]="page.size" [pageSizeOptions]="page.sizeOptions"
             (page)="pagination($event)">
         </mat-paginator>
     </mat-card-actions>

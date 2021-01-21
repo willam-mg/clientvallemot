@@ -1,7 +1,66 @@
 <mat-card-title>
     Mano de obra
 </mat-card-title>
-<mat-dialog-content class="text-capitalize mat-typography">
+<form [formGroup]="formModel" (ngSubmit)="onSubmit()" novalidate="">
+    <mat-dialog-content class="text-capitalize mat-typography">
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Descripcion</mat-label>
+            <input type="text" matInput formControlName="descripcion" placeholder="Descripcion" autocomplete="off" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width" *ngIf="userData.type == 1">
+            <mat-label>Precio</mat-label>
+            <input type="number" min="0" step="1" matInput formControlName="precio" placeholder="Precio" autocomplete="off">
+            <span matSuffix>Bs.</span>
+        </mat-form-field>
+
+        <button mat-button type="button" *ngIf="userData.type == 1 && isUpdate" (click)="onDelete()" color="warn"
+            [disabled]="submitted">
+            Eliminar mano de obra
+        </button>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <div class="d-none d-sm-none d-md-block d-lg-block d-xl-block">
+            <button mat-button cdkFocusInitial (click)="closeDialog()">
+                <mat-icon>clear</mat-icon>
+                Cancelar
+            </button>
+            <button mat-flat-button type="submit" *ngIf="!isUpdate" color="primary" [disabled]="submitted">
+                <mat-icon>add</mat-icon>
+                Agregar
+            </button>
+            <button mat-flat-button *ngIf="userData.type == 1 && isUpdate" (click)="onDelete()" color="warn"
+                [disabled]="submitted">
+                <mat-icon>delete</mat-icon>
+                Eliminar
+            </button>
+            <button mat-flat-button type="submit" *ngIf="isUpdate" color="primary" [disabled]="submitted">
+                <mat-icon>add</mat-icon>
+                Modificar
+            </button>
+        </div>
+        <div class="d-block d-sm-block d-md-none d-lg-none d-xl-none">
+            <button mat-button cdkFocusInitial (click)="closeDialog()">
+                <mat-icon>clear</mat-icon>
+                Cerrar
+            </button>
+            <button mat-flat-button type="submit" *ngIf="!isUpdate" color="primary" [disabled]="submitted">
+                <mat-icon>add</mat-icon>
+                Agregar
+            </button>
+            <button mat-flat-button type="submit" *ngIf="isUpdate" color="accent" [disabled]="submitted">
+                <mat-icon>edit</mat-icon>
+                Guardar
+            </button>
+        </div>
+    </mat-dialog-actions>
+</form>
+
+
+
+
+
+<!-- <mat-dialog-content class="text-capitalize mat-typography">
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <mat-form-field appearance="outline" class="full-width">
@@ -17,23 +76,46 @@
             </mat-form-field>
         </div>
     </div>
-</mat-dialog-content>
+</mat-dialog-content> -->
 
-<mat-dialog-actions align="end">
-    <button mat-button cdkFocusInitial (click)="closeDialog()">
-        <mat-icon>clear</mat-icon>
-        Cancelar
-    </button>
-    <button mat-flat-button *ngIf="!isUpdate" (click)="onSubmit()" color="primary" #submitBtn class="ml-3" [disabled]="submitted">
-        <mat-icon>add</mat-icon>
-        Agregar
-    </button>
-    <button mat-flat-button *ngIf="isUpdate" (click)="onDelete()" color="warn" #submitBtn class="ml-3" [disabled]="submitted">
-        <mat-icon>delete</mat-icon>
-        Eliminar
-    </button>
-    <button mat-flat-button *ngIf="isUpdate" (click)="onUpdate()" color="accent" #submitBtn class="ml-3" [disabled]="submitted">
-        <mat-icon>edit</mat-icon>
-        Modificar
-    </button>
-</mat-dialog-actions>
+<!-- <mat-dialog-actions align="end">
+    <div class="d-none d-sm-none d-md-block d-lg-block d-xl-block">
+        <button mat-icon-button cdkFocusInitial (click)="closeDialog()">
+            <mat-icon>clear</mat-icon>
+            Cancelar
+        </button>
+        <button mat-flat-button *ngIf="!isUpdate" (click)="onSubmit()" color="primary" #submitBtn class="ml-3"
+            [disabled]="submitted">
+            <mat-icon>add</mat-icon>
+            Agregar
+        </button>
+        <button mat-flat-button *ngIf="isUpdate" (click)="onDelete()" color="warn" #submitBtn class="ml-3"
+            [disabled]="submitted">
+            <mat-icon>delete</mat-icon>
+            Eliminar
+        </button>
+        <button mat-flat-button *ngIf="isUpdate" (click)="onUpdate()" color="accent" #submitBtn class="ml-3"
+            [disabled]="submitted">
+            <mat-icon>edit</mat-icon>
+            Modificar
+        </button>
+    </div>
+    <div class="d-block d-sm-block d-md-none d-lg-none d-xl-none">
+        <button mat-button cdkFocusInitial (click)="closeDialog()">
+            <mat-icon>clear</mat-icon>
+            Cancelar
+        </button>
+        <button mat-flat-button *ngIf="!isUpdate" (click)="onSubmit()" color="primary" #submitBtn class="ml-3" [disabled]="submitted">
+            <mat-icon>add</mat-icon>
+            Agregar
+        </button>
+        <button mat-flat-button *ngIf="isUpdate" (click)="onDelete()" color="warn" #submitBtn class="ml-3" [disabled]="submitted">
+            <mat-icon>delete</mat-icon>
+            Eliminar
+        </button>
+        <button mat-flat-button *ngIf="isUpdate" (click)="onUpdate()" color="accent" #submitBtn class="ml-3" [disabled]="submitted">
+            <mat-icon>edit</mat-icon>
+            Modificar
+        </button>
+    </div>
+</mat-dialog-actions> -->

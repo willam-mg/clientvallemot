@@ -1,21 +1,19 @@
+<button mat-icon-button class="button-edit-menu" [routerLink]="['/mecanicos/edit']"
+    [queryParams]="{id:model.id}">
+    <mat-icon>edit</mat-icon>
+</button>
 <div class="row row-mobile">
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 mx-auto">
         <mat-card class="card-mobile">
-            <mat-card-header>
-                <mat-card-title>
-                </mat-card-title>
-            </mat-card-header>
             <mat-card-content>
-
                 <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 text-center">
                         <img src="{{model.foto}}" alt="foto" *ngIf="model.foto" class="foto-image">
-                        <img src="/assets/img/no-image.svg" alt="foto" *ngIf="!model.foto"
-                            class="foto-model">
+                        <img src="/assets/img/no-image.svg" alt="foto" *ngIf="!model.foto" class="foto-model">
                         <mat-card-title class="text-capitalize text-center">
                             {{model.nombre_completo}}
                         </mat-card-title>
-                        <mat-card-subtitle class="text-capitalize text-center"> 
+                        <mat-card-subtitle class="text-capitalize text-center">
                             {{model.especialidad}}
                         </mat-card-subtitle>
                     </div>
@@ -27,7 +25,7 @@
                                         Telefono
                                     </small>
                                 </div>
-                                {{model.telefono}} 
+                                {{model.telefono}}
                             </mat-list-item>
                             <mat-list-item>
                                 <div mat-line class="text-muted">
@@ -76,17 +74,18 @@
                         </button>
                     </div>
                 </div>
-
             </mat-card-content>
             <mat-card-actions class="text-right">
-                <button mat-button [routerLink]="[ '/mecanicos']">
-                    <mat-icon>clear</mat-icon>
-                    Cerrar
-                </button>
-                <button mat-flat-button [routerLink]="[ '/mecanicos/edit']" [queryParams]="{id:model.id}">
-                    <mat-icon>edit</mat-icon>
-                    Modificar
-                </button>
+                <div class="d-none d-sm-none d-md-block d-lg-block d-xl-block">
+                    <button mat-button [routerLink]="[ '/mecanicos']">
+                        <mat-icon>clear</mat-icon>
+                        Cerrar
+                    </button>
+                    <button mat-flat-button [routerLink]="[ '/mecanicos/edit']" [queryParams]="{id:model.id}">
+                        <mat-icon>edit</mat-icon>
+                        Modificar
+                    </button>
+                </div>
             </mat-card-actions>
         </mat-card>
     </div>

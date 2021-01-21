@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import { Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { LoginService } from 'src/app/login/login.service';
 import { Orden } from 'src/app/models/orden';
 import { User } from 'src/app/models/user';
@@ -12,13 +14,15 @@ import { OrdenService } from 'src/app/orden/orden.service';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
   userData: User;
   formSearch: FormGroup;
   model: Orden;
   notFound: boolean;
   ordenes: Array<Orden>;
   loading: boolean;
+  subscription: Subscription;
+
   constructor(
     private title: Title,
     private formBuilder: FormBuilder,
@@ -41,23 +45,32 @@ export class DashboardComponent implements OnInit {
       estado: new FormControl(this.model.estado),
     });
     this.loading = false;
+    this.subscription = new Subscription();
   }
 
   ngOnInit() {
-    this.list(true);
+    this.list();
   }
 
 
   list(reload = false) {
     this.loading = true;
     this.notFound = false;
-    console.log(this.formSearch.value);
-    // return false;
-    this.modelService.all(this.formSearch.value, reload).subscribe(data => {
-      this.ordenes = data.data;
-      this.notFound = true;
-      this.loading = false;
-    });
+    this.subscription.add(
+      this.modelService.all(this.formSearch.value, reload)
+      .pipe(
+        map( (data: any) => data.data)
+      )
+      .subscribe(data => {
+        this.ordenes = data;
+        this.notFound = true;
+        this.loading = false;
+      })
+    );
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 }

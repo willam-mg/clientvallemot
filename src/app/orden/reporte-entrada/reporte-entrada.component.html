@@ -32,6 +32,7 @@
     .letter-content{
         width: 216mm;    
         height: 279mm;
+        padding: 20px 20px 20px 75px;
     }
     .divider{
         display: block;
@@ -44,13 +45,15 @@
     }
     .futter-information{
         position: relative;
-        bottom: -71px;
+        /* bottom: -71px; */
+        bottom: -60px;
+        font-size: 12px;
         width: 100%;
-        height: 100px;
+        height: 20px;
         left: 0;
     }
 </style>
-<div class="letter-content" style="padding: 20px">
+<div class="letter-content">
     <table class="full-width">
         <tbody>
             <tr>
@@ -125,7 +128,7 @@
             <tr>
                 <td>
                     <b>Placa</b>
-                    <span class="text-capitalize">
+                    <span clas="text-uppercase">
                         {{model.placa}}
                     </span>
                 </td>
@@ -202,7 +205,7 @@
     <div class="divider"></div>
 
     <h4>Conformidad cliente</h4>
-    <table class="full-width" style="margin-top: 100px">
+    <table class="full-width" style="margin-top: 90px">
         <tbody>
             <tr>
                 <td class="text-center">
@@ -218,8 +221,7 @@
     </table>
     <div class="text-center futter-information">
         <small>
-            NOTA: La empresa no se responsaviliza por objetos no de clarados. Por favor revise su vehiculo antes
-            de dejarlo y recogerlo.
+            NOTA: La empresa no se responsaviliza por objetos no de clarados. Por favor revise su vehiculo antes de dejarlo y recogerlo.
         </small>
     </div>
 </div>

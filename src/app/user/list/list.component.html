@@ -16,13 +16,13 @@
     <form *ngIf="showSearch" [formGroup]="formSearch" (ngSubmit)="getUsuarios(true)" novalidate="">
       <div class="row">
         <div class="col-xs-6 col-sm-2 col-md-2 col-lg-2">
-          <mat-form-field class="full-width">
+          <mat-form-field appearance="outline" class="full-width">
             <mat-label>Nombre</mat-label>
             <input type="text" matInput formControlName="nombre_completo" placeholder="Nombre" autocomplete="off">
           </mat-form-field>
         </div>
         <div class="col-xs-6 col-sm-2 col-md-2 col-lg-2">
-          <mat-form-field class="full-width">
+          <mat-form-field appearance="outline" class="full-width">
             <mat-label>Email</mat-label>
             <input type="email" matInput formControlName="email" placeholder="Email" autocomplete="off">
           </mat-form-field>
@@ -66,50 +66,8 @@
       </div>
     </div>
 
-    <!-- <div class="row d-block d-sm-block d-md-none d-lg-none d-xl-none">
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <mat-card *ngFor="let element of usuarios" class="mt-2">
-          <mat-card-content>
-            <table class="full-width">
-              <tbody>
-                <tr>
-                  <td colspan="2">
-                    <img src="{{element.foto}}" alt="foto" *ngIf="element.foto" class="foto-image-table-mobile">
-                    <img src="/assets/img/no-image.svg" alt="foto" *ngIf="!element.foto" class="foto-image-table-mobile">
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <strong>Nombre completo</strong> <br>
-                    <strong>Email</strong> <br>
-                  </td>
-                  <td>
-                    {{element.nombre_completo}} <br>
-                    {{element.email}} <br>
-                  </td>
-                </tr>
-                <tr>
-                  <td colspan="2" class="text-right">
-                    <button mat-button [routerLink]="['/users/show']" [queryParams]="{id:element.id}" matTooltip="Ver"
-                      aria-label="Ver" color="primary">
-                      Ver
-                      <mat-icon>keyboard_arrow_right</mat-icon>
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </mat-card-content>
-        </mat-card>
-      </div>
-    </div> -->
-
     <div class="table-responsive d-none d-sm-none d-md-block d-lg-block d-xl-block">
       <table mat-table [dataSource]="usuarios" class="full-width table-hover">
-        <!-- <ng-container matColumnDef="nro">
-          <th mat-header-cell *matHeaderCellDef> N° </th>
-          <td mat-cell *matCellDef="let element; let i = index"> {{i+1}} </td>
-        </ng-container> -->
   
         <ng-container matColumnDef="nombre_completo">
           <th mat-header-cell *matHeaderCellDef> Nombre </th>
@@ -139,7 +97,7 @@
               matTooltip="Ver"
               aria-label="Ver"
               color="primary">
-              <mat-icon>more_horiz</mat-icon>
+              <mat-icon>visibility</mat-icon>
             </button>
           </td>
         </ng-container>

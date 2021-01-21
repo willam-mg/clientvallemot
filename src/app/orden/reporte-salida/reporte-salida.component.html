@@ -34,10 +34,10 @@
         margin: 0;
     }
     .letter-content{
-        border: 1px solid black;
+        /* border: 1px solid black; */
         width: 216mm;    
         height: 279mm;
-        padding: 20px;
+        padding: 20px 37px 20px 75px;
     }
     .divider{
         display: block;
@@ -49,7 +49,7 @@
         margin: 5px auto 5px auto;
     }
     .footer-content{
-        padding: 20px;
+        padding: 20px 37px 20px 75px;
         position: fixed;
         z-index: 1;
         bottom: 200px;
@@ -93,7 +93,7 @@
             <tr>
                 <td colspan="3">
                     <p>
-                        <b>teléfono</b>
+                        <b>Teléfono</b>
                         <span class="text-capitalize">
                             {{model.telefono}}
                         </span>
@@ -133,7 +133,7 @@
             <tr>
                 <td>
                     <b>Placa</b>
-                    <span class="text-capitalize">
+                    <span clas="text-uppercase">
                         {{model.placa}}
                     </span>
                 </td>
@@ -173,30 +173,6 @@
     
     <div class="divider"></div>
     
-    <h4>Detalle mano de obra</h4>
-    <table class="full-width">
-        <tbody>
-            <tr *ngFor="let element of model.manosobra">
-                <td style="width: 90%;">
-                    {{element.descripcion}}
-                </td>
-                <td class="text-right" style="width: 10%;">
-                    {{element.precio | number}}
-                </td>
-            </tr>
-            <tr>
-                <td></td>
-                <td class="text-right">
-                    <strong>Total: </strong>
-                    {{model.totalManoObra | number}}
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    
-    <div class="divider"></div>
-
-
     <h4>Detalle de repuestos e insumos</h4>
     <table class="full-width">
         <tbody>
@@ -217,6 +193,30 @@
             </tr>
         </tbody>
     </table>
+    
+    <div class="divider"></div>
+
+    <h4>Detalle de trabajo</h4>
+    <table class="full-width">
+        <tbody>
+            <tr *ngFor="let element of model.manosobra">
+                <td style="width: 90%;">
+                    {{element.descripcion}}
+                </td>
+                <td class="text-right" style="width: 10%;">
+                    {{element.precio | number}}
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td class="text-right">
+                    <strong>Total: </strong>
+                    {{model.totalManoObra | number}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
 
     <div class="footer-content">
         <div class="divider"></div>
@@ -224,9 +224,9 @@
         <table class="full-width">
             <tbody>
                 <tr>
-                    <td class="text-right">
+                    <td class="text-right" style="padding-right: 100px;">
                         <h2>
-                            Total 
+                            Total
                             {{model.totalRepuesto + model.totalManoObra | number }} Bs.
                         </h2>
                     </td>
@@ -241,19 +241,19 @@
             <tbody>
                 <tr>
                     <td>
-                        <b>km actual</b>
+                        <b>Kilometraje actual</b>
                         <span class="text-capitalize">
                             {{model.km_actual}}
                         </span>
                     </td>
                     <td>
-                        <b>Fecha de ingreso</b>
+                        <b>Fecha de ingreso</b> <br>
                         <span class="text-capitalize">
                             {{model.fecha}}
                         </span>
                     </td>
                     <td>
-                        <b>pago</b>
+                        <b>Pago</b>
                         <span class="text-capitalize">
                             {{model.pago}}
                         </span>
@@ -261,19 +261,19 @@
                 </tr>
                 <tr>
                     <td>
-                        <b>Prox cambio</b>
+                        <b>Prox cambio</b> <br>
                         <span class="text-capitalize">
                             {{model.proximo_cambio}}
                         </span>
                     </td>
                     <td>
-                        <b>Fecha de salida</b>
+                        <b>Fecha de salida</b> <br>
                         <span class="text-capitalize">
                             {{model.fecha_salida}}
                         </span>
                     </td>
                     <td>
-                        <b>Mecanico responsable</b>
+                        <b>Mecanico responsable</b> <br>
                         <span *ngIf="model.mecanico" class="text-capitalize">
                             {{model.mecanico.nombre_completo}}
                         </span>

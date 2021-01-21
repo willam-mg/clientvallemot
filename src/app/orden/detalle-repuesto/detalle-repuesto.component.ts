@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from 'src/app/data.service';
@@ -24,6 +24,7 @@ export class DetalleRepuestoComponent implements OnInit {
   userData: User;
   isUpdate: boolean;
   id: number;
+  formModel: FormGroup;
 
   constructor(
     private modelService: OrdenService,
@@ -34,13 +35,19 @@ export class DetalleRepuestoComponent implements OnInit {
     this.model = data.model;
     this.userData = data.userData;
     this.isUpdate = data.isUpdate;
+    this.formModel = new FormGroup({
+      repuesto: new FormControl('', [
+        Validators.required,
+        Validators.maxLength(50)
+      ]),
+      precio: new FormControl(null),
+    });
     if (data.repuesto) {
       this.id = data.repuesto.id;
-      this.descripcion = data.repuesto.repuesto;
-      this.precio = data.repuesto.precio;
+      this.formModel.controls.repuesto.setValue(data.repuesto.repuesto);
+      this.formModel.controls.precio.setValue(data.repuesto.precio);
     }
   }
-
 
   closeDialog(reload = false) {
     this.dialogRef.close(reload);
@@ -50,15 +57,23 @@ export class DetalleRepuestoComponent implements OnInit {
   }
 
   onSubmit() {
+    if ( this.isUpdate ) {
+      this.onUpdate();
+    } else {
+      this.onCreate();
+    }
+  }
+
+  onCreate() {
     try {
-      if (this.descripcion === '') {
+      if (this.formModel.value.repuesto === '') {
         throw new Error('Entrada de datos invalido');
       }
       this.submitted = true;
       const sendBody = {
         orden_id: this.model.id,
-        repuesto: this.descripcion,
-        precio: this.precio,
+        repuesto: this.formModel.value.repuesto,
+        precio: this.formModel.value.precio,
       };
       this.modelService.addRepuesto(sendBody).subscribe(async () => {
         this.modelService.all(null, true).subscribe(() => {
@@ -75,14 +90,14 @@ export class DetalleRepuestoComponent implements OnInit {
 
   onUpdate() {
     try {
-      if (this.descripcion === '') {
+      if (this.formModel.value.repuesto === '') {
         throw new Error('Entrada de datos invalido');
       }
       this.submitted = true;
       const sendBody = {
         orden_id: this.model.id,
-        repuesto: this.descripcion,
-        precio: this.precio,
+        repuesto: this.formModel.value.repuesto,
+        precio: this.formModel.value.precio,
       };
       this.modelService.editRepuesto(this.id, sendBody).subscribe(async () => {
         this.modelService.all(null, true).subscribe(() => {

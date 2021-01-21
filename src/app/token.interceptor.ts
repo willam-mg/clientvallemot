@@ -15,7 +15,7 @@ import { catchError } from 'rxjs/operators';
 export class TokenInterceptor implements HttpInterceptor {
     constructor(
         public auth: LoginService,
-        private router: Router) { 
+        private router: Router) {
     }
 
     // private handleAuthError(err: HttpErrorResponse): Observable<any> {

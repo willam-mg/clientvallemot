@@ -1,15 +1,21 @@
 export class User {
-    id:any;
-    nombre_completo:string;
-    player_id:string;
-    foto:any;
-    email:string;
-    type:number;
-    password:string;
-    password_confirmation:string;
-    
+    id: number;
+    nombre_completo: string;
+    player_id: string;
+    foto: string;
+    email: string;
+    type: number;
+    password: string;
+    password_confirmation: string;
+
     constructor(){
-        this.id = null;
-        this.password_confirmation = null;
+        this.id = 0;
+        this.nombre_completo = '';
+        this.player_id = '';
+        this.foto = '';
+        this.email = '';
+        this.type = 0;
+        this.password = '';
+        this.password_confirmation = '';
     }
 }

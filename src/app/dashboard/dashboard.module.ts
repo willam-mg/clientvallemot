@@ -19,6 +19,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatChipsModule } from '@angular/material/chips';
 
 @NgModule({
   declarations: [DashboardComponent],
@@ -41,7 +42,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     ReactiveFormsModule,
     MatSnackBarModule,
     MatTooltipModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatChipsModule
   ]
 })
 export class DashboardModule { }

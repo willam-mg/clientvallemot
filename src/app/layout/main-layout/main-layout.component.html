@@ -1,7 +1,9 @@
 
 <div class="layout-container">
-  <mat-sidenav-container  [hasBackdrop]="deviceService.isMobile() ? true : false">
-    <mat-sidenav #drawer [mode]="deviceService.isMobile() ? 'over' : 'side'" [opened]="!deviceService.isMobile()">
+  <mat-sidenav-container  [hasBackdrop]="true">
+    <mat-sidenav #drawer mode="over" [opened]="false">
+  <!-- <mat-sidenav-container  [hasBackdrop]="deviceService.isMobile() ? true : false">
+    <mat-sidenav #drawer [mode]="deviceService.isMobile() ? 'over' : 'side'" [opened]="!deviceService.isMobile()"> -->
       <mat-toolbar color="without-color">
         <mat-toolbar-row class="brand-sidebar">
           <img src="/assets/img/color_logo_dash.png" alt="" width="181" height="64" class="mt-2">
@@ -169,7 +171,7 @@
   </mat-sidenav-container>
 </div>
 
-<mat-toolbar class="fix-nav-bottom d-block d-sm-block d-md-none d-lg-none d-xl-none" role="heading">
+<!-- <mat-toolbar class="fix-nav-bottom d-block d-sm-block d-md-none d-lg-none d-xl-none" role="heading">
   <mat-toolbar-row>
     <table class="full-width">
       <tbody>
@@ -190,13 +192,8 @@
               <mat-icon class="pull-right">work</mat-icon>
             </a>
           </td>
-          <!-- <td class="text-center" *ngIf="userData.type === 1">
-            <a mat-icon-button href="#" [routerLink]="['/repuestos']" [color]="router.url=='/repuestos'?'accent':''">
-              <mat-icon class="pull-right">settings</mat-icon>
-            </a>
-          </td> -->
         </tr>
       </tbody>
     </table>
   </mat-toolbar-row>
-</mat-toolbar>
+</mat-toolbar> -->

@@ -3,13 +3,15 @@ import { Injectable } from '@angular/core';
 import { Observable, Observer, of, throwError } from 'rxjs';
 import { tap, catchError, shareReplay } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { LaravelRequest } from '../models/laravel-request';
 import { Orden } from '../models/orden';
 import { Page } from '../shared/page';
 
 const httpHeaders = {
   headers: new HttpHeaders(environment.apiConfig.headers),
   reportProgress: true
-}
+};
+
 const path = environment.apiConfig.path;
 
 @Injectable({
@@ -107,29 +109,31 @@ export class OrdenService {
       );
   }
 
-  public all(filterSearch = null, reload = false) {
+  public all(filterSearch = null, reload = false, page: Page = new Page() ): Observable<Orden[]> {
     if (this.ordenes && reload === false) {
       return of(this.ordenes);
     }
     let myParams = new HttpParams();
-    myParams = myParams.append('page', this.page.index.toString());
-    myParams = myParams.append('per_page', this.page.size.toString());
+    myParams = myParams.append('page', page.index.toString());
+    myParams = myParams.append('per_page', page.size.toString());
     myParams = myParams.append('filter', JSON.stringify(filterSearch));
 
-    return this.http.get(path + '/orden/all', {
+    // return this.http.get<LaravelRequest>(path + '/orden/all', {
+    //   headers: new HttpHeaders(environment.apiConfig.headers),
+    //   reportProgress: true,
+    //   params: myParams
+    // }).pipe(
+    //   tap((data: LaravelRequest) => {
+    //     this.ordenes = data;
+    //     this.page.setValues(data.current_page, data.total, data.per_page);
+    //     // return of(data);
+    //   })
+    // );
+    return this.http.get<Orden[]>(path + '/orden/all', {
       headers: new HttpHeaders(environment.apiConfig.headers),
       reportProgress: true,
       params: myParams
-    }).pipe(
-      tap((data: any) => {
-        this.ordenes = data;
-        this.page.setValues(data.current_page, data.total, data.per_page);
-        return of(data);
-      }),
-      catchError((err) => {
-        return throwError(err);
-      }),
-    );
+    });
   }
 
   public listRepuestos() {
@@ -226,17 +230,16 @@ export class OrdenService {
 
 
   /**
-   * captura todos los tags tipo link 
-   * @param tagName 
+   * captura todos los tags tipo link
+   * @param tagName
    * @return string tag type style
    */
   private getTagsHtml(tagName: keyof HTMLElementTagNameMap): string {
     const htmlStr: string[] = [];
     const elements = document.getElementsByTagName(tagName);
-    for (let idx = 0; idx < elements.length; idx++) {
+    for (let idx: number = 0; idx < elements.length; idx++) {
       htmlStr.push(elements[idx].outerHTML);
     }
-
     return htmlStr.join('\r\n');
   }
 

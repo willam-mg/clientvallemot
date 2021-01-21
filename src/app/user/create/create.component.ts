@@ -1,24 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UserService } from '../user.service';
 import { Router } from '@angular/router';
-import { DataService } from 'src/app/data.service';
 import { Title } from '@angular/platform-browser';
 import { NavigationService } from 'src/app/shared/services/navigation.service';
-// import { MatSnackBar } from '@angular/material/snack-bar';
+import { Subscription } from 'rxjs';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-create',
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.css']
 })
-export class CreateComponent implements OnInit {
+export class CreateComponent implements OnInit, OnDestroy {
   user: User;
   submitted: boolean;
   formUser: FormGroup;
   passwordIcon: string;
   passwordConfirmationIcon: string;
+  subscription: Subscription;
 
   constructor(
     private userService: UserService,
@@ -30,7 +31,6 @@ export class CreateComponent implements OnInit {
     this.submitted = false;
     this.passwordIcon = 'visibility';
     this.passwordConfirmationIcon = 'visibility';
-
     this.user = new User();
     this.formUser = new FormGroup({
       nombre_completo: new FormControl(this.user.nombre_completo, [
@@ -49,19 +49,21 @@ export class CreateComponent implements OnInit {
         Validators.required
       ]),
     });
+    this.subscription = new Subscription();
   }
 
   ngOnInit() {
   }
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 
   onFileChange(event) {
-    let reader = new FileReader();
-
+    const reader = new FileReader();
     if (event.target.files && event.target.files.length) {
       const [file] = event.target.files;
       reader.readAsDataURL(file);
-
-      reader.onload = (e:any) => {
+      reader.onload = ( e: any ) => {
         this.user.foto = e.target.result;
         this.formUser.patchValue({
           foto: reader.result
@@ -72,36 +74,49 @@ export class CreateComponent implements OnInit {
 
   onSubmit() {
     try {
-      if (this.formUser.invalid){
-        throw "Entrada de datos invalido";
+      if (this.formUser.invalid) {
+        throw new Error('Entrada de datos invalido');
       }
       this.submitted = true;
-
-      this.userService.register(this.formUser.value).subscribe(async data => {
-        this.user = data;
-        this.userService.getUsuarios(null, true).subscribe((data)=>{
-          this.submitted = false;
-          this.router.navigate(['/users/show'], {
-            queryParams:
-            {
-              id: this.user.id
-            }
-          });
-        });
-      }, err => {
-        this.submitted = false;
-      });
+      this.subscription.add(
+        this.userService.register(this.formUser.value)
+        .pipe(
+          finalize(() => {
+            this.submitted = false;
+          })
+        )
+        .subscribe(async data => {
+          this.user = data;
+          this.getUsuarios();
+        })
+      );
     } catch (error) {
       console.log(error);
     }
   }
 
+  getUsuarios() {
+    this.subscription.add(
+      this.userService.getUsuarios(null, true).subscribe(() => {
+        console.log('ingresando a test');
+        
+        this.submitted = false;
+        this.router.navigate(['/users/show'], {
+          queryParams:
+          {
+            id: this.user.id
+          }
+        });
+      })
+    );
+  }
+
   showPassword(input, confirm = false) {
-    if (input.type == 'password') {
+    if (input.type === 'password') {
       input.type = 'text';
-      if (!confirm){
+      if (!confirm) {
         this.passwordIcon = 'visibility_off';
-      }else{
+      } else {
         this.passwordConfirmationIcon = 'visibility_off';
       }
     } else {

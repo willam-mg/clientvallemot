@@ -81,20 +81,20 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     //   this.dataService.showMessageError();
     //   return throwError(new HttpErrorResponse(err));
     // }else{
-    //   return next.handle(request)
-    //     .pipe(
-    //       // retry(1),
-    //       catchError(err => this.handleError(err)),
-    //       shareReplay()
-    //     );  
+      return next.handle(request)
+        .pipe(
+          // retry(1),
+          catchError(err => this.handleError(err)),
+          shareReplay()
+        );
     // }
 
-    return next.handle(request)
-      .pipe(
-        // retry(1),
-        catchError(err => this.handleError(err)),
-        // shareReplay()
-      );
+    // return next.handle(request)
+    //   .pipe(
+    //     // retry(1),
+    //     `catchError`(err => this.handleError(err)),
+    //     // shareReplay(1)
+    //   );
     // this.dataService.isLoading = false;
     // this.dataService.hideLoading();
 

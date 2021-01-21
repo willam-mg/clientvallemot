@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
+import { Subscription } from 'rxjs/internal/Subscription';
 import { Mecanico } from 'src/app/models/mecanico';
 import { NavigationService } from 'src/app/shared/services/navigation.service';
 import { MecanicoService } from '../mecanico.service';
@@ -18,17 +19,17 @@ export class CreateComponent implements OnInit {
   formModel: FormGroup;
   passwordIcon: string;
   passwordConfirmationIcon: string;
+  subsription: Subscription;
 
   constructor(
-    private modelService: MecanicoService, 
-    private router: Router, 
+    private modelService: MecanicoService,
+    private router: Router,
     private title: Title,
     private navigationService: NavigationService) {
     this.navigationService.setBack('/mecanicos');
     this.title.setTitle('Nuevo mecanico');
     this.submitted = false;
-
-    this.model = new Mecanico;
+    this.model = new Mecanico();
     this.model.fecha_ingreso = moment().format('YYYY-MM-DD');
     this.model.fecha_salida = moment().format('YYYY-MM-DD');
     this.formModel = new FormGroup({
@@ -56,18 +57,17 @@ export class CreateComponent implements OnInit {
       fecha_salida: new FormControl(this.model.fecha_salida),
       foto: new FormControl(null),
     });
+    this.subsription = new Subscription();
   }
 
   ngOnInit() {
   }
 
   onFileChange(event) {
-    let reader = new FileReader();
-
+    const reader = new FileReader();
     if (event.target.files && event.target.files.length) {
       const [file] = event.target.files;
       reader.readAsDataURL(file);
-
       reader.onload = (e: any) => {
         this.model.foto = e.target.result;
         this.formModel.patchValue({
@@ -80,20 +80,20 @@ export class CreateComponent implements OnInit {
   onSubmit() {
     try {
       if (this.formModel.invalid) {
-        throw " Entrada de datos invalido ";
+        throw new Error('Entrada de datos invalido');
       }
       this.submitted = true;
       this.formModel.value.fecha_ingreso = moment(this.formModel.value.fecha_ingreso).format('YYYY-MM-DD');
       this.formModel.value.fecha_salida = moment(this.formModel.value.fecha_salida).format('YYYY-MM-DD');
-      this.modelService.create(this.formModel.value).subscribe(async data => {
-        this.model = new Mecanico();
-        this.modelService.all(null, true).subscribe((data) => {
-          this.submitted = false;
-          this.router.navigate(['/mecanicos']);
-        });
-      }, err => {
-        this.submitted = false;
-      });
+      this.subsription.add(
+        this.modelService.create(this.formModel.value).subscribe(async data => {
+          this.model = new Mecanico();
+          this.modelService.all(null, true).subscribe(() => {
+            this.submitted = false;
+            this.router.navigate(['/mecanicos']);
+          });
+        })
+      );
     } catch (error) {
       console.log(error);
     }

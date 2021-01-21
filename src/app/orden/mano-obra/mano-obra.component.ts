@@ -1,4 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { DataService } from 'src/app/data.service';
 import { LoginService } from 'src/app/login/login.service';
@@ -20,6 +21,7 @@ export class ManoObraComponent implements OnInit {
   userData: User;
   isUpdate: boolean;
   id: number;
+  formModel: FormGroup;
 
   constructor(
     private modelService: OrdenService,
@@ -32,10 +34,17 @@ export class ManoObraComponent implements OnInit {
     this.model = data.model;
     this.userData = data.userData;
     this.isUpdate = data.isUpdate;
+    this.formModel = new FormGroup({
+      descripcion: new FormControl('', [
+        Validators.required,
+        Validators.maxLength(500)
+      ]),
+      precio: new FormControl(null),
+    });
     if (data.manoObra){
       this.id = data.manoObra.id;
-      this.descripcion = data.manoObra.descripcion;
-      this.precio = data.manoObra.precio;
+      this.formModel.controls.descripcion.setValue(data.manoObra.descripcion);
+      this.formModel.controls.precio.setValue(data.manoObra.precio);
     }
   }
 
@@ -48,15 +57,23 @@ export class ManoObraComponent implements OnInit {
   }
 
   onSubmit() {
+    if (this.isUpdate) {
+      this.onUpdate();
+    } else {
+      this.onCreate();
+    }
+  }
+
+  onCreate() {
     try {
-      if (this.descripcion === '') {
+      if (this.formModel.value.descripcion === '') {
         throw new Error('Entrada de datos invalido');
       }
       this.submitted = true;
       const sendBody = {
         orden_id: this.model.id,
-        descripcion: this.descripcion,
-        precio: this.precio,
+        descripcion: this.formModel.value.descripcion,
+        precio: this.formModel.value.precio,
       };
       this.modelService.addManoObra(sendBody).subscribe(async () => {
         this.modelService.all(null, true).subscribe(() => {
@@ -73,14 +90,14 @@ export class ManoObraComponent implements OnInit {
 
   onUpdate() {
     try {
-      if (this.descripcion === '') {
+      if (this.formModel.value.descripcion === '') {
         throw new Error('Entrada de datos invalido');
       }
       this.submitted = true;
       const sendBody = {
         orden_id: this.model.id,
-        descripcion: this.descripcion,
-        precio: this.precio,
+        descripcion: this.formModel.value.descripcion,
+        precio: this.formModel.value.precio,
       };
       this.modelService.editManoObra(this.id, sendBody).subscribe(async () => {
         this.modelService.all(null, true).subscribe(() => {

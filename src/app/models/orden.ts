@@ -51,7 +51,7 @@ export class Orden {
         this.proximo_cambio = '';
         this.pago = '';
         this.detalle_pago = '';
-        this.estado = 0;
+        this.estado = 2;
         this.foto = '';
         this.repuestos = Array<DetalleRepuesto>();
         this.manosobra = Array<DetalleManoObra>();

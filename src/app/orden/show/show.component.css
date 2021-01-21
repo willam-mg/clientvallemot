@@ -1,8 +1,38 @@
 .visible-print {
   display: none;
 }
+.color-warn{
+  color: white;
+  background-color: #f44336;
+}
+.color-success{
+  color: white;
+  background-color: #05af70;
+}
 
+.w-small-button{
+  width: 51px;
+}
 
+.w-size-word-1{
+  width: 79px;
+}
+.w-size-word-2{
+  width: 146px;
+}
+.w-size-word-3{
+  width: 131px;
+}
+.button-show-image{
+    /* position: absolute; */
+    /* top: 0px; */
+    /* z-index: 3; */
+    /* right: 0; */
+}
+
+.min-height-20{
+  min-height: 46px;
+}
 
 @media print{
     /* .hidden-print{

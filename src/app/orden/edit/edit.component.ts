@@ -97,11 +97,11 @@ export class EditComponent implements OnInit, OnDestroy {
     this.getMecanicos();
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.subscripction.unsubscribe();
   }
-  
-  getParamId(){
+
+  getParamId() {
     this.subscripction.add(
       this.route.queryParams.subscribe(params => {
         this.navigationService.setBack('/ordenes/show', params.id);
@@ -144,7 +144,7 @@ export class EditComponent implements OnInit, OnDestroy {
     this.subscripction.add(
       this.accesorioService.todos()
       .pipe(
-        map( (res: Accesorio[]) => 
+        map( (res: Accesorio[]) =>
           res.map( (data) => {
             return {
               id: data.id,
@@ -198,10 +198,10 @@ export class EditComponent implements OnInit, OnDestroy {
           }
           this.submitted = true;
           this.formModel.value.fecha = moment(this.formModel.value.fecha).format('YYYY-MM-DD');
-          if (this.formModel.value.proximo_cambio){
+          if (this.formModel.value.proximo_cambio) {
             this.formModel.value.proximo_cambio = moment(this.formModel.value.proximo_cambio).format('YYYY-MM-DD');
           }
-          if (this.formModel.value.fecha_salida){
+          if (this.formModel.value.fecha_salida) {
             this.formModel.value.fecha_salida = moment(this.formModel.value.fecha_salida).format('YYYY-MM-DD');
           }
 
