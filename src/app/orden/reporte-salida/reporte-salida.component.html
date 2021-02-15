@@ -50,247 +50,292 @@
     }
     .footer-content{
         padding: 20px 37px 20px 75px;
-        position: fixed;
+        position: relative;
         z-index: 1;
-        bottom: 200px;
+        /* bottom: 200px; */
         width: 100%;
-        height: 100px;
+        height: auto;
         left: 0;
+        background-color: blueviolet;
+    }
+
+    .content-detalle-repuestos{
+        width: 100%;
+        /* min-height: 220px; */
+        height: 480px;
+        vertical-align: top;
+    }
+    .content-detalle-manoobra{
+        width: 100%;
+        min-height: 220px;
+        height: auto;
+    }
+    .bordered{
+        border: 0.5px solid rgb(209, 209, 209);
     }
 </style>
 <div class="letter-content">
     <table class="full-width">
         <tbody>
             <tr>
-                <td style="width: 200px;" class="text-center">
+                <td style="width: 200px;" class="text-center" colspan="2">
                     <img src="/assets/img/color_logo.png" width="200" height="100" alt="foto" class="">
                 </td>
-                <td class="text-uppercase text-center">
+                <td class="text-uppercase text-center" colspan="2">
                     <h2>
                         Orden de salida
                     </h2>
                 </td>
-                <td style="width: 240px;" class="text-center">
+                <td style="max-width: 200px;" class="text-center" colspan="2">
                     <h4> Nro: 0000{{model.id}} <br>
                         Fecha: {{model.fecha}} </h4>
                     <small>
                         Av. circunvalacion frente al cementerio "parque de las memorias"
-                        Telefonos: <br>
+                        Telefonos:
                         4717048 <br>
                         70749634
                     </small>
-
                 </td>
             </tr>
             <tr>
-                <td colspan="3">
-                    <b>Propietario</b>
+                <td>
+                    <b>Propietario: </b>
+                </td>
+                <td class="bordered">
                     <span class="text-capitalize">
                         {{model.propietario}}
                     </span>
                 </td>
-            </tr>
-            <tr>
-                <td colspan="3">
-                    <p>
-                        <b>Teléfono</b>
+                <td>
+                    <div *ngIf="model.encargado">
+                        <b>Encargado: </b>
+                    </div>
+                </td>
+                <td colspan="3" class="bordered">
+                    <div *ngIf="model.encargado">
                         <span class="text-capitalize">
-                            {{model.telefono}}
+                            {{model.encargado}}
                         </span>
-                    </p>
+                    </div>
                 </td>
             </tr>
-        </tbody>
-    </table>
-
-    <div class="divider"></div>
-
-    <table class="full-width">
-        <tbody>
             <tr>
                 <td>
-                    <b>Vehículo</b>
+                    <b>Teléfono: </b>
+                </td>
+                <td class="bordered">
+                    <span class="text-capitalize">
+                        {{model.telefono}}
+                    </span>
+                </td>
+                <td>
+                    <div *ngIf="model.telefono_encargado">
+                        <b>Telf. encargado: </b>
+                    </div>
+                </td>
+                <td colspan="3" class="bordered">
+                    <span *ngIf="model.telefono_encargado" class="text-capitalize">
+                        {{model.telefono_encargado}}
+                    </span>
+                </td>
+            </tr>
+        
+            <tr>
+                <td>
+                    <b>Vehículo: </b>
+                </td>
+                <td class="bordered">
                     <span class="text-capitalize">
                         {{model.vehiculo}}
                     </span>
                 </td>
                 <td>
-                    <b>Modelo</b>
+                    <b>Modelo: </b>
+                </td>
+                <td class="bordered">
                     <span class="text-capitalize">
                         {{model.modelo}}
                     </span>
                 </td>
                 <td>
-                    <b>Color</b>
+                    <b>Color: </b>
+                </td>
+                <td class="bordered">
                     <span class="text-capitalize">
                         {{model.color}}
                     </span>
                 </td>
-                <td>
-    
-                </td>
             </tr>
             <tr>
                 <td>
-                    <b>Placa</b>
+                    <b>Placa: </b>
+                </td>
+                <td class="bordered">
                     <span clas="text-uppercase">
                         {{model.placa}}
                     </span>
                 </td>
                 <td>
-                    <b>Tanque</b>
+                    <b>Tanque: </b>
+                </td>
+                <td class="bordered">
                     <span class="text-capitalize">
                         {{model.tanque}}
                     </span>
                 </td>
                 <td>
-                    <b>Año</b>
+                    <b>Año: </b>
+                </td>
+                <td class="bordered">
                     <span class="text-capitalize">
                         {{model.ano}}
                     </span>
                 </td>
-                <td>
-    
-                </td>
             </tr>
-        </tbody>
-    </table>
-
-    <div class="divider"></div>
-    
-    <table class="full-width">
-        <tbody>
             <tr>
-                <td>
-                    <h4>Solicitud de trabajo</h4>
-                    <p class="text-capitalize">
+                <td colspan="6">
+                    <h4>
+                        Solicitud de trabajo: 
+                    </h4>
+                    <p class="text-capitalize bordered">
                         {{model.solicitud}}
                     </p>
                 </td>
             </tr>
-        </tbody>
-    </table>
-    
-    <div class="divider"></div>
-    
-    <h4>Detalle de repuestos e insumos</h4>
-    <table class="full-width">
-        <tbody>
-            <tr *ngFor="let repuesto of model.repuestos">
-                <td style="width: 90%;">
-                    {{repuesto.repuesto}}
-                </td>
-                <td class="text-right" style="width: 10%;">
-                    {{repuesto.precio | number}}
+
+            <tr>
+                <td colspan="6">
+                    <h4>Detalle de repuestos e insumos:</h4>
                 </td>
             </tr>
             <tr>
-                <td></td>
-                <td class="text-right">
-                    <strong>Total: </strong>
-                    {{model.totalRepuesto | number}}
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    
-    <div class="divider"></div>
+                <td colspan="6" class="content-detalle-repuestos">
+                    <table class="full-width">
+                        <tbody>
+                            <tr *ngFor="let repuesto of model.repuestos">
+                                <td colspan="4" class="bordered">
+                                    {{repuesto.repuesto}}
+                                </td>
+                                <td class="text-right bordered">
+                                    {{repuesto.precio | number}}
+                                </td>
+                                <td style="min-width:100px">
+                            
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4"></td>
+                                <td class="text-right bordered">
+                                    <strong>Total: </strong>
+                                    {{model.totalRepuesto | number}}
+                                </td>
+                                <td></td>
+                            </tr>
 
-    <h4>Detalle de trabajo</h4>
-    <table class="full-width">
-        <tbody>
-            <tr *ngFor="let element of model.manosobra">
-                <td style="width: 90%;">
-                    {{element.descripcion}}
-                </td>
-                <td class="text-right" style="width: 10%;">
-                    {{element.precio | number}}
+                            <tr>
+                                <td colspan="6">
+                                    <h4>Detalle de trabajo</h4>
+                                </td>
+                            </tr>
+                            <tr *ngFor="let element of model.manosobra">
+                                <td colspan="4" class="bordered">
+                                    {{element.descripcion}}
+                                </td>
+                                <td class="text-right bordered">
+                                    {{element.precio | number}}
+                                </td>
+                                <td style="min-width:100px"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="4"></td>
+                                <td class="text-right bordered">
+                                    <strong>Total: </strong>
+                                    {{model.totalManoObra | number}}
+                                </td>
+                                <td></td>
+                            </tr>
+
+                        </tbody>
+                    </table>
                 </td>
             </tr>
             <tr>
-                <td></td>
-                <td class="text-right">
-                    <strong>Total: </strong>
-                    {{model.totalManoObra | number}}
+                <td colspan="4"></td>
+                <td colspan="2" class="text-right bordered">
+                    <h2>
+                        Total
+                        {{model.totalRepuesto + model.totalManoObra | number }} Bs.
+                    </h2>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <b>Kilometraje actual</b>
+                </td>
+                <td class="bordered">
+                    <span class="text-capitalize">
+                        {{model.km_actual}}
+                    </span>
+                </td>
+                <td>
+                    <b>Fecha de ingreso</b> <br>
+                </td>
+                <td class="bordered" style="min-width: 100px;">
+                    <span class="text-capitalize">
+                        {{model.fecha}}
+                    </span>
+                </td>
+                <td>
+                    <b>Pago</b>
+                </td>
+                <td class="bordered">
+                    <span class="text-capitalize">
+                        {{model.pago}}
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Prox cambio</b>
+                </td>
+                <td class="bordered">
+                    <span class="text-capitalize">
+                        {{model.proximo_cambio}}
+                    </span>
+                </td>
+                <td>
+                    <b>Fecha de salida</b>
+                </td>
+                <td class="bordered">
+                    <span class="text-capitalize">
+                        {{model.fecha_salida}}
+                    </span>
+                </td>
+                <td>
+                    <b>Mecanico responsable</b>
+                </td>
+                <td class="bordered">
+                    <span *ngIf="model.mecanico" class="text-capitalize">
+                        {{model.mecanico.nombre_completo}}
+                    </span>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="6" class="text-center" style="margin-top: 30px;">
+                    <small class="text-center">
+                        Por favor revise su vehiculo y sus pertenencias antes de recogerlo, la empresa no se hace responsable <br>
+                        por problemas no declarados en este detalle posteriormente.
+                    </small>
                 </td>
             </tr>
         </tbody>
     </table>
+    
 
 
-    <div class="footer-content">
-        <div class="divider"></div>
-        
-        <table class="full-width">
-            <tbody>
-                <tr>
-                    <td class="text-right" style="padding-right: 100px;">
-                        <h2>
-                            Total
-                            {{model.totalRepuesto + model.totalManoObra | number }} Bs.
-                        </h2>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        
-        <div class="divider"></div>
     
-    
-        <table class="full-width">
-            <tbody>
-                <tr>
-                    <td>
-                        <b>Kilometraje actual</b>
-                        <span class="text-capitalize">
-                            {{model.km_actual}}
-                        </span>
-                    </td>
-                    <td>
-                        <b>Fecha de ingreso</b> <br>
-                        <span class="text-capitalize">
-                            {{model.fecha}}
-                        </span>
-                    </td>
-                    <td>
-                        <b>Pago</b>
-                        <span class="text-capitalize">
-                            {{model.pago}}
-                        </span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <b>Prox cambio</b> <br>
-                        <span class="text-capitalize">
-                            {{model.proximo_cambio}}
-                        </span>
-                    </td>
-                    <td>
-                        <b>Fecha de salida</b> <br>
-                        <span class="text-capitalize">
-                            {{model.fecha_salida}}
-                        </span>
-                    </td>
-                    <td>
-                        <b>Mecanico responsable</b> <br>
-                        <span *ngIf="model.mecanico" class="text-capitalize">
-                            {{model.mecanico.nombre_completo}}
-                        </span>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    
-        <div class="text-center" style="margin-top: 30px;">
-            <small class="text-center">
-                Av. circunvalacion frente al cementerio "parque de las memorias"
-                Telefonos: <br>
-                4717408 <br>
-                70749634
-            </small>
-        </div>
-    </div>
 </div>
 
 

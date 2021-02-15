@@ -37,99 +37,111 @@
                             </mat-chip>
                         </mat-chip-list>
                         
-                        <table class="table table-light full-width">
+                        <table class="table table-sm table-light">
                             <tbody>
                                 <tr>
-                                    <th class="text-right w-size-word-1">Vehiculo</th>
+                                    <th class="text-left w-size-word-1">Vehiculo</th>
                                     <td class="text-capitalize">
                                         {{model.vehiculo}}
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th class="text-right">Placa</th>
+                                    <th class="text-left">Placa</th>
                                     <td class="text-capitalize">
                                         {{model.placa}}
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th class="text-right">Modelo</th>
+                                    <th class="text-left">Modelo</th>
                                     <td class="text-capitalize">
                                         {{model.modelo}}
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th class="text-right">Tanque</th>
+                                    <th class="text-left">Tanque</th>
                                     <td class="text-capitalize">
                                         {{model.tanque}}
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th class="text-right">Color</th>
+                                    <th class="text-left">Color</th>
                                     <td class="text-capitalize">
                                         {{model.color}}
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th class="text-right">Año</th>
+                                    <th class="text-left">Año</th>
                                     <td class="text-capitalize">
                                         {{model.ano}}
                                     </td>
                                 </tr>
-                            </tbody>
+                            <!-- </tbody>
                         </table>
                 
-                        <table class="table table-light full-width">
-                            <tbody>
+                        <table class="table table-sm table-light">
+                            <tbody> -->
                                 <tr>
-                                    <th class="text-right w-size-word-3">Propietario</th>
+                                    <th class="text-left w-size-word-3">Propietario</th>
                                     <td class="text-capitalize">
                                         {{model.propietario}}
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th class="text-right">Telf.</th>
+                                    <th class="text-left">Telf.</th>
                                     <td class="text-capitalize">
                                         {{model.telefono}}
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th class="text-right">Fecha de ingreso</th>
+                                    <th class="text-left">Encargado</th>
+                                    <td class="text-capitalize">
+                                        {{model.encargado}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="text-left">Telefono encargado</th>
+                                    <td class="text-capitalize">
+                                        {{model.telefono_encargado}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="text-left">Fecha de ingreso</th>
                                     <td class="text-capitalize">
                                         {{model.fecha}}
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th class="text-right">Fecha de salida</th>
+                                    <th class="text-left">Fecha de salida</th>
                                     <td class="text-capitalize">
                                         {{model.fecha_salida}}
                                     </td>
                                 </tr>
-                            </tbody>
+                            <!-- </tbody>
                         </table>
                 
-                        <table class="table table-light full-width">
-                            <tbody>
+                        <table class="table table-sm table-light">
+                            <tbody> -->
                                 <tr>
-                                    <th class="text-right w-size-word-2">Kilometraje actual</th>
+                                    <th class="text-left w-size-word-2">Kilometraje actual</th>
                                     <td class="text-capitalize">
                                         {{model.km_actual}}
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th class="text-right">Proximo cambio</th>
+                                    <th class="text-left">Proximo cambio</th>
                                     <td class="text-capitalize">
                                         {{model.proximo_cambio}}
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th class="text-right">Pago</th>
+                                    <th class="text-left">Pago</th>
                                     <td class="text-capitalize">
                                         {{model.pago}} <br>
                                         {{model.detalle_pago}}
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th class="text-right">Solicitud de trabajo</th>
+                                    <th class="text-left">Solicitud de trabajo</th>
                                     <td class="text-capitalize">
                                         {{model.solicitud}}
                                     </td>
@@ -153,6 +165,32 @@
                                 </button>
                             </mat-menu>
                         </div>
+                        
+                        <div class="pt-3" *ngIf="model.mecanico && userData.type == 1">
+                            <strong>Mecanico responsable</strong> <br>
+                            <mat-card class="mt-3 p-1" [routerLink]="['/mecanicos/show']" [queryParams]="{id:model.mecanico.id}">
+                                <table class="full-width">
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-center" style="width: 22%;">
+                                                <img mat-card-avatar src="{{model.mecanico.foto}}" alt="foto" *ngIf="model.mecanico.foto"
+                                                    class="foto-image-table-mobile">
+                                                <img src="/assets/img/no-image-user.svg" alt="foto" *ngIf="!model.mecanico.foto"
+                                                    class="foto-image-table-mobile">
+                                            </td>
+                                            <td>
+                                                <strong class="text-capitalize"> {{model.mecanico.nombre_completo}} </strong> <br>
+                                                <small> Ci: </small>
+                                                <small> {{model.mecanico.ci}} </small> <br>
+                                                <small> Telefono: </small>
+                                                <small> {{model.mecanico.telefono}} </small>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </mat-card>
+                        </div>
+
                         <div class="mt-3">
                             <h4>Estado del vehiculo</h4>
                             <div class="row">
@@ -160,14 +198,14 @@
                                     <div *ngFor="let accesorio of group">
                                         <img [src]="accesorio.checked?'/assets/img/check_box-black.svg':'/assets/img/check_box_outline.svg'"
                                             alt="check">
-                                        <span style="top:-5px; position:relative">
+                                        <span style="top:-5px; position:relative" class="text-capitalize">
                                             {{accesorio.nombre}}
                                         </span>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                                     <p class="text-capitalize">
                                         {{model.estado_vehiculo_otros}}
                                     </p>
@@ -269,30 +307,7 @@
                             </tbody>
                         </table>
                         
-                        <div class="pt-3" *ngIf="model.mecanico && userData.type == 1">
-                            <strong>Mecanico responsable</strong> <br>
-                            <mat-card class="p-1" [routerLink]="['/mecanicos/show']" [queryParams]="{id:model.mecanico.id}">
-                                <table class="full-width">
-                                    <tbody>
-                                        <tr>
-                                            <td class="text-center" style="width: 22%;">
-                                                <img mat-card-avatar src="{{model.mecanico.foto}}" alt="foto" *ngIf="model.mecanico.foto"
-                                                    class="foto-image-table-mobile">
-                                                <img src="/assets/img/no-image-user.svg" alt="foto" *ngIf="!model.mecanico.foto"
-                                                    class="foto-image-table-mobile">
-                                            </td>
-                                            <td>
-                                                <strong class="text-capitalize"> {{model.mecanico.nombre_completo}} </strong> <br>
-                                                <small> Ci: </small>
-                                                <small> {{model.mecanico.ci}} </small> <br>
-                                                <small> Telefono: </small>
-                                                <small> {{model.mecanico.telefono}} </small>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </mat-card>
-                        </div>
+                        
                     </div>
                 </div>
                 

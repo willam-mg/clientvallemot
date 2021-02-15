@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, AfterContentInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, AfterContentInit, OnDestroy, ChangeDetectionStrategy, ElementRef, ViewChild } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Observable, Observer, Subscription } from 'rxjs';
@@ -18,6 +18,8 @@ import { OrdenService } from '../orden.service';
   // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ListComponent implements OnInit, OnDestroy {
+  @ViewChild('myButton', null) myButton: ElementRef;
+
   ordenes: Array<Orden>;
   notFound: boolean;
   loading: boolean;
@@ -154,6 +156,17 @@ export class ListComponent implements OnInit, OnDestroy {
     console.log('page in pagination', this.page);
     // this.modelService.page.setValues((event.pageIndex + 1), event.length, event.pageSize);
     this.list(true);
+  }
+
+  showPanelSearch() {
+    if (this.showSearch) {
+      this.showSearch = false;
+    } else {
+      this.showSearch = true;
+      setTimeout(() => {
+        this.myButton.nativeElement.focus();
+      }, 0);
+    }
   }
 
 }

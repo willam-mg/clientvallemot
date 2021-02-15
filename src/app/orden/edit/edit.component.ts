@@ -48,6 +48,12 @@ export class EditComponent implements OnInit, OnDestroy {
         Validators.required,
         Validators.maxLength(50)
       ]),
+      encargado: new FormControl(this.model.encargado, [
+        Validators.maxLength(50)
+      ]),
+      telefono_encargado: new FormControl(this.model.telefono_encargado, [
+        Validators.maxLength(50)
+      ]),
       fecha: new FormControl(this.model.fecha, [
         Validators.required,
       ]),
@@ -117,6 +123,8 @@ export class EditComponent implements OnInit, OnDestroy {
         this.formModel.setValue({
           propietario: this.model.propietario,
           telefono: this.model.telefono,
+          encargado: this.model.encargado,
+          telefono_encargado: this.model.telefono_encargado,
           fecha: this.model.fecha,
           fecha_salida: this.model.fecha_salida,
           vehiculo: this.model.vehiculo,
@@ -208,6 +216,8 @@ export class EditComponent implements OnInit, OnDestroy {
           const objToSend = {
             propietario: this.formModel.value.propietario,
             telefono: this.formModel.value.telefono,
+            encargado: this.formModel.value.encargado,
+            telefono_encargado: this.formModel.value.telefono_encargado,
             fecha: this.formModel.value.fecha,
             fecha_salida: this.formModel.value.fecha_salida,
             vehiculo: this.formModel.value.vehiculo,

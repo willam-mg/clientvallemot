@@ -136,6 +136,14 @@ export class OrdenService {
     });
   }
 
+  public getMarcas(): Observable<any[]> {
+    return this.http.get<any[]>('/assets/json/marcas.json');
+  }
+  
+  public getModelos(): Observable<any[]> {
+    return this.http.get<any[]>('/assets/json/modelos.json');
+  }
+
   public listRepuestos() {
     return this.http.get(path + '/repuesto/all', {
       headers: new HttpHeaders(environment.apiConfig.headers),

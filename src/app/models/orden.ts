@@ -7,6 +7,8 @@ export class Orden {
     id: number;
     propietario: string;
     telefono: string;
+    encargado: string;
+    telefono_encargado: string;
     fecha: string;
     vehiculo: string;
     placa: string;
@@ -36,6 +38,8 @@ export class Orden {
         this.id = 0;
         this.propietario = '';
         this.telefono = '';
+        this.encargado = '';
+        this.telefono_encargado = '';
         this.fecha = '';
         this.vehiculo = '';
         this.placa = '';

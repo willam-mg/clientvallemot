@@ -73,6 +73,17 @@
                         <input type="number" min="0" step="1" matInput formControlName="telefono" placeholder="telefono" autocomplete="off"
                             required>
                     </mat-form-field>
+                    
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Encargado</mat-label>
+                        <input type="text" matInput formControlName="encargado" placeholder="Encargado" autocomplete="off">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Telefono encargado</mat-label>
+                        <input type="number" min="0" step="1" matInput formControlName="telefono_encargado"
+                            placeholder="Telefono del encargado" autocomplete="off">
+                    </mat-form-field>
+
                     <mat-form-field appearance="outline" class="full-width">
                         <mat-label>Fecha de ingreso</mat-label>
                         <input matInput [matDatepicker]="picker" formControlName="fecha" required>

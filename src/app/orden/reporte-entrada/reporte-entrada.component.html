@@ -78,21 +78,37 @@
                 </td>
             </tr>
             <tr>
-                <td colspan="3">
+                <td>
                     <b>Propietario</b>
                     <span class="text-capitalize">
                         {{model.propietario}}
                     </span>
                 </td>
+                <td colspan="2">
+                    <div *ngIf="model.encargado">
+                        <b>Encargado</b>
+                        <span class="text-capitalize">
+                            {{model.encargado}}
+                        </span>
+                    </div>
+                </td>
             </tr>
             <tr>
-                <td colspan="3">
+                <td>
                     <p>
                         <b>Teléfono</b>
                         <span class="text-capitalize">
                             {{model.telefono}}
                         </span>
                     </p>
+                </td>
+                <td colspan="2">
+                    <div *ngIf="model.telefono_encargado">
+                        <b>Telefono encargado</b>
+                        <span class="text-capitalize">
+                            {{model.telefono_encargado}}
+                        </span>
+                    </div>
                 </td>
             </tr>
         </tbody>
