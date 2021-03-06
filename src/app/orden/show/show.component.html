@@ -307,7 +307,43 @@
                             </tbody>
                         </table>
                         
-                        
+                        <!-- ordenes similares -->
+                        <h4>
+                            Trabajos anteriores
+                            <button mat-button (click)="getSimilares(model.id)">
+                                <mat-icon>access_time</mat-icon>
+                                Mostrar
+                            </button>
+                            
+                        </h4> 
+                        <table class="table">
+                            <tbody>
+                                <tr *ngFor="let similar of similares">
+                                    <td>
+                                        <b>Vehiculo: </b> {{similar.vehiculo}} <br>
+                                        <b>Placa: </b> {{similar.placa}} <br>
+                                        <b>Propietario: </b> {{similar.propietario}} <br>
+                                        <b>Placa: </b> {{similar.placa}} <br>
+                                        <div *ngIf="model.estado == 1">
+                                            <b>Estado: </b> Terminado <br>
+                                        </div>
+                                        <div *ngIf="model.estado == 0">
+                                            <b>Estado: </b> En espera <br>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <b>Trabajo: </b> <br>
+                                        {{similar.solicitud}}
+                                    </td>
+                                    <td>
+                                        <button mat-icon-button [routerLink]="['/ordenes/show']" [queryParams]="{id:similar.id}" matTooltip="Ver"
+                                            aria-label="Ver" color="primary">
+                                            <mat-icon>visibility</mat-icon>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
                 

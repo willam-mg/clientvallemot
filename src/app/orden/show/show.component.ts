@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Observer, Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, shareReplay } from 'rxjs/operators';
 import { AccesorioService } from 'src/app/accesorio/accesorio.service';
 import { DataService } from 'src/app/data.service';
 import { LoginService } from 'src/app/login/login.service';
@@ -13,6 +13,7 @@ import { Orden } from 'src/app/models/orden';
 import { Repuesto } from 'src/app/models/repuesto';
 import { User } from 'src/app/models/user';
 import { AlertComponent } from 'src/app/shared/alert/alert.component';
+import { Page } from 'src/app/shared/page';
 import { NavigationService } from 'src/app/shared/services/navigation.service';
 import { DetalleRepuestoComponent } from '../detalle-repuesto/detalle-repuesto.component';
 import { ManoObraComponent } from '../mano-obra/mano-obra.component';
@@ -24,7 +25,6 @@ import { OrdenService } from '../orden.service';
   styleUrls: ['./show.component.css']
 })
 export class ShowComponent implements OnInit, OnDestroy {
-
   id: number;
   model: Orden;
   repuestos: Array<DetalleRepuesto>;
@@ -37,6 +37,8 @@ export class ShowComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   loading: boolean;
   showImage: boolean;
+  similares: Array<any>;
+  page: Page;
 
   constructor(
     private route: ActivatedRoute,
@@ -59,6 +61,8 @@ export class ShowComponent implements OnInit, OnDestroy {
     this.subscription = new Subscription();
     this.loading = false;
     this.showImage = true;
+    this.page = new Page();
+    this.similares = [];
   }
 
   ngOnInit() {
@@ -170,5 +174,20 @@ export class ShowComponent implements OnInit, OnDestroy {
         this.loadData(this.model.id);
       }
     });
+  }
+
+  getSimilares(id) {
+    this.subscription.add(
+      this.modelService.getSimilares(id, this.page).pipe(
+        map((data: any) => {
+          return data.data;
+        }),
+        shareReplay(1)
+      ).subscribe(response => {
+        this.similares = response;
+        console.log('smilares', this.similares);
+        // this.getAccesorios();
+      })
+    );
   }
 }

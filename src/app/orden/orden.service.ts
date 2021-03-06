@@ -139,7 +139,7 @@ export class OrdenService {
   public getMarcas(): Observable<any[]> {
     return this.http.get<any[]>('/assets/json/marcas.json');
   }
-  
+
   public getModelos(): Observable<any[]> {
     return this.http.get<any[]>('/assets/json/modelos.json');
   }
@@ -295,5 +295,24 @@ export class OrdenService {
       </html>`
     );
     popupWin.document.close();
+  }
+
+  public getSimilares(id: number, page: Page = new Page() ): Observable<any[]> {
+    let myParams = new HttpParams();
+    myParams = myParams.append('page', page.index.toString());
+    myParams = myParams.append('per_page', page.size.toString());
+
+    return this.http.get(`${path}/orden/similares/${id}`, {
+      headers: new HttpHeaders(environment.apiConfig.headers),
+      reportProgress: true,
+      params: myParams
+    }).pipe(
+      tap((data: any) => {
+        return of(data);
+      }),
+      catchError((err) => {
+        return throwError(err);
+      }),
+    );
   }
 }
