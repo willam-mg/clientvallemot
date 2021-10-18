@@ -9,6 +9,8 @@ password: 12345678
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.20.
 for software client manager and register his cars.
 
+Esta aplicación realiza el registro de órdenes de trabajo en donde especifica la marca, modelo, descripción, fechas y fotografías del auto motor. Con el fin de centralizar la información y asignar mecánicos para el trabajo
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
