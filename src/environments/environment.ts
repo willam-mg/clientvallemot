@@ -22,7 +22,7 @@ export const environment = {
     //   'Accept': 'application/json',
     //   // 'Cache-Control': 'no-cache',
     // },
-    path: 'http://192.168.1.7:9191/api' // Localhost
+    path: 'https://apivallemotors.local:8443/api' // production host
   }
 };
 

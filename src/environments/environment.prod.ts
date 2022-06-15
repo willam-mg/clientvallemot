@@ -18,6 +18,7 @@ export const environment = {
       Accept: 'application/json',
       // 'Cache-Control': 'no-cache',
     },
-    path: 'http://192.168.0.18:9191/api' // production host
+    // path: 'http://192.168.0.18:9191/api' // production host
+    path: 'https://valleapi.academiamodernadallas.com/api' // production host
   }
 };

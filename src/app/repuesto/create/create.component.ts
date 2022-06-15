@@ -20,7 +20,7 @@ export class CreateComponent implements OnInit {
   passwordConfirmationIcon: string;
 
   constructor(
-    private modelService: RepuestoService, 
+    private modelService: RepuestoService,
     private router: Router,
     private title: Title,
     private navigationService: NavigationService) {
@@ -50,12 +50,12 @@ export class CreateComponent implements OnInit {
   onSubmit() {
     try {
       if (this.formModel.invalid) {
-        throw " Entrada de datos invalido ";
+        throw new Error('Entrada de datos invalido');
       }
       this.submitted = true;
       this.modelService.create(this.formModel.value).subscribe(async data => {
         this.model = new Repuesto();
-        this.modelService.all(null, true).subscribe((data) => {
+        this.modelService.all(null, true).subscribe((data1) => {
           this.submitted = false;
           this.router.navigate(['/repuestos']);
         });
