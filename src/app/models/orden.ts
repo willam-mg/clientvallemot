@@ -33,6 +33,11 @@ export class Orden {
     mecanico: Mecanico;
     totalManoObra: number;
     totalRepuesto: number;
+    marca: string;
+    clase: string;
+    fecha_cotizacion: string;
+    remitente: string;
+    es_proforma: boolean;
 
     constructor() {
         this.id = 0;
@@ -64,5 +69,10 @@ export class Orden {
         this.mecanico = new Mecanico();
         this.totalManoObra = 0;
         this.totalRepuesto = 0;
+        this.marca = "";
+        this.clase = "";
+        this.fecha_cotizacion = "";
+        this.remitente = "";
+        this.es_proforma = false;
     }
 }

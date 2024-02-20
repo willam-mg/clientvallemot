@@ -33,6 +33,12 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'proformas',
+    component: MainLayoutComponent,
+    loadChildren: () => import('./proforma/proforma.module').then(m => m.ProformaModule),
+    canActivate: [AuthGuard]
+  },
+  {
     path: 'repuestos',
     component: MainLayoutComponent,
     loadChildren: () => import('./repuesto/repuesto.module').then(m => m.RepuestoModule),

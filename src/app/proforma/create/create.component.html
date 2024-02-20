@@ -1,0 +1,108 @@
+<div *ngIf="loading" class="loading-bar">
+    <mat-progress-bar mode="indeterminate" color="accent"></mat-progress-bar>
+</div>
+<div class="row row-mobile">
+    <div class="col-xs-12 col-sm-10 col-md-7 col-lg-7 mx-auto ">
+        <mat-card class="card-mobile" style="padding:0">
+            <mat-card-content class="p-3">
+                <form [formGroup]="proformaFormGroup" (ngSubmit)="onSubmit()">
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Remitente</mat-label>
+                        <input type="text" matInput formControlName="remitente" placeholder="Remitente" autocomplete="off">
+                    </mat-form-field>
+
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                            <mat-form-field appearance="outline" class="full-width">
+                                <mat-label>Propietario</mat-label>
+                                <input type="text" matInput formControlName="propietario" placeholder="Propietario" [matAutocomplete]="autoPropietario" autocomplete="off" required>
+                                <mat-autocomplete autoActiveFirstOption #autoPropietario="matAutocomplete">
+                                    <mat-option *ngFor="let item of propietarioOptions  | async" [value]="item">
+                                        {{item}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                            <mat-form-field appearance="outline" class="full-width">
+                                <mat-label>Telefono</mat-label>
+                                <input type="tel" min="0" step="1" matInput formControlName="telefono" placeholder="telefono" [matAutocomplete]="autoTelefono" autocomplete="off" required>
+                                <mat-autocomplete autoActiveFirstOption #autoTelefono="matAutocomplete">
+                                    <mat-option *ngFor="let item of telefonoOptions  | async" [value]="item">
+                                        {{item}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                            <mat-form-field appearance="outline" class="full-width">
+                                <mat-label>marca</mat-label>
+                                <input matInput formControlName="marca" placeholder="marca" autocomplete="off">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                            <mat-form-field appearance="outline" class="full-width">
+                                <mat-label>clase</mat-label>
+                                <input matInput formControlName="clase" placeholder="clase" autocomplete="off">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                            <mat-form-field appearance="outline" class="full-width">
+                                <mat-label>Modelo</mat-label>
+                                <input type="text" matInput formControlName="modelo" placeholder="modelo" autocomplete="off"
+                                    [matAutocomplete]="autoModelos" required>
+                                <mat-autocomplete autoActiveFirstOption #autoModelos="matAutocomplete">
+                                    <mat-option *ngFor="let modelo of modeloOptions | async" [value]="modelo">
+                                        {{modelo}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Placa</mat-label>
+                        <input #placa type="text" class="text-uppercase" matInput formControlName="placa" placeholder="placa" [matAutocomplete]="autoPlaca"  autocomplete="off" required>
+                        <mat-autocomplete autoActiveFirstOption #autoPlaca="matAutocomplete">
+                            <mat-option *ngFor="let item of placaOptions  | async" [value]="item">
+                                {{item}}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                    
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                            <mat-form-field appearance="outline" class="full-width">
+                                <mat-label>Fecha de cotizacion</mat-label>
+                                <input matInput [matDatepicker]="picker_fecha_cotizacion" formControlName="fecha_cotizacion" required>
+                                <mat-datepicker-toggle matSuffix [for]="picker_fecha_cotizacion"></mat-datepicker-toggle>
+                                <mat-datepicker touchUi  #picker_fecha_cotizacion></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                            <mat-form-field appearance="outline" class="full-width">
+                                <mat-label>Fecha</mat-label>
+                                <input matInput [matDatepicker]="picker" formControlName="fecha" required>
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker touchUi  #picker></mat-datepicker>
+                            </mat-form-field>
+                        </div> 
+                    </div>
+                    
+                    <div class="text-right">
+                        <button mat-button [routerLink]="['/ordenes']">
+                            <mat-icon>clear</mat-icon>
+                            Cerrar
+                        </button>
+                        <button mat-flat-button type="submit" color="primary" #submitBtn class="ml-3" [disabled]="submitted">
+                            <mat-icon>add</mat-icon>
+                            Registrar
+                        </button>
+                    </div>
+                </form>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

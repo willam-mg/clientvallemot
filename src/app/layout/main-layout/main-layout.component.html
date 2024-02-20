@@ -73,6 +73,11 @@
           &nbsp;
           ordenes
         </a>
+        <a mat-list-item [routerLink]="['/proformas']" [routerLinkActive]="router.url=='/proformas'?'active-menu':''">
+          <mat-icon class="pull-right">insert_drive_file</mat-icon>
+          &nbsp;
+          Proformas
+        </a>
         <a mat-list-item class="d-block d-sm-block d-md-none d-lg-none d-xl-none"  (click)="onLoggedout()">
           <mat-icon class="pull-right">exit_to_app</mat-icon>
           &nbsp;

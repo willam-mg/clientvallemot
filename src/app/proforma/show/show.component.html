@@ -1,0 +1,285 @@
+<div *ngIf="loading" class="loading-bar">
+    <mat-progress-bar mode="indeterminate" color="accent"></mat-progress-bar>
+</div>
+<button mat-icon-button *ngIf="userData.type == 1" class="button-edit-menu" [routerLink]="['/ordenes/edit']" [queryParams]="{id:model.id}">
+    <mat-icon>edit</mat-icon>
+</button>
+<div class="row row-mobile">
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 mx-auto">
+        <mat-card class="card-mobile">
+            <!-- <img class="d-block d-sm-block d-md-none d-lg-none d-xl-none" mat-card-image src="{{model.foto}}" alt="foto" *ngIf="model.foto && showImage">
+            <div class="text-right d-block d-sm-block d-md-none d-lg-none d-xl-none">
+                <button mat-button (click)="showImage = !showImage" class="button-show-image">
+                    <span *ngIf="!showImage">Mostrar foto</span>
+                    <span *ngIf="showImage">Ocultar foto</span>
+                </button>
+            </div> -->
+            <mat-card-content>
+                
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                        <table class="table table-sm table-light">
+                            <tbody>
+                                <tr>
+                                    <td class="text-left">Marca</td>
+                                    <td class="text-capitalize">
+                                        {{model.marca}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left">Clase</td>
+                                    <td class="text-capitalize">
+                                        {{model.clase}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left">Modelo</td>
+                                    <td class="text-capitalize">
+                                        {{model.modelo}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left">Placa</td>
+                                    <td class="text-capitalize">
+                                        {{model.placa}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left">Propietario</td>
+                                    <td class="text-capitalize">
+                                        {{model.propietario}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left">Fecha de cotización</td>
+                                    <td class="text-capitalize">
+                                        {{model.fecha_cotizacion}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                        <div class="d-none d-sm-none d-md-block d-lg-block d-xl-block text-right full-width">
+                            <button mat-button color="primary" (click)="printProforma()">
+                                <mat-icon>print</mat-icon>
+                                Imprimir
+                            </button>
+                        </div>
+                        
+                        <table class="table table-sm">
+                            <tbody>
+                                <tr>
+                                    <td colspan="4">
+                                        <h4>Detalle de respuestos e insumos</h4>
+                                    </td>
+                                    <td class="text-right w-small-button">
+                                        <button class="mt-2" mat-mini-fab (click)="addRepuesto()">
+                                            <mat-icon>add</mat-icon>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="text-center">
+                                        Repuesto
+                                    </th>
+                                    <th class="text-center">
+                                        Cantidad
+                                    </th>
+                                    <th class="text-center">
+                                        Precio
+                                    </th>
+                                    <th class="text-center">
+                                        Subtotal
+                                    </th>
+                                    <th class="text-center">
+                                    </th>
+                                </tr>
+                                <tr *ngFor="let item of model.repuestos">
+                                    <td class="align-middle">
+                                        {{item.repuesto}}
+                                    </td>
+                                    <td class="align-middle text-right">
+                                        <span *ngIf="userData.type == 1 && item.precio">
+                                            {{item.precio | number}} Bs.
+                                        </span>
+                                    </td>
+                                    <td class="align-middle text-right">
+                                        <span *ngIf="userData.type == 1 && item.cantidad">
+                                            {{item.cantidad | number}}
+                                        </span>
+                                    </td>
+                                    <td class="align-middle text-right">
+                                        <span *ngIf="userData.type == 1 && item.subtotal">
+                                            {{item.subtotal | number}} Bs.
+                                        </span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <button mat-icon-button (click)="addRepuesto(item, true)">
+                                            <mat-icon>edit</mat-icon>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr *ngIf="model.repuestos.length == 0">
+                                    <td colspan="5" class="text-center">
+                                        No hay repuestos
+                                    </td>
+                                </tr>
+                                <tr *ngIf="userData.type == 1">
+                                    <td colspan="3">
+                                    </td>
+                                    <td class="text-right">
+                                        <strong>Total</strong>
+                                        {{model.totalRepuesto | number}} Bs.
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="table table-sm">
+                            <tbody>
+                                <tr>
+                                    <td scope="col" class="text-left" colspan="2">
+                                        <h4>Detalle de trabajo</h4>
+                                    </td>
+                                    <td scope="col" class="text-right">
+                                        <button class="mt-2" mat-mini-fab (click)="addManoObra()">
+                                            <mat-icon>add</mat-icon>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr *ngFor="let item of model.manosobra">
+                                    <td class="align-middle">
+                                        {{item.descripcion}}
+                                    </td>
+                                    <td class="align-middle text-right">
+                                        <span *ngIf="userData.type == 1 && item.precio">
+                                            {{item.precio | number}} Bs.
+                                        </span>
+                                    </td>
+                                    <td class="align-middle text-right">
+                                        <button mat-icon-button (click)="addManoObra(item, true)">
+                                            <mat-icon>edit</mat-icon>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr *ngIf="model.manosobra.length == 0">
+                                    <td colspan="3" class="text-center">
+                                        No hay mano de obra
+                                    </td>
+                                </tr>
+                                <tr *ngIf="userData.type == 1">
+                                    <td></td>
+                                    <td class="text-right">
+                                        <strong>Total</strong>
+                                        {{model.totalManoObra | number}} Bs.
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr *ngIf="userData.type == 1">
+                                    <td colspan="2" class="text-right">
+                                        <h2>
+                                            <span class="font-weight-light">
+                                                Total orden
+                                            </span>
+                                            {{model.totalRepuesto + model.totalManoObra | number }} Bs.
+                                        </h2>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <!-- ordenes similares -->
+                        <!-- <h4>
+                            Trabajos anteriores
+                            <button mat-button (click)="getSimilares(model.id)">
+                                <mat-icon>access_time</mat-icon>
+                                Mostrar
+                            </button>
+                        </h4> 
+                        <table class="table">
+                            <tbody>
+                                <tr *ngFor="let similar of similares">
+                                    <td>
+                                        <b>Vehiculo: </b> {{similar.vehiculo}} <br>
+                                        <b>Placa: </b> {{similar.placa}} <br>
+                                        <b>Propietario: </b> {{similar.propietario}} <br>
+                                        <b>Placa: </b> {{similar.placa}} <br>
+                                        <div *ngIf="model.estado == 1">
+                                            <b>Estado: </b> Terminado <br>
+                                        </div>
+                                        <div *ngIf="model.estado == 0">
+                                            <b>Estado: </b> En espera <br>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <b>Trabajo: </b> <br>
+                                        {{similar.solicitud}}
+                                    </td>
+                                    <td>
+                                        <button mat-icon-button [routerLink]="['/ordenes/show']" [queryParams]="{id:similar.id}" matTooltip="Ver"
+                                            aria-label="Ver" color="primary">
+                                            <mat-icon>visibility</mat-icon>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table> -->
+                    </div>
+                </div>
+            </mat-card-content>
+            <mat-card-actions align="center">
+                <div class="d-block d-sm-block d-md-none d-lg-none d-xl-none">
+                    <button mat-button color="primary" (click)="printProforma()">
+                        <mat-icon>print</mat-icon>
+                        Imprimir
+                    </button>
+                    <!-- <button mat-flat-button class="full-width mt-4"  *ngIf="userData.type == 1" color="primary" (click)="printOrden()">
+                        <mat-icon>print</mat-icon>
+                        Imprimir entrada
+                    </button>
+                    <button mat-flat-button class="full-width mt-4 mb-5" *ngIf="userData.type == 1" color="accent" (click)="printOrdenSalida()">
+                        <mat-icon>print</mat-icon>
+                        Imprimir salida
+                    </button> -->
+                </div>
+
+
+                
+                <div class="d-none d-sm-none d-md-block d-lg-block d-xl-block">
+                    <table class="full-width">
+                        <tbody>
+                            <tr>
+                                <td class="text-center">
+                                    <button mat-button [routerLink]="[ '/ordenes']">
+                                        <mat-icon>clear</mat-icon>
+                                        Cerrar
+                                    </button>
+                                </td>
+                                <td class="text-center">
+                                    <button mat-flat-button *ngIf="userData.type == 1" (click)="elminar()" color="warn">
+                                        <mat-icon>delete</mat-icon>
+                                        Eliminar
+                                    </button>
+                                </td>
+                                <td class="text-center">
+                                    <button mat-flat-button *ngIf="userData.type == 1" [routerLink]="[ '/ordenes/edit']" color="accent" [queryParams]="{id:model.id}">
+                                        <mat-icon>edit</mat-icon>
+                                        Modificar
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>
+
+
+
+<!-- reportes -->
+<app-reporte-proforma #reporte id="reporte"  [groupAccesorios]="groupAccesorios" [model]="model"></app-reporte-proforma>
+<!-- <app-reporte-proforma #reporte id="reporte" class="visible-print" [groupAccesorios]="groupAccesorios" [model]="model"></app-reporte-proforma> -->

@@ -1,0 +1,193 @@
+<div class="row row-mobile">
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 mx-auto ">
+        <mat-card class="card-mobile">
+            <form [formGroup]="formModel" (ngSubmit)="onSubmit()" novalidate="">
+                <img class="d-block d-sm-block d-md-none d-lg-none d-xl-none" mat-card-image src="{{model.foto}}" alt="foto" *ngIf="model.foto">
+                <mat-card-content>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                            <img class="d-none d-sm-none d-md-block d-lg-block d-xl-block" mat-card-image src="{{model.foto}}" alt="foto" *ngIf="model.foto">
+                            <div class="form-inline mt-2 mb-4">
+                                <mat-label>Foto</mat-label>
+                                &nbsp;
+                                <button type="button" mat-raised-button (click)="inputFoto.click()" title="Seleccionar imagen">
+                                    <mat-icon>attach_file</mat-icon>
+                                    Seleccionar
+                                </button>
+                                <input hidden type="file" accept="image/*" #inputFoto (change)="onFileChange($event)" />
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                            <!-- second step -->
+                            <mat-form-field appearance="outline" class="full-width">
+                                <mat-label>vehiculo</mat-label>
+                                <input type="text" matInput formControlName="vehiculo" placeholder="vehiculo" autocomplete="off" required>
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" class="full-width">
+                                <mat-label>placa</mat-label>
+                                <input type="text" matInput formControlName="placa" placeholder="placa" autocomplete="off" required>
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" class="full-width">
+                                <mat-label>modelo</mat-label>
+                                <input type="text" matInput formControlName="modelo" placeholder="modelo" autocomplete="off">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                            <mat-form-field appearance="outline" class="full-width">
+                                <mat-label>Tanque</mat-label>
+                                <mat-select name="tanque" formControlName="tanque">
+                                    <mat-option>--</mat-option>
+                                    <mat-option [value]="1/4">
+                                        1/4
+                                    </mat-option>
+                                    <mat-option [value]="1/2">
+                                        1/2
+                                    </mat-option>
+                                    <mat-option [value]="3/4">
+                                        3/4
+                                    </mat-option>
+                                    <mat-option value="Full">
+                                        Full
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" class="full-width">
+                                <mat-label>color</mat-label>
+                                <input type="text" matInput formControlName="color" placeholder="color" autocomplete="off">
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" class="full-width">
+                                <mat-label>Año</mat-label>
+                                <input type="text" matInput formControlName="ano" placeholder="ano" autocomplete="off">
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <!-- first step -->
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Propietario</mat-label>
+                        <input type="text" matInput formControlName="propietario" placeholder="Propietario" autocomplete="off" required>
+                    </mat-form-field>
+                    
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>telefono</mat-label>
+                        <input type="number" min="0" step="1" matInput formControlName="telefono" placeholder="telefono" autocomplete="off"
+                            required>
+                    </mat-form-field>
+                    
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Encargado</mat-label>
+                        <input type="text" matInput formControlName="encargado" placeholder="Encargado" autocomplete="off">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Telefono encargado</mat-label>
+                        <input type="number" min="0" step="1" matInput formControlName="telefono_encargado"
+                            placeholder="Telefono del encargado" autocomplete="off">
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Fecha de ingreso</mat-label>
+                        <input matInput [matDatepicker]="picker" formControlName="fecha" required>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker touchUi #picker></mat-datepicker>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Fecha de salida</mat-label>
+                        <input matInput [matDatepicker]="pikerFecha" formControlName="fecha_salida">
+                        <mat-datepicker-toggle matSuffix [for]="pikerFecha"></mat-datepicker-toggle>
+                        <mat-datepicker touchUi #pikerFecha></mat-datepicker>
+                    </mat-form-field>
+
+                    <!-- thrity step -->
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>solicitud de trabajo</mat-label>
+                        <textarea matInput formControlName="solicitud" placeholder="solicitud"></textarea>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Objetos en el vehiculo</mat-label>
+                        <mat-select (click)="selectAccesorios()">
+                        </mat-select>
+                    </mat-form-field>
+                    
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Otros</mat-label>
+                        <textarea matInput formControlName="estado_vehiculo_otros" placeholder="otros"></textarea>
+                    </mat-form-field>
+
+                    
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>km_actual</mat-label>
+                        <input type="text" matInput formControlName="km_actual" placeholder="km_actual" autocomplete="off">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Proximo cambio</mat-label>
+                        <input matInput [matDatepicker]="picker1" formControlName="proximo_cambio">
+                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Pago</mat-label>
+                        <mat-select name="pago" formControlName="pago">
+                            <mat-option>--</mat-option>
+                            <mat-option [value]="'efectivo'">
+                                Efectivo
+                            </mat-option>
+                            <mat-option [value]="'cheque'">
+                                Cheque
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="full-width" *ngIf="formModel.value.pago == 'cheque'">
+                        <mat-label>Detalle pago</mat-label>
+                        <textarea matInput formControlName="detalle_pago" placeholder="detalle_pago"></textarea>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Estado</mat-label>
+                        <mat-select name="estado" formControlName="estado">
+                            <mat-option [value]="0">
+                                Pendiente
+                            </mat-option>
+                            <mat-option [value]="1">
+                                Terminado
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Mecanico asignado</mat-label>
+                        <mat-select name="mecanico_id" formControlName="mecanico_id">
+                            <mat-option>--</mat-option>
+                            <mat-option *ngFor="let mecanico of mecanicos" [value]="mecanico.id">
+                                {{ mecanico.nombre_completo }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    
+                </mat-card-content>
+                <mat-card-actions>
+                    <div class="d-block d-sm-block d-md-none d-lg-none d-xl-none">
+                        <button mat-flat-button type="submit" color="primary" class="full-width" [disabled]="submitted">
+                            <mat-icon>edit</mat-icon>
+                            Modificar
+                        </button>
+                    </div>
+                    <div class="d-none d-sm-none d-md-block d-lg-block d-xl-block text-right">
+                        <button mat-button [routerLink]="['/ordenes/show']" [queryParams]="{id:model.id}">
+                            <mat-icon>clear</mat-icon>
+                            Cerrar
+                        </button>
+                        <button mat-flat-button type="submit" color="primary" class="ml-3"
+                            [disabled]="submitted">
+                            <mat-icon>edit</mat-icon>
+                            Modificar
+                        </button>
+                    </div>
+                    <div class="">
+                    </div>
+                </mat-card-actions>
+            </form>
+        </mat-card>
+    </div>
+</div>

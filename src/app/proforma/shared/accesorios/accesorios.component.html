@@ -1,0 +1,14 @@
+<mat-dialog-content class="text-capitalize mat-typography">
+    <mat-selection-list #estadoVehiculoSeleccionado>
+        <mat-list-option *ngFor="let element of accesorios" [value]="element" [selected]="element.checked">
+            {{element.nombre}}
+        </mat-list-option>
+    </mat-selection-list>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button cdkFocusInitial (click)="closeDialog(estadoVehiculoSeleccionado)">
+        <mat-icon>done</mat-icon>
+        Ok
+    </button>
+</mat-dialog-actions>

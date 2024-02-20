@@ -1,0 +1,13 @@
+.list-accesorios{
+    width: 100%;
+    height: 65vh;
+    /* overflow-y: scroll; */
+}
+.list-accesorios > mat-selection-list{
+    /* width: 100%; */
+    height: 100%;
+    overflow-y: scroll;
+}
+mat-dialog-container{
+    padding: 0;
+}
