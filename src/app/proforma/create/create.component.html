@@ -26,7 +26,7 @@
                         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                             <mat-form-field appearance="outline" class="full-width">
                                 <mat-label>Telefono</mat-label>
-                                <input type="tel" min="0" step="1" matInput formControlName="telefono" placeholder="telefono" [matAutocomplete]="autoTelefono" autocomplete="off" required>
+                                <input type="tel" min="0" step="1" matInput formControlName="telefono" placeholder="telefono" [matAutocomplete]="autoTelefono" autocomplete="off">
                                 <mat-autocomplete autoActiveFirstOption #autoTelefono="matAutocomplete">
                                     <mat-option *ngFor="let item of telefonoOptions  | async" [value]="item">
                                         {{item}}
@@ -38,14 +38,14 @@
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                             <mat-form-field appearance="outline" class="full-width">
-                                <mat-label>marca</mat-label>
-                                <input matInput formControlName="marca" placeholder="marca" autocomplete="off">
+                                <mat-label>Marca</mat-label>
+                                <input matInput formControlName="marca" placeholder="marca" autocomplete="off" required>
                             </mat-form-field>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                             <mat-form-field appearance="outline" class="full-width">
-                                <mat-label>clase</mat-label>
-                                <input matInput formControlName="clase" placeholder="clase" autocomplete="off">
+                                <mat-label>Clase</mat-label>
+                                <input matInput formControlName="clase" placeholder="clase" autocomplete="off" required>
                             </mat-form-field>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">

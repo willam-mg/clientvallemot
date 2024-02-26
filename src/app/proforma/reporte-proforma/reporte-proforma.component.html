@@ -34,8 +34,8 @@
         height: 279mm;
         padding: 20px 30px 20px 85px;
         /* padding: 20px 20px 20px 75px; */
-        background: rgb(255,255,255);
-        background: linear-gradient(37deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 7%, rgba(232,232,232,1) 14%, rgba(255,255,255,1) 14%, rgba(255,255,255,1) 24%, rgba(232,232,232,1) 32%, rgba(255,255,255,1) 32%, rgba(255,255,255,1) 43%, rgba(232,232,232,1) 51%, rgba(255,255,255,1) 51%, rgba(255,255,255,1) 100%);
+background: rgb(255,255,255);
+background: linear-gradient(45deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 4%, rgba(249,249,249,1) 6%, rgba(255,255,255,1) 6%, rgba(255,255,255,1) 16%, rgba(249,249,249,1) 20%, rgba(255,255,255,1) 20%, rgba(255,255,255,1) 29%, rgba(249,249,249,1) 33%, rgba(255,255,255,1) 33%, rgba(255,255,255,1) 100%);
     }
     .divider{
         display: block;
@@ -133,15 +133,13 @@
     <table class="full-width table-border" style="margin-top:10px">
         <tbody>
             <tr>
-                <td colspan="6" style="background-color: #05af70; color: white">
+                <th colspan="2" style="background-color: #05af70; color: white">
                     <h4>Detalle de repuestos</h4>
-                </td>
-            </tr>
-            <tr>
-                <th colspan="3" class="bordered">Repuesto</th>
-                <th class="bordered">Precio</th>
-                <th class="bordered">Cantidad</th>
-                <th class="bordered">Subtotal</th>
+                </th>
+                <th class="bordered" style="background-color: #05af70; color: white">Repuesto</th>
+                <th class="bordered" style="background-color: #05af70; color: white">Precio</th>
+                <th class="bordered" style="background-color: #05af70; color: white">Cantidad</th>
+                <th class="bordered" style="background-color: #05af70; color: white">Subtotal</th>
             </tr>
             <tr *ngFor="let repuesto of model.repuestos">
                 <td colspan="3" class="bordered">
@@ -214,7 +212,8 @@
                         70749634
                     </small>
                 </td>
-                <td class="text-center" style="padding-top: 90px">
+                <td class="text-center">
+                    <img src="/assets/img/sign.png" alt="" width="200px" height="auto"> <br>
                     _______________________ <br>
                     <span>
                         Jaime Ángel Velle Macias <br>

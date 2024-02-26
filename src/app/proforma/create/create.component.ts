@@ -353,17 +353,14 @@ export class CreateComponent implements OnInit {
     this.model = new Orden();
     const today = moment();
     this.model.fecha = today.format('YYYY-MM-DD');
+    this.model.fecha_cotizacion = today.format('YYYY-MM-DD');
     this.proformaFormGroup = this.formBuilder.group({
-      remitente: new FormControl(this.model.remitente, [
-        Validators.required,
-      ]),
+      remitente: new FormControl(this.model.remitente),
       propietario: new FormControl(this.model.propietario, [
         Validators.required,
         Validators.maxLength(50)
       ]),
-      telefono: new FormControl(this.model.telefono, [
-        Validators.required,
-      ]),
+      telefono: new FormControl(this.model.telefono),
       marca: new FormControl(this.model.marca, [
         Validators.required,
       ]),
